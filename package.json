@@ -21,7 +21,11 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "postinstall": "node check-node-version.js"
+  },
+  "engines": {
+    "node": "20.13.1"
   },
   "eslintConfig": {
     "extends": [

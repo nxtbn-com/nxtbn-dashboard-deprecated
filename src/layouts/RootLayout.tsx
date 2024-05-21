@@ -3,7 +3,7 @@ import { Footer, Header, Sidebar } from "../components";
 
 function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <div className="flex w-screen overflow-x-hidden">
+    <div className="flex min-w-screen">
       {/* sidebar element */}
       <Sidebar />
       {/* body element */}

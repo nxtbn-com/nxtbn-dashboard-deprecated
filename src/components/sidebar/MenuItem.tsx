@@ -8,7 +8,7 @@ function MenuItem({ menuItem }: { menuItem: MenuItemType }) {
   return (
     <Link
       to={menuItem.url}
-      className={`flex items-center gap-3 border-b px-5 py-2 text-[16px] font-nunito tracking-wide ${
+      className={`flex items-center gap-3 border-b border-[#EEEFF2] px-5 py-3.5 text-[16px] font-nunito tracking-wide ${
         active && "text-primary-500 font-nunito-h1 relative"
       }`}
     >

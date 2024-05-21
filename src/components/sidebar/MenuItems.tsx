@@ -4,7 +4,7 @@ import useMenuItems from "./useMenuItems";
 function MenuItems() {
   const menuItems = useMenuItems();
   return (
-    <div className="border-t">
+    <div className="border-t border-[#EEEFF2]">
       {menuItems.map((item) => (
         <MenuItem menuItem={item} key={item.name} />
       ))}

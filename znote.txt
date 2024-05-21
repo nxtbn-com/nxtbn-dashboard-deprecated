@@ -1,2 +1,12 @@
 sidebar = width = 18%
 header = height = 9%
+
+FIGMA = width = 1440px
+MY    = width = 1920px
+
+1px = 1.33px
+
+FIGMA = height = 1024px
+MY    = width = 1080px
+
+1px = 1.05px

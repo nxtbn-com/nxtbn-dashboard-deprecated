@@ -1,0 +1,30 @@
+progress {
+    width: 100%;
+    height: 7px;
+    background-color: #F1F2F4;
+    border-radius: 5px;
+}
+
+/* Change progress color for WebKit browsers */
+progress::-webkit-progress-value {
+    background-color: #277200;
+    border-radius: 5px;
+}
+
+/* Change progress color for non-WebKit browsers */
+progress::-moz-progress-bar {
+    background-color: #277200;
+    border-radius: 5px;
+}
+
+/* Change the color of the incomplete portion for WebKit browsers */
+progress::-webkit-progress-bar {
+    background-color: #F1F2F4;
+    border-radius: 5px;
+}
+
+/* Change the color of the incomplete portion for non-WebKit browsers */
+progress {
+    color: #F1F2F4;
+    border-radius: 5px;
+}

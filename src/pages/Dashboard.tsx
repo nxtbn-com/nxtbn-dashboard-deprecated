@@ -1,8 +1,8 @@
-import React from 'react'
+import DashboardMain from "../components/dashboard/DashboardMain";
 
 function Dashboard() {
   return (
-    <div className="bg-secondary-50 h-[800px] overflow-x-hidden">Dashboard</div>
+    <DashboardMain />
   );
 }
 

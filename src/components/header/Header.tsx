@@ -6,7 +6,7 @@ import {
 
 function Header() {
   return (
-    <div className="w-full h-[9%] px-10 flex items-center justify-between">
+    <header className="w-full h-[100px] sticky top-0 z-50 bg-white backdrop:blur px-10 flex items-center justify-between">
       <div>
         <h1 className="font-nunito font-nunito-h1 text-2xl">Hi, Admin</h1>
         <p className="font-lato font-lato-body text-base-400">
@@ -38,7 +38,7 @@ function Header() {
           </div>
         </div>
       </div>
-    </div>
+    </header>
   );
 }
 

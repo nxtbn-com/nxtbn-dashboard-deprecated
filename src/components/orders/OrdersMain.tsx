@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
-import { Table } from "../common";
+import OrderTable from "./OrderTable";
+import OrderPagination from "./OrderPagination";
+import OrderToolbar from "./OrderToolbar";
 
 const pageChoice = [
   {
@@ -56,7 +58,9 @@ function OrdersMain() {
           ))}
         </div>
 
-        <Table />
+        <OrderToolbar />
+        <OrderTable />
+        <OrderPagination />
       </div>
     </div>
   );

@@ -1,34 +1,34 @@
-function NXNarrowArrowUpDown({ className }: { className?: string }) {
+function NXImport({ className }: { className?: string }) {
   return (
     <svg
       className={className}
-      width="16"
-      height="16"
-      viewBox="0 0 16 16"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       stroke="currentColor"
     >
       <path
-        d="M11.3333 2V14"
+        d="M14 3V7C14 7.26522 14.1054 7.51957 14.2929 7.70711C14.4804 7.89464 14.7348 8 15 8H19"
         strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       <path
-        d="M6.66663 12L4.66663 14L2.66663 12"
+        d="M17 21H7C6.46957 21 5.96086 20.7893 5.58579 20.4142C5.21071 20.0391 5 19.5304 5 19V5C5 4.46957 5.21071 3.96086 5.58579 3.58579C5.96086 3.21071 6.46957 3 7 3H14L19 8V19C19 19.5304 18.7893 20.0391 18.4142 20.4142C18.0391 20.7893 17.5304 21 17 21Z"
         strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       <path
-        d="M4.66663 14V2"
+        d="M12 11V17"
         strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       <path
-        d="M13.3333 4L11.3333 2L9.33325 4"
+        d="M9 14L12 17L15 14"
         strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -37,4 +37,4 @@ function NXNarrowArrowUpDown({ className }: { className?: string }) {
   );
 }
 
-export default NXNarrowArrowUpDown;
+export default NXImport;

@@ -1,3 +1,4 @@
+import { useLocation } from "react-router-dom";
 import {
   NXIconNotificationActive,
   NXMessageActive,
@@ -5,14 +6,25 @@ import {
 } from "../../icons";
 
 function Header() {
+  let location = useLocation();
+  const pathname = location.pathname;
   return (
     <header className="w-full h-[100px] sticky top-0 z-50 bg-white backdrop:blur px-10 flex items-center justify-between">
-      <div>
-        <h1 className="font-nunito font-nunito-h1 text-2xl">Hi, Admin</h1>
-        <p className="font-lato font-lato-body text-base-400">
-          Let's check your store today
-        </p>
-      </div>
+      {pathname === "/dashboard" ? (
+        <div>
+          <h1 className="font-nunito font-nunito-h1 text-2xl">Hi, Admin</h1>
+          <p className="font-lato font-lato-body text-base-400">
+            Let's check your store today
+          </p>
+        </div>
+      ) : (
+        <div>
+          <h1 className="font-nunito font-nunito-h1 text-2xl">
+            {pathname.slice(1).split("/")[0].charAt(0).toUpperCase() +
+              pathname.slice(1).split("/")[0].slice(1)}
+          </h1>
+        </div>
+      )}
 
       <div className="flex items-center gap-5">
         <div className="relative ">

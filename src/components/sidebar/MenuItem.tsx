@@ -4,7 +4,10 @@ import { MenuItemType } from "./useMenuItems";
 function MenuItem({ menuItem }: { menuItem: MenuItemType }) {
   let location = useLocation();
 
-  const active = location.pathname === menuItem.url;
+  const active =
+    (location.pathname === menuItem.url) ||
+    (location.pathname.split("/")[1] === menuItem.url.split("/")[1])
+
   return (
     <Link
       to={menuItem.url}

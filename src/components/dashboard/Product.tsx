@@ -7,12 +7,15 @@ function Product({ product }: { product: ProductType }) {
       <img
         src={product.image}
         alt={product.title}
-        className="w-full h-[107px]"
+        // className="w-full h-[107px]"
+        className="w-full"
       />
       <h2 className="font-nunito font-bold my-2">{product.title}</h2>
       <div className="flex justify-between">
         <span className="text-[#FE964A] text-sm">${product.price}</span>
-        <span>{product.sales}</span>
+        <span className="text-sm text-base-300">
+          {product.sales > 1000 ?` ${(product.sales/1000).toFixed(1)}k`: product.sales} sales
+          </span>
       </div>
       <progress
         id="file"

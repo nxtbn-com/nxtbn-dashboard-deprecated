@@ -29,6 +29,20 @@ import NXNarrowArrowUpDown from "./NXNarrowArrowUpDown";
 import NXFilter from "./NXFilters";
 import NXCalenderStar from "./NXCalenderStar";
 import NXDownload from "./NXDownload";
+import NXLeftArrow from "./NXLeftArrow";
+import NXRightArrow from "./NXRightArrow";
+import NXPrint from "./NXPrint";
+import NXShare from "./NXShare";
+import NXUnfulfilled from "./NXUnfulfilled";
+import NXDollarCircle from "./NXDollarCircle";
+import NXMail from "./NXMail";
+import NXPhone from "./NXPhone";
+import NXLocation from "./NXLocation";
+import NXImport from "./NXImport";
+import NXDots from "./NXDots";
+import NXProductFilter from "./NXProductFilter";
+import NXCheck from "./NXCheck";
+import NXDoubleSelect from "./NXDoubleSelect";
 
 export {
   NXIconNotificationActive,
@@ -62,4 +76,18 @@ export {
   NXFilter,
   NXCalenderStar,
   NXDownload,
+  NXLeftArrow,
+  NXRightArrow,
+  NXPrint,
+  NXShare,
+  NXUnfulfilled,
+  NXDollarCircle,
+  NXMail,
+  NXPhone,
+  NXLocation,
+  NXImport,
+  NXDots,
+  NXProductFilter,
+  NXCheck,
+  NXDoubleSelect,
 };

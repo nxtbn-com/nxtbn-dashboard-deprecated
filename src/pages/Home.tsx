@@ -5,6 +5,7 @@ function Home() {
     <div>
         This is home<br />
         <Link to={"/dashboard"}>Go to Dashboard</Link>
+        
     </div>
   )
 }

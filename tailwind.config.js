@@ -4,11 +4,24 @@ module.exports = {
     "./src/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
+ 
     extend: {
+      screens: {
+        'xxs':'350px',
+        'xs': '480px',
+        'sm': '640px',
+        'md': '768px',
+        'lg': '1024px',
+        'xl': '1280px',
+        '2xl': '1536px',
+      },
+
       fontFamily: {
         'nunito': ['Nunito', 'sans-serif'],
         'lato': ['Lato', 'sans-serif'],
       },
+   
+    
       fontWeight: {
         'nunito-h1': 900,
         'nunito-h2': 700,
@@ -22,6 +35,18 @@ module.exports = {
         'lato-bold': 700,
         'lato-small': 400,
         'lato-small-bold': 700,
+      },
+      fontSize:{
+        '4xll': '40px'
+      },
+      width:{
+        '472':'472px',
+        '290':'290px',
+        '382':'382px',
+      },
+
+      margin: {
+        '103': '103px',
       },
       colors: {
         primary: {
@@ -45,6 +70,10 @@ module.exports = {
           300: '#858c91',
           400: '#5c656d',
           500: '#333F48',
+          600: '#86D7B0',
+        },
+        muted:{
+          100: '#718096',
         },
       }
     }

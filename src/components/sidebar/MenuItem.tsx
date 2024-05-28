@@ -5,8 +5,9 @@ function MenuItem({ menuItem }: { menuItem: MenuItemType }) {
   let location = useLocation();
 
   const active =
-    (location.pathname === menuItem.url) ||
-    (location.pathname.split("/")[1] === menuItem.url.split("/")[1])
+    location.pathname === menuItem.url ||
+    (location.pathname.startsWith(menuItem.url) &&
+    location.pathname.split("/").length === menuItem.url.split("/").length);
 
   return (
     <Link

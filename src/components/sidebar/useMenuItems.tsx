@@ -17,53 +17,53 @@ const useMenuItems = () => {
     },
     {
       name: "Orders",
-      url: "/orders",
+      url: "/dashboard/orders",
       icon: <NXShoppingCart  />,
       count: 8,
     },
     {
       name: "Products",
-      url: "/products",
+      url: "/dashboard/products",
       icon: <NXProductBag />,
     },
     {
       name: "User Management",
-      url: "/user-management",
+      url: "/dashboard/user-management",
       icon: <NXUser />,
     },
     {
       name: "Analytics",
-      url: "/analytics",
+      url: "/dashboard/analytics",
       icon: <NXAnalytics />,
     },
     {
       name: "EMV",
-      url: "/emv",
+      url: "/dashboard/emv",
       icon: <NXEmv />,
     },
     {
       name: "Theme",
-      url: "/theme",
+      url: "/dashboard/theme",
       icon: <NXTheme />,
     },
     {
       name: "Plugin",
-      url: "/plugin",
+      url: "/dashboard/plugin",
       icon: <NXPlugin />,
     },
     {
       name: "eCommerce",
-      url: "/ecommerce",
+      url: "/dashboard/ecommerce",
       icon: <NXEcommerce />,
     },
     {
       name: "Customers",
-      url: "/customers",
+      url: "/dashboard/customers",
       icon: <NXCustomer />,
     },
     {
       name: "Coupon",
-      url: "/coupon",
+      url: "/dashboard/coupon",
       icon: <NXCoupon />,
     },
   ]);

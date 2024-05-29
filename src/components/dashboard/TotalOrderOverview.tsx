@@ -45,7 +45,7 @@ function TotalOrderOverview({ className }: { className?: string }) {
   ];
   return (
     <div className={`${className} bg-white rounded-lg p-5`}>
-      <div className="flex justify-between items-center border-b border-[#EEEFF2] pb-3">
+      <div className="flex flex-col md:flex-row gap-3 justify-start md:justify-between items-center border-b border-[#EEEFF2] pb-3">
         <div className="flex items-center gap-3">
           <NXChart />
           <h2 className="font-nunito font-nunito-h1 text-xl">
@@ -59,8 +59,8 @@ function TotalOrderOverview({ className }: { className?: string }) {
         </p>
       </div>
       {/* chart section */}
-      <div className="flex gap-5 justify-between">
-        <div className="w-[30%] flex flex-col gap-5 mt-5">
+      <div className="flex flex-col md:flex-row gap-5 justify-between">
+        <div className="md:w-[30%] grid grid-cols-1 gap-5 mt-5">
           {orderItems.map((item, index) => (
             <div
               key={item.title}
@@ -83,7 +83,7 @@ function TotalOrderOverview({ className }: { className?: string }) {
             </div>
           ))}
         </div>
-        <div className="w-[70%] border border-[#EEEFF2] rounded-xl my-5">
+        <div className="md:w-[70%] border border-[#EEEFF2] rounded-xl my-5">
           <div className="pt-5 px-3 mb-[-20px] flex justify-between items-center">
             <h4 className="font-nunito font-nunito-h1 text-2xl">Statistics</h4>
 

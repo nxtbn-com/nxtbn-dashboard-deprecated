@@ -7,7 +7,6 @@ function Product({ product }: { product: ProductType }) {
       <img
         src={product.image}
         alt={product.title}
-        // className="w-full h-[107px]"
         className="w-full"
       />
       <h2 className="font-nunito font-bold my-2">{product.title}</h2>

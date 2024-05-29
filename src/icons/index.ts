@@ -43,6 +43,8 @@ import NXDots from "./NXDots";
 import NXProductFilter from "./NXProductFilter";
 import NXCheck from "./NXCheck";
 import NXDoubleSelect from "./NXDoubleSelect";
+import NXMenu from "./NXMenu";
+import NXCross from "./NXCross";
 
 export {
   NXIconNotificationActive,
@@ -90,4 +92,6 @@ export {
   NXProductFilter,
   NXCheck,
   NXDoubleSelect,
+  NXMenu,
+  NXCross,
 };

@@ -7,7 +7,7 @@ function ProductsMain() {
     <div className="bg-secondary-50 px-10">
       <div className="flex justify-end gap-5 py-5">
         <Link
-          to="/products/add-new-product"
+          to="/dashboard/products/add-new-product"
           className="bg-primary-500 text-white flex items-center gap-3 px-5 py-2 rounded-lg"
         >
           <NXPlus />

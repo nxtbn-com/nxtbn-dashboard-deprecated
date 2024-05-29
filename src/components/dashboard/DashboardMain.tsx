@@ -4,7 +4,7 @@ import MostSellingProducts from "./MostSellingProducts"
 
 function DashboardMain() {
   return (
-    <main className="px-10 bg-secondary-100 w-full">
+    <main className="px-5 md:px-10 bg-secondary-50 w-full">
       <CardGroup />
       <ChartGroup />
       <MostSellingProducts />

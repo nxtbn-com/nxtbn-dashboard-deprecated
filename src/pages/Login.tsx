@@ -1,8 +1,11 @@
 import React from 'react'
+import LoginMain from '../components/login/LoginMain'
 
 function Login() {
   return (
-    <div>Implement Login Page here</div>
+    <div>
+      <LoginMain/>
+    </div>
   )
 }
 

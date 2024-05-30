@@ -7,15 +7,15 @@ import LoginLeftSide from "./LoginLeftSide";
 function LoginMain() {
   return (
     <main className="">
-      <div className="z-20 absolute top-0 right-[5%]">
+      <div className="z-20 relative ">
         <LoginHeader />
       </div>
 
-      <div className="grid gap-2 md:grid-cols-2 md:justify-center xl">
-        <div className="w-full md:w-1/2">
+      <div className="grid gap-2 md:grid-cols-2 md:justify-items-center md:gap-4">
+        <div className="w-full md:col-span-1">
           <LoginLeftSide />
         </div>
-        <div className="w-full md:w-1/2 z-10 md:absolute top-0 right-0">
+        <div className="w-full md:col-span-1 z-10 ">
           <LoginRightSide />
         </div>
       </div>

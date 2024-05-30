@@ -19,7 +19,6 @@ function LoginRightSide() {
             <img
               src={product}
               alt=""
-              // className="absolute top-[230px] lg:right-[20%] md:right-10 sm:right-12 right-4 w-[320px] object-contain"\
               className="absolute xl:w-[340px] lg:right-[25%] lg:translate-x-[25%] lg:w-[300px] lg:top-[200px] md:right-[20%] md:translate-x-[20%] md:top[200px] md:w-[280px] top-[180px] w-[280px] right-[18%] translate-x-[18%] object-contain"
             />
        

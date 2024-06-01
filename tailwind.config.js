@@ -5,6 +5,10 @@ module.exports = {
   ],
   theme: {
     extend: {
+      screens: {
+        short: { raw: "(max-height: 720px)" },
+        shorter: { raw: "(max-height: 500px)" },
+      },
       fontFamily: {
         'nunito': ['Nunito', 'sans-serif'],
         'lato': ['Lato', 'sans-serif'],
@@ -48,6 +52,11 @@ module.exports = {
         },
       }
     }
+  },
+   variants: {
+    extend: {
+      fontSize: ["short", "shorter"],
+    },
   },
   plugins: [],
 }

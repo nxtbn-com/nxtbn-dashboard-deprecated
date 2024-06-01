@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import nxtbnlogo from "../../assets/nxtbn_logo_black.svg";
 import { useEffect, useState } from "react";
 
@@ -41,12 +40,12 @@ function LoginLeftSide() {
   };
 
   return (
-    <div className="flex flex-col justify-items-center md:gap-[70px] gap-0 px-3 mt-[35px] md:mt-[80px] md:px-[5%] lg:px-[15%] xl:px-[20%]">
+    <div className="flex flex-col md:gap-[70px] gap-0 px-3 mt-[35px] md:mt-[80px] md:px-[5%] lg:px-[15%] xl:px-[20%]">
       <div>
         <img src={nxtbnlogo} alt="" className="w-[100px] md:w-[252px]" />
       </div>
 
-      <div className="flex flex-col justify-center w-[100%] h-[550px] px-3 gap-10">
+      <div className="flex flex-col justify-center md:justify-start w-[100%] px-3 gap-10">
         <h3 className="text-[32px] font-nunito-h3 text-center md:text-start">Login to your account</h3>
         <div className="flex flex-col gap-10">
           <form className="flex flex-col gap-6">

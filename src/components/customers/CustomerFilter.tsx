@@ -15,7 +15,7 @@ function CustomerFilter() {
           <input
             type="text"
             id="location"
-            className="w-full bg-secondary-50 outline-none border-none px-5 py-2 rounded-md"
+            className="w-full bg-secondary-100 outline-none border-none px-5 py-2 rounded-md"
             placeholder="State or province"
           />
         </div>
@@ -29,7 +29,7 @@ function CustomerFilter() {
           <input
             type="text"
             id="amount_spent"
-            className="w-full bg-secondary-50 outline-none border-none px-5 py-2 rounded-md"
+            className="w-full bg-secondary-100 outline-none border-none px-5 py-2 rounded-md"
             placeholder="> $1,000"
           />
         </div>
@@ -46,7 +46,7 @@ function CustomerFilter() {
             placeholder="Select date"
             onFocus={() => setInputType("date")}
             onBlur={() => setInputType("text")}
-            className="w-full bg-secondary-50 outline-none border-none px-5 py-2 rounded-md text-base-300"
+            className="w-full bg-secondary-100 outline-none border-none px-5 py-2 rounded-md text-base-300"
           />
         </div>
         <div className="w-full">
@@ -59,7 +59,7 @@ function CustomerFilter() {
           <input
             type="select"
             id="product_type"
-            className="w-full bg-secondary-50 outline-none border-none px-5 py-2 rounded-md"
+            className="w-full bg-secondary-100 outline-none border-none px-5 py-2 rounded-md"
             placeholder="All Products"
           />
         </div>

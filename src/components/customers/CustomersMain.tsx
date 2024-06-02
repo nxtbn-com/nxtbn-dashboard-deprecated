@@ -21,7 +21,7 @@ function CustomersMain() {
 
   const [filterOpen, setFilterOpen] = useState<boolean>(false);
   return (
-    <section className="bg-secondary-50 p-10">
+    <section className="bg-secondary-100 p-10">
       {/* header button group */}
       <div className="flex justify-between">
         <div className="flex items-center bg-white px-3 py-1 rounded-md">
@@ -35,11 +35,11 @@ function CustomersMain() {
         </div>
 
         <div className="flex gap-5">
-          <button className="flex items-center gap-3 bg-secondary-50 px-4 py-3 rounded-md text-base-300">
+          <button className="flex items-center gap-3 bg-secondary-100 px-4 py-3 rounded-md text-base-300">
             <NXImport />
             Import
           </button>
-          <button className="flex items-center gap-3 bg-secondary-50 px-4 py-3 rounded-md text-base-300">
+          <button className="flex items-center gap-3 bg-secondary-100 px-4 py-3 rounded-md text-base-300">
             <NXMail />
             Email segment
           </button>

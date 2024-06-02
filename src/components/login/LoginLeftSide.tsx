@@ -55,7 +55,7 @@ function LoginLeftSide() {
               value={email}
               onChange={handleEmailChange}
               placeholder="Email"
-              className="w-full bg-secondary-50 outline-none border-none px-5 py-2 rounded-md"
+              className="w-full bg-secondary-100 outline-none border-none px-5 py-2 rounded-md"
             />
             <input
               type="password"
@@ -63,7 +63,7 @@ function LoginLeftSide() {
               value={password}
               onChange={handlePasswordChange}
               placeholder="Password"
-              className="w-full bg-secondary-50 outline-none border-none px-5 py-2 rounded-md"
+              className="w-full bg-secondary-100 outline-none border-none px-5 py-2 rounded-md"
             />
 
             <div className="flex justify-between items-center">

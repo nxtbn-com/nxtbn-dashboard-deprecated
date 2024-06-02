@@ -14,11 +14,11 @@ function CustomerToolbar({
         <input
           type="text"
           placeholder="Search by ID, product, or others..."
-          className="p-[12px] bg-secondary-50 rounded-lg border-none outline-none ps-[3.1rem] w-full"
+          className="p-[12px] bg-secondary-100 rounded-lg border-none outline-none ps-[3.1rem] w-full"
         />
       </div>
       <button
-        className={`flex items-center gap-3 bg-secondary-50 px-4 py-3 rounded-md border border-[#EEEFF2] ${
+        className={`flex items-center gap-3 bg-secondary-100 px-4 py-3 rounded-md border border-[#EEEFF2] ${
           filterOpen ? "text-[#0CAF60]" : "text-base-300"
         }`}
         onClick={() => setFilterOpen(!filterOpen)}

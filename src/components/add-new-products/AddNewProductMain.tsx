@@ -8,7 +8,7 @@ import "./select-hide.css";
 
 function AddNewProductMain() {
   return (
-    <section className="bg-secondary-50 px-10 py-5">
+    <section className="bg-secondary-100 px-10 py-5">
       {/* top action button */}
       <div className="flex justify-end gap-5 mb-5">
         <button className="text-[#0CAF60] border border-[#0CAF60] px-10 py-3 rounded-xl font-nunito font-[900]">
@@ -37,7 +37,7 @@ function AddNewProductMain() {
                 type="text"
                 id="product_name"
                 placeholder="Type your product name"
-                className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60]"
+                className="w-full px-5 py-3 bg-secondary-100 mt-3 rounded-xl font-nunito outline-[#0CAF60]"
               />
             </div>
             <div className="mt-5">
@@ -49,7 +49,7 @@ function AddNewProductMain() {
                 placeholder="Type your product description here"
                 name=""
                 id="product_description"
-                className="w-full px-5 py-3 h-[224px] bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60]"
+                className="w-full px-5 py-3 h-[224px] bg-secondary-100 mt-3 rounded-xl font-nunito outline-[#0CAF60]"
               ></textarea>
             </div>
           </div>
@@ -59,7 +59,7 @@ function AddNewProductMain() {
               <label htmlFor="media">
                 <div className="mt-2 cursor-pointer border-[2px] border-dashed border-base-50 text-black font-light p-5 flex justify-center items-center flex-col rounded-xl">
                   <div className="mb-2">
-                    <button className="px-5 py-2 rounded-full bg-secondary-50 text-black mr-2">
+                    <button className="px-5 py-2 rounded-full bg-secondary-100 text-black mr-2">
                       Upload new
                     </button>
                     <button>Select existing</button>
@@ -84,7 +84,7 @@ function AddNewProductMain() {
                   id="price"
                   type="text"
                   placeholder="$0.00"
-                  className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] placeholder:text-black"
+                  className="w-full px-5 py-3 bg-secondary-100 mt-3 rounded-xl font-nunito outline-[#0CAF60] placeholder:text-black"
                 />
               </div>
               <div className="w-full">
@@ -93,7 +93,7 @@ function AddNewProductMain() {
                   id="compare-price"
                   type="text"
                   placeholder="$0.00"
-                  className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] placeholder:text-black"
+                  className="w-full px-5 py-3 bg-secondary-100 mt-3 rounded-xl font-nunito outline-[#0CAF60] placeholder:text-black"
                 />
               </div>
             </div>
@@ -108,7 +108,7 @@ function AddNewProductMain() {
                   id="cost_per_item"
                   type="text"
                   placeholder="$0.00"
-                  className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] placeholder:text-black"
+                  className="w-full px-5 py-3 bg-secondary-100 mt-3 rounded-xl font-nunito outline-[#0CAF60] placeholder:text-black"
                 />
               </div>
               <div className="w-full">
@@ -117,7 +117,7 @@ function AddNewProductMain() {
                   id="profit"
                   type="text"
                   placeholder="--"
-                  className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] placeholder:text-black"
+                  className="w-full px-5 py-3 bg-secondary-100 mt-3 rounded-xl font-nunito outline-[#0CAF60] placeholder:text-black"
                 />
               </div>
               <div className="w-full">
@@ -126,7 +126,7 @@ function AddNewProductMain() {
                   id="margin"
                   type="text"
                   placeholder="--"
-                  className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] placeholder:text-black"
+                  className="w-full px-5 py-3 bg-secondary-100 mt-3 rounded-xl font-nunito outline-[#0CAF60] placeholder:text-black"
                 />
               </div>
             </div>
@@ -147,13 +147,13 @@ function AddNewProductMain() {
                   id="weight"
                   type="text"
                   placeholder="0.0"
-                  className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] placeholder:text-black"
+                  className="w-full px-5 py-3 bg-secondary-100 mt-3 rounded-xl font-nunito outline-[#0CAF60] placeholder:text-black"
                 />
               </div>
               <div className="w-[15%] relative">
                 <select
                   name="unit"
-                  className="w-full mt-10 px-2 py-3 bg-secondary-50 rounded-xl font-nunito outline-[#0CAF60] text-base-500 icon-hidden"
+                  className="w-full mt-10 px-2 py-3 bg-secondary-100 rounded-xl font-nunito outline-[#0CAF60] text-base-500 icon-hidden"
                 >
                   <option value="kg">kg</option>
                   <option value="inch">inch</option>
@@ -187,7 +187,7 @@ function AddNewProductMain() {
             <div className="w-full relative">
               <select
                 name="unit"
-                className="w-full mt-10 px-2 py-3 bg-secondary-50 rounded-xl font-nunito outline-[#0CAF60] text-base-500 icon-hidden"
+                className="w-full mt-10 px-2 py-3 bg-secondary-100 rounded-xl font-nunito outline-[#0CAF60] text-base-500 icon-hidden"
               >
                 <option value="active">Active</option>
                 <option value="inactive">InActive</option>
@@ -243,7 +243,7 @@ function AddNewProductMain() {
               <select
                 name="unit"
                 id="category"
-                className="w-full mt-2 px-2 py-3 bg-secondary-50 rounded-md font-nunito outline-[#0CAF60] text-base-500 icon-hidden"
+                className="w-full mt-2 px-2 py-3 bg-secondary-100 rounded-md font-nunito outline-[#0CAF60] text-base-500 icon-hidden"
               >
                 <option value=""></option>
                 <option value="inch">inch</option>
@@ -254,7 +254,7 @@ function AddNewProductMain() {
               <input
                 id="product_type"
                 type="text"
-                className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-md font-nunito outline-[#0CAF60]"
+                className="w-full px-5 py-3 bg-secondary-100 mt-3 rounded-md font-nunito outline-[#0CAF60]"
               />
             </div>
             <div className="my-5">
@@ -262,7 +262,7 @@ function AddNewProductMain() {
               <input
                 id="vendor"
                 type="text"
-                className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-md font-nunito outline-[#0CAF60]"
+                className="w-full px-5 py-3 bg-secondary-100 mt-3 rounded-md font-nunito outline-[#0CAF60]"
               />
             </div>
             <div className="my-5">
@@ -270,7 +270,7 @@ function AddNewProductMain() {
               <input
                 id="tags"
                 type="text"
-                className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-md font-nunito outline-[#0CAF60]"
+                className="w-full px-5 py-3 bg-secondary-100 mt-3 rounded-md font-nunito outline-[#0CAF60]"
               />
             </div>
           </div>

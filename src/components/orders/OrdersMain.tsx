@@ -39,7 +39,7 @@ function OrdersMain() {
   const currentPage = searchParams.get("page");
 
   return (
-    <div className="bg-secondary-50 w-full p-10">
+    <div className="bg-secondary-100 w-full p-10">
       <div className="bg-white rounded-lg">
         <div className="text-base-300 flex gap-5 border-b border-[#EEEFF2] py-5 px-10 pb-3">
           {pageChoice.map((page) => (

@@ -13,7 +13,7 @@ import {
 
 function OrderDetailsMain() {
   return (
-    <section className="bg-secondary-50 p-10">
+    <section className="bg-secondary-100 p-10">
       {/* top icon group */}
       <div className="flex items-center justify-between">
         <Link
@@ -46,7 +46,7 @@ function OrderDetailsMain() {
               <NXUnfulfilled className="bg-[#FFF0E6] rounded-full mr-2" />
               Unfulfilled
             </h3>
-            <div className="flex gap-5 bg-secondary-50 my-7 p-5 rounded-md">
+            <div className="flex gap-5 bg-secondary-100 my-7 p-5 rounded-md">
               <div className="h-12 aspect-square bg-base-200 rounded-md"></div>
               <div className="flex items-center justify-between w-full">
                 <div>

@@ -8,18 +8,18 @@ function OrderToolbar() {
         <input
           type="text"
           placeholder="Search by ID, product, or others..."
-          className="p-[12px] bg-secondary-50 rounded-lg border-none outline-none ps-[3.1rem] w-full"
+          className="p-[12px] bg-secondary-100 rounded-lg border-none outline-none ps-[3.1rem] w-full"
         />
       </div>
-      <button className="flex items-center gap-3 bg-secondary-50 px-4 py-3 rounded-md text-base-300">
+      <button className="flex items-center gap-3 bg-secondary-100 px-4 py-3 rounded-md text-base-300">
         <NXFilter />
         Filters
       </button>
-      <button className="flex items-center gap-3 bg-secondary-50 px-4 py-3 rounded-md text-base-300">
+      <button className="flex items-center gap-3 bg-secondary-100 px-4 py-3 rounded-md text-base-300">
         <NXCalenderStar />
         April 11 - April 14
       </button>
-      <button className="flex items-center gap-3 bg-secondary-50 px-4 py-3 rounded-md text-base-300">
+      <button className="flex items-center gap-3 bg-secondary-100 px-4 py-3 rounded-md text-base-300">
         <NXDownload />
         Download
       </button>

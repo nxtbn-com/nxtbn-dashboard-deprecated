@@ -56,7 +56,7 @@ function Header({
             <input
               type="text"
               placeholder="Search..."
-              className="p-[12px] text-[14px] bg-secondary-50 rounded-lg border-none outline-none ps-[3.1rem] lg:w-[482px]"
+              className="p-[12px] text-[14px] bg-secondary-100 rounded-lg border-none outline-none ps-[3.1rem] lg:w-[482px]"
             />
           </div>
           <div className="flex">
@@ -65,7 +65,7 @@ function Header({
           </div>
           <hr className="h-[40px] w-[1px] bg-secondary-100" />
           <div className="flex gap-5">
-            <div className="md:h-[35px] lg:h-[48px] aspect-square rounded-full bg-secondary-500"></div>
+            <div className="md:h-[35px] lg:h-[48px] aspect-square rounded-full bg-secondary-1000"></div>
             <div className="flex flex-col justify-center">
               <h3 className="font-nunito font-[900] md:text-sm lg:text-xl">
                 Mac Gibson
@@ -89,7 +89,7 @@ function Header({
           </div>
           <div className="flex gap-3 items-center">
             <h3 className="font-nunito font-nunito-h1">Mac Gibson</h3>
-            <div className="h-[30px] aspect-square rounded-full bg-secondary-500"></div>
+            <div className="h-[30px] aspect-square rounded-full bg-secondary-1000"></div>
           </div>
         </div>
         <div className="relative">

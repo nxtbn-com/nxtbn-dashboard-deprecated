@@ -91,7 +91,7 @@ function TotalOrderOverview({ className }: { className?: string }) {
               options={options}
               value={selectedOption}
               onChange={handleOptionChange}
-              className="w-[100px] text-sm text-base-300 bg-secondary-50 border border-[#EEEFF2] shadow-sm"
+              className="w-[100px] text-sm text-base-300 bg-secondary-100 border border-[#EEEFF2] shadow-sm"
             />
           </div>
           <SummaryChart />

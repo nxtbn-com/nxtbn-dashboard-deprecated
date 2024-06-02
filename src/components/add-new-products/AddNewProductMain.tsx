@@ -8,7 +8,7 @@ import "./select-hide.css";
 
 function AddNewProductMain() {
   return (
-    <section className="bg-secondary-50 px-10 py-5">
+    <section className="px-10 py-5">
       {/* top action button */}
       <div className="flex justify-end gap-5 mb-5">
         <button className="text-[#0CAF60] border border-[#0CAF60] px-10 py-3 rounded-xl font-nunito font-[900]">

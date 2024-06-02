@@ -13,7 +13,7 @@ import {
 
 function OrderDetailsMain() {
   return (
-    <section className="bg-secondary-50 p-10">
+    <section className="p-10">
       {/* top icon group */}
       <div className="flex items-center justify-between">
         <Link

@@ -11,7 +11,7 @@ function RootLayout({ children }: { children?: ReactNode }) {
     setSidebarOpen((prev) => !prev);
   };
   return (
-    <div className="flex w-screen relative h-screen overflow-x-hidden">
+    <div className="flex w-screen relative h-screen overflow-x-hidden bg-secondary-100">
       {/* sidebar element */}
       <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
 

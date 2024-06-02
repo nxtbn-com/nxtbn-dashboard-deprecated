@@ -21,7 +21,7 @@ function CustomersMain() {
 
   const [filterOpen, setFilterOpen] = useState<boolean>(false);
   return (
-    <section className="bg-secondary-50 p-10">
+    <section className="p-10">
       {/* header button group */}
       <div className="flex justify-between">
         <div className="flex items-center bg-white px-3 py-1 rounded-md">

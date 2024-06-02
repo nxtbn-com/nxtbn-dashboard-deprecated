@@ -1,4 +1,4 @@
-import nxtbnlogo from "../../assets/nxtbn_logo_black.svg";
+import nxtbnlogo from "../../assets/nxtbn_black.png";
 import { useEffect, useState } from "react";
 
 function LoginLeftSide() {

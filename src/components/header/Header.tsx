@@ -5,7 +5,7 @@ import {
   NXMessageActive,
   NXSearch,
 } from "../../icons";
-import logo from "../../assets/nxtbn_logo_black.svg";
+import logo from "../../assets/nxtbn_black.png";
 
 function Header({
   setSidebarOpen,

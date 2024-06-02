@@ -4,7 +4,7 @@ import ProductList from './ProductList';
 
 function ProductsMain() {
   return (
-    <div className="bg-secondary-50 px-10">
+    <div className="px-10">
       <div className="flex justify-end gap-5 py-5">
         <Link
           to="/dashboard/products/add-new-product"

@@ -1,4 +1,4 @@
-import logo from "../../assets/nxtbn_logo_black.svg";
+import logo from "../../assets/nxtbn_black.png";
 import { NXCross } from "../../icons";
 import FixedMenu from "./FixedMenu";
 import MenuItems from "./MenuItems";

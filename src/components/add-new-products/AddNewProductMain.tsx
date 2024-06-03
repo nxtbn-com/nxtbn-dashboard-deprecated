@@ -1,16 +1,68 @@
+import React, { useState } from "react";
 import {
   NXAlertCircle,
   NXCheck,
   NXDoubleSelect,
-  NXDownArrow
+  NXDownArrow,
 } from "../../icons";
 import "./select-hide.css";
+import makeAnimated, { MultiValue } from "react-select/animated";
+
+import SelectStyled from "../Select";
 
 function AddNewProductMain() {
+  const [text, setText] = useState<string>("");
+
+  const handleTextChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setText(event.target.value);
+  };
+
+  const animatedComponents = makeAnimated();
+
+  let [isChecked, setIsChecked] = useState<boolean>(false);
+
+  let handleChecked = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setIsChecked(!isChecked);
+  };
+
+  const customStyle = {
+    control: (provided: any, state: any) => ({
+      ...provided,
+
+      borderColor: state.isFocused ? "#0CAF60" : "white",
+      borderWidth: "1px",
+      boxShadow: state.isFocused ? "0 0 0 1px #0CAF60" : "white",
+      "&:hover": {
+        borderColor: "none",
+      },
+
+      padding: "4px 8px",
+    }),
+    multiValue: (provided: any, state: any) => ({
+      ...provided,
+
+      borderRadius: "20px",
+    }),
+  };
+
+  const categoryOption = [
+    { value: "Accessories", label: "Accessories" },
+    {
+      value: "fashion",
+      label: "Fashion",
+      subcategories: [
+        { value: "men_dress", label: "Men Dress Collection" },
+        { value: "women_dress", label: "Women Dress Collection" },
+      ],
+    },
+    { value: "electronics", label: "Electronics" },
+    { value: "books", label: "Books" },
+  ];
+
   return (
     <section className="px-10 py-5">
       {/* top action button */}
-      <div className="flex justify-end gap-5 mb-5">
+      <div className="hidden md:flex md:justify-end md:gap-5 md:mb-5">
         <button className="text-[#0CAF60] border border-[#0CAF60] px-10 py-3 rounded-xl font-nunito font-[900]">
           Discard
         </button>
@@ -22,8 +74,8 @@ function AddNewProductMain() {
         </button>
       </div>
       {/* body */}
-      <div className="flex gap-5">
-        <div className="w-[60%]">
+      <div className="flex flex-col justify-center md:flex-row gap-5">
+        <div className="w-full md:w-[60%]">
           <div className="bg-white p-5 rounded-md">
             <div className="flex items-center gap-3">
               <h1 className="font-nunito font-[900] text-2xl">
@@ -43,13 +95,16 @@ function AddNewProductMain() {
             <div className="mt-5">
               <div className="flex justify-between">
                 <label htmlFor="product_description">Description</label>
-                <span className="text-base-300 text-sm">53/2000</span>
+                <span className="text-base-300 text-sm">
+                  {text.length}/2000
+                </span>
               </div>
               <textarea
                 placeholder="Type your product description here"
                 name=""
                 id="product_description"
                 className="w-full px-5 py-3 h-[224px] bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60]"
+                onChange={handleTextChange}
               ></textarea>
             </div>
           </div>
@@ -59,7 +114,7 @@ function AddNewProductMain() {
               <label htmlFor="media">
                 <div className="mt-2 cursor-pointer border-[2px] border-dashed border-base-50 text-black font-light p-5 flex justify-center items-center flex-col rounded-xl">
                   <div className="mb-2">
-                    <button className="px-5 py-2 rounded-full bg-secondary-50 text-black mr-2">
+                    <button className="px-5 py-2 rounded-full bg-secondary-100 text-black mr-2">
                       Upload new
                     </button>
                     <button>Select existing</button>
@@ -98,7 +153,7 @@ function AddNewProductMain() {
               </div>
             </div>
             <div className="flex items-center gap-3 my-5">
-              <NXCheck className="text-white bg-[#0CAF60] rounded-full" />
+              <input type="checkbox" name="" id="bangladesh" />
               <p className="font-nunito">Charge tax on this product</p>
             </div>
             <div className="flex items-center gap-5 mt-5">
@@ -137,32 +192,40 @@ function AddNewProductMain() {
               <h1 className="font-nunito font-[900] text-2xl">Shipping</h1>
             </div>
             <div className="flex items-center gap-3 my-7">
-              <NXCheck className="text-white bg-[#0CAF60] rounded-full" />
+              <input
+                type="checkbox"
+                name=""
+                id="physical_product"
+                checked={isChecked}
+                onChange={handleChecked}
+              />
               <p className="font-nunito">This is a physical product</p>
             </div>
-            <div className="flex items-center gap-5 mt-5">
-              <div className="w-full">
-                <label htmlFor="weight">Weight</label>
-                <input
-                  id="weight"
-                  type="text"
-                  placeholder="0.0"
-                  className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] placeholder:text-black"
-                />
-              </div>
-              <div className="w-[15%] relative">
-                <select
-                  name="unit"
-                  className="w-full mt-10 px-2 py-3 bg-secondary-50 rounded-xl font-nunito outline-[#0CAF60] text-base-500 icon-hidden"
-                >
-                  <option value="kg">kg</option>
-                  <option value="inch">inch</option>
-                </select>
-                <div className="absolute inset-y-0 right-0 top-10 flex items-center px-2 pointer-events-none">
-                  <NXDoubleSelect />
+            {isChecked && (
+              <div className="flex items-center gap-5 mt-5">
+                <div className="w-full">
+                  <label htmlFor="weight">Weight</label>
+                  <div className="relative">
+                    <input
+                      id="weight"
+                      type="number"
+                      placeholder="0.0"
+                      className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] placeholder:text-black"
+                    />
+
+                    <div className="absolute top-[13px] right-12 w-[90px] md:w-[120px]">
+                      <SelectStyled
+                        options={[
+                          { value: "kg", label: "Kg" },
+                          { value: "pound", label: "Pound" },
+                        ]}
+                        customStyles={customStyle}
+                      />
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
             <hr className="border w-full my-5 border-[#C8C8C8]" />
 
             <button className="font-nunito font-[800] flex items-center gap-1 mt-3">
@@ -179,22 +242,20 @@ function AddNewProductMain() {
             </button>
           </div>
         </div>
-        <div className="w-[40%]">
+        <div className="w-full md:w-[40%]">
           <div className=" bg-white p-5 rounded-md">
             <div>
               <h1 className="font-nunito font-[900] text-2xl">Status</h1>
             </div>
-            <div className="w-full relative">
-              <select
-                name="unit"
-                className="w-full mt-10 px-2 py-3 bg-secondary-50 rounded-xl font-nunito outline-[#0CAF60] text-base-500 icon-hidden"
-              >
-                <option value="active">Active</option>
-                <option value="inactive">InActive</option>
-              </select>
-              <div className="absolute inset-y-0 right-0 top-10 flex items-center px-2 pointer-events-none">
-                <NXDownArrow className="text-base-300 w-6 font-extrabold" />
-              </div>
+            <div className="w-full mt-3">
+              <SelectStyled
+                options={[
+                  { value: "active", label: "Active" },
+                  { value: "inactive", label: "InActive" },
+                ]}
+                customStyles={customStyle}
+              />
+              <div className="absolute inset-y-0 right-0 top-10 flex items-center px-2 pointer-events-none"></div>
             </div>
           </div>
           {/* publishing */}
@@ -240,14 +301,12 @@ function AddNewProductMain() {
 
             <div className="w-full relative mt-10">
               <label htmlFor="category">Category</label>
-              <select
-                name="unit"
-                id="category"
-                className="w-full mt-2 px-2 py-3 bg-secondary-50 rounded-md font-nunito outline-[#0CAF60] text-base-500 icon-hidden"
-              >
-                <option value=""></option>
-                <option value="inch">inch</option>
-              </select>
+              <div className="mt-3">
+                <SelectStyled
+                  options={categoryOption}
+                  customStyles={customStyle}
+                />
+              </div>
             </div>
             <div className="my-5">
               <label htmlFor="product_type">Product type</label>
@@ -267,13 +326,22 @@ function AddNewProductMain() {
             </div>
             <div className="my-5">
               <label htmlFor="tags">Tags</label>
-              <input
-                id="tags"
-                type="text"
-                className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-md font-nunito outline-[#0CAF60]"
-              />
+              <div className="pt-3">
+                <SelectStyled isMulti={true} customStyles={customStyle} />
+              </div>
             </div>
           </div>
+        </div>
+        <div className="flex flex-col-reverse justify-center gap-5 mb-5 md:hidden">
+          <button className="text-[#0CAF60] border border-[#0CAF60] px-10 py-3 rounded-xl font-nunito font-[900]">
+            Discard
+          </button>
+          <button
+            className="text-white bg-[#0CAF60] px-10 py-3 rounded-xl font-nunito font-[900] disabled:bg-[#0caf609a]"
+            disabled
+          >
+            Save
+          </button>
         </div>
       </div>
     </section>

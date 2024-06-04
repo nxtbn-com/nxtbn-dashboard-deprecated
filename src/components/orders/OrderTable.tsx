@@ -66,7 +66,7 @@ const tableData = [
 ];
 function OrderTable() {
   return (
-    <table className="w-full">
+    <table className="w-full text-sm md:text-base">
       <thead>
         <tr className="border-b border-[#EEEFF2]">
           <th className="text-center w-24">
@@ -78,7 +78,7 @@ function OrderTable() {
             />
           </th>
           {tableHead.map((th, index) => (
-            <th className={`py-5 font-normal text-base-300`} key={th.name}>
+            <th className={`py-5 px-2 font-normal text-base-300`} key={th.name}>
               <span className={`flex items-center gap-3`}>
                 {th.name}
                 {!true ? (
@@ -100,7 +100,7 @@ function OrderTable() {
                 type="checkbox"
               />
             </td>
-            <td className="text-start py-3">
+            <td className="text-start py-3 px-2">
               <Link to={row.id}>
                 <p>{row.orders}</p>
                 <p className="text-sm font-normal text-base-300 mt-1">
@@ -108,15 +108,15 @@ function OrderTable() {
                 </p>
               </Link>
             </td>
-            <td className="py-3">{row.date}</td>
-            <td className="py-3">{row.customer}</td>
-            <td className="py-3">
+            <td className="py-3 px-2">{row.date}</td>
+            <td className="py-3 px-2">{row.customer}</td>
+            <td className="py-3 px-2">
               <PaymentButton text={row.payment} />
             </td>
-            <td className="py-3">
+            <td className="py-3 px-2">
               <StatusButton text={row.status} />
             </td>
-            <td className="py-3">{row.price}</td>
+            <td className="py-3 px-2">{row.price}</td>
           </tr>
         ))}
       </tbody>

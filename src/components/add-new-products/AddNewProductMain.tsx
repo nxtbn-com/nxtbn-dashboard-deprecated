@@ -6,7 +6,6 @@ import {
   NXDownArrow,
 } from "../../icons";
 import "./select-hide.css";
-import makeAnimated, { MultiValue } from "react-select/animated";
 
 import SelectStyled from "../Select";
 
@@ -16,8 +15,6 @@ function AddNewProductMain() {
   const handleTextChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setText(event.target.value);
   };
-
-  const animatedComponents = makeAnimated();
 
   let [isChecked, setIsChecked] = useState<boolean>(false);
 

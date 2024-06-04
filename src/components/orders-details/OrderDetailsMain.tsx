@@ -13,7 +13,7 @@ import {
 
 function OrderDetailsMain() {
   return (
-    <section className="p-10">
+    <section className="p-[5%] md:p-10">
       {/* top icon group */}
       <div className="flex items-center justify-between">
         <Link
@@ -21,26 +21,26 @@ function OrderDetailsMain() {
           className="bg-white flex items-center gap-2 px-5 py-3 rounded-md text-base-300 text-sm"
         >
           <NXLeftArrow className="w-5" />
-          <span>Order Details</span>
+          <span className="hidden md:block">Order Details</span>
         </Link>
         <div className="flex items-center gap-5">
           <button className="bg-white flex items-center gap-2 p-3 rounded-md text-base-300 text-sm">
             <NXPrint />
-            <span>Print order</span>
+            <span className="hidden md:block">Print order</span>
           </button>
           <button className="bg-white flex items-center gap-2 p-3 rounded-md text-base-300 text-sm">
             <NXShare />
-            Refund items
+            <span className="hidden md:block">Refund items</span>
           </button>
           <button className="bg-white flex items-center gap-2 p-3 rounded-md text-base-300 text-sm">
-            More actions
+            <span className="hidden md:block">More actions</span>
             <NXDownArrow className="w-5" />
           </button>
         </div>
       </div>
       {/* body */}
-      <div className="flex gap-5 mt-10">
-        <div className="w-[60%]">
+      <div className="flex flex-col md:flex md:flex-row gap-5 mt-10">
+        <div className="w-full md:w-[60%]">
           <div className="bg-white p-5 rounded-lg">
             <h3 className="flex items-center border-b border-[#EEEFF2] pb-5 text-[#FE964A]">
               <NXUnfulfilled className="bg-[#FFF0E6] rounded-full mr-2" />
@@ -60,9 +60,9 @@ function OrderDetailsMain() {
               </div>
             </div>
             <hr className="border-[#EEEFF2]" />
-            <div className="flex justify-end my-7">
-              <div>
-                <button className="px-6 py-3 border border-[#0CAF60] text-[#0CAF60] rounded-xl font-bold text-sm mr-5">
+            <div className="flex flex-col md:flex md:justify-end my-7">
+              <div className="flex flex-col justify-center gap-3 md:flex md:flex-row md:justify-end">
+                <button className="px-6 py-3 border border-[#0CAF60] text-[#0CAF60] rounded-xl font-bold text-sm md:mr-5">
                   Mark as fulfilled
                 </button>
                 <button className="px-6 py-3 border border-[#0CAF60] bg-[#0CAF60] text-white rounded-xl font-bold text-sm">
@@ -107,7 +107,7 @@ function OrderDetailsMain() {
             </table>
           </div>
         </div>
-        <div className="w-[40%]">
+        <div className="w-full md:w-[40%]">
           <div className="bg-white py-5 px-8 rounded-lg">
             <h2 className="font-nunito font-extrabold text-2xl">Customer</h2>
             <div className="flex items-center justify-between border-b border-[#EEEFF2] py-5">

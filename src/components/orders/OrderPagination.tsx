@@ -22,8 +22,8 @@ function OrderPagination() {
       setIsOpen(!isOpen);
     };
   return (
-    <div className="px-10 py-6 flex items-center justify-between">
-      <div className="flex items-center gap-5">
+    <div className="px-10 py-6 flex flex-col justify-center gap-4 md:flex md:flex-row md:items-center md:justify-between">
+      <div className="flex justify-center items-center md:flex md:items-center gap-5">
         <span className="text-sm text-base-300">Show result: </span>
 
         {/* Dropdown button start */}

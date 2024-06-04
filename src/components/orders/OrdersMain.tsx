@@ -39,7 +39,7 @@ function OrdersMain() {
   const currentPage = searchParams.get("page");
 
   return (
-    <div className="w-full p-[5%] md:p-10">
+    <div className="w-full flex flex-col p-[5%] md:p-10">
       <div className="bg-white rounded-lg">
         <div className="text-base-300 flex gap-5 border-b border-[#EEEFF2] py-5 px-10 pb-3 w-[100%] overflow-x-auto">
           {pageChoice.map((page) => (
@@ -59,7 +59,7 @@ function OrdersMain() {
         </div>
 
         <OrderToolbar />
-        <div className="w-[100%] overflow-x-auto px-2">
+        <div className="px-1">
           <OrderTable />
         </div>
         

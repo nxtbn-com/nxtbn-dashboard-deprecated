@@ -15,7 +15,7 @@ function FixedMenu({className}: {className?: string}) {
       },
     ];
   return (
-    <div className={`border-t border-[#EEEFF2] ${className}`}>
+    <div className={`border-t border-[#EEEFF2] mh:text-sm ${className}`}>
       {menus.map((item) => (
         <MenuItem menuItem={item} key={item.name} />
       ))}

@@ -1,8 +1,5 @@
 import { Link } from "react-router-dom";
-import {
-  NXNarrowArrowUp,
-  NXNarrowArrowUpDown
-} from "../../icons";
+import { NXNarrowArrowUp, NXNarrowArrowUpDown } from "../../icons";
 import "./table.css";
 
 const tableHead = [
@@ -66,61 +63,66 @@ const tableData = [
 ];
 function OrderTable() {
   return (
-    <table className="w-full text-sm md:text-base">
-      <thead>
-        <tr className="border-b border-[#EEEFF2]">
-          <th className="text-center w-24">
-            <input
-              className="form-checkbox rounded-full bg-red-100 border-red-300 text-red-600 focus:ring-red-200"
-              type="checkbox"
-              name=""
-              id=""
-            />
-          </th>
-          {tableHead.map((th, index) => (
-            <th className={`py-5 px-2 font-normal text-base-300`} key={th.name}>
-              <span className={`flex items-center gap-3`}>
-                {th.name}
-                {!true ? (
-                  <NXNarrowArrowUp className="text-primary-500" />
-                ) : (
-                  <NXNarrowArrowUpDown />
-                )}
-              </span>
-            </th>
-          ))}
-        </tr>
-      </thead>
-      <tbody>
-        {tableData.map((row, index) => (
-          <tr className="border-b border-[#EEEFF2] font-semibold" key={index}>
-            <td className="text-center w-24 py-5">
+    <div className="relative overflow-x-auto">
+      <table className="min-w-[400px] w-full table-auto text-sm ml:text-base px-3">
+        <thead>
+          <tr className="border-b border-[#EEEFF2]">
+            <th className="text-center ">
               <input
-                className="form-checkbox rounded-full bg-gray-200 checked:bg-red-600"
+                className="form-checkbox rounded-full bg-red-100 border-red-300 text-red-600 focus:ring-red-200"
                 type="checkbox"
+                name=""
+                id=""
               />
-            </td>
-            <td className="text-start py-3 px-2">
-              <Link to={row.id}>
-                <p>{row.orders}</p>
-                <p className="text-sm font-normal text-base-300 mt-1">
-                  #ID{row.id}
-                </p>
-              </Link>
-            </td>
-            <td className="py-3 px-2">{row.date}</td>
-            <td className="py-3 px-2">{row.customer}</td>
-            <td className="py-3 px-2">
-              <PaymentButton text={row.payment} />
-            </td>
-            <td className="py-3 px-2">
-              <StatusButton text={row.status} />
-            </td>
-            <td className="py-3 px-2">{row.price}</td>
+            </th>
+            {tableHead.map((th, index) => (
+              <th
+                className={`py-5 px-2 font-normal text-base-300`}
+                key={th.name}
+              >
+                <span className={`flex items-center gap-3`}>
+                  {th.name}
+                  {!true ? (
+                    <NXNarrowArrowUp className="text-primary-500" />
+                  ) : (
+                    <NXNarrowArrowUpDown />
+                  )}
+                </span>
+              </th>
+            ))}
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {tableData.map((row, index) => (
+            <tr className="border-b border-[#EEEFF2] font-semibold" key={index}>
+              <td className="text-center py-5">
+                <input
+                  className="form-checkbox rounded-full bg-gray-200 checked:bg-red-600"
+                  type="checkbox"
+                />
+              </td>
+              <td className="text-start py-3 px-2">
+                <Link to={row.id}>
+                  <p>{row.orders}</p>
+                  <p className="text-sm font-normal text-base-300 mt-1">
+                    #ID{row.id}
+                  </p>
+                </Link>
+              </td>
+              <td className="py-3 px-2">{row.date}</td>
+              <td className="py-3 px-2">{row.customer}</td>
+              <td className="py-3 px-2">
+                <PaymentButton text={row.payment} />
+              </td>
+              <td className="py-3 px-2">
+                <StatusButton text={row.status} />
+              </td>
+              <td className="py-3 px-2">{row.price}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 }
 

@@ -56,7 +56,7 @@ function Header({
             <input
               type="text"
               placeholder="Search..."
-              className="p-[12px] text-[14px] bg-secondary-50 rounded-lg border-none outline-none ps-[3.1rem] lg:w-[482px]"
+              className="p-[12px] text-[14px] bg-secondary-50 rounded-lg border-none outline-none ps-[3.1rem] w-[100%]"
             />
           </div>
           <div className="flex">

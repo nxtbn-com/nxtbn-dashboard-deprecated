@@ -25,6 +25,7 @@ const useMenuItems = () => {
       name: "Products",
       url: "/dashboard/products",
       icon: <NXProductBag />,
+      count: 12
     },
     {
       name: "User Management",

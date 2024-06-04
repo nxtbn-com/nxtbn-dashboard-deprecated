@@ -8,6 +8,8 @@ module.exports = {
       screens: {
         short: { raw: "(max-height: 720px)" },
         shorter: { raw: "(max-height: 500px)" },
+        'ml': '842px',
+        'mh': '992px'
       },
       fontFamily: {
         'nunito': ['Nunito', 'sans-serif'],

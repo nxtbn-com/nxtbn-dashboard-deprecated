@@ -11,11 +11,11 @@ function ProductsMain() {
           className="bg-primary-500 text-white flex items-center gap-3 px-5 py-2 rounded-lg"
         >
           <NXPlus />
-          Add New Product
+          <span className='hidden md:block'>Add New Product</span>
         </Link>
         <button className="flex items-center gap-2 px-3 py-2 rounded-lg bg-[#9fb0bc]">
           <NXProductFilter />
-          Filter
+          <span className='hidden md:block'>Filter</span>
         </button>
       </div>
 

@@ -22,7 +22,7 @@ function CustomerPagination() {
     setIsOpen(!isOpen);
   };
   return (
-    <div className="px-10 py-6 flex items-center justify-between">
+    <div className="flex flex-col gap-5 justify-center items-center px-10 py-6 sm:flex sm:flex-row sm:items-center sm:justify-between">
       <div className="flex items-center gap-5">
         <span className="text-sm text-base-300">Show result: </span>
 

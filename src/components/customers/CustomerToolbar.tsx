@@ -8,7 +8,7 @@ function CustomerToolbar({
   setFilterOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   return (
-    <div className="px-10 flex items-center justify-between gap-5 py-5 border-b border-[#EEEFF2]">
+    <div className="px-3 md:px-10 flex items-center justify-between gap-5 py-5 border-b border-[#EEEFF2]">
       <div className="relative w-[90%]">
         <NXSearch className="absolute top-1/2 left-4 transform -translate-y-1/2" />
         <input
@@ -24,7 +24,7 @@ function CustomerToolbar({
         onClick={() => setFilterOpen(!filterOpen)}
       >
         <NXFilter className="rotate-90" />
-        Filters
+        <span className="hidden sm:block">Filters</span>
       </button>
     </div>
   );

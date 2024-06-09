@@ -55,55 +55,57 @@ const tableData = [
 ];
 function CustomerTable() {
   return (
-    <table className="w-full">
-      <thead>
-        <tr className="border-b border-[#EEEFF2]">
-          <th className="text-center w-24">
-            <input
-              className="form-checkbox rounded-full bg-red-100 border-red-300 text-red-600 focus:ring-red-200"
-              type="checkbox"
-              name=""
-              id=""
-            />
-          </th>
-          {tableHead.map((th, index) => (
-            <th className={`py-5 font-normal text-base-300`} key={th.name}>
-              <span className={`flex items-center gap-3`}>
-                {th.name}
-                {!true ? (
-                  <NXNarrowArrowUp className="text-primary-500" />
-                ) : (
-                  <NXNarrowArrowUpDown />
-                )}
-              </span>
-            </th>
-          ))}
-        </tr>
-      </thead>
-      <tbody>
-        {tableData.map((row, index) => (
-          <tr className="border-b border-[#EEEFF2] font-semibold" key={index}>
-            <td className="text-center w-24 py-5">
+    <div className="min-w-full overflow-x-auto max-w-[500px] px-3">
+      <table className="min-w-full w-full table-auto text-base md:text-sm ls:text-base px-2 lg:px-3">
+        <thead>
+          <tr className="border-b border-[#EEEFF2]">
+            <th className="text-center w-24 px-2 lg:px-3">
               <input
-                className="form-checkbox rounded-full bg-gray-200 checked:bg-red-600"
+                className="form-checkbox rounded-full bg-red-100 border-red-300 text-red-600 focus:ring-red-200"
                 type="checkbox"
+                name=""
+                id=""
               />
-            </td>
-            <td className="text-start py-3 flex items-center gap-5">
-              <div className="w-10 aspect-square rounded-full bg-base-400"></div>
-              {row.customer_name}
-            </td>
-            <td className="py-3">{row.email}</td>
-            <td className="py-3">{row.location}</td>
-            <td className="py-3">{row.orders} orders</td>
-            <td className="py-3">${row.spent}</td>
-            <td className="py-3">
-              <NXDots className="text-base-300" />
-            </td>
+            </th>
+            {tableHead.map((th, index) => (
+              <th className={`py-5 px-2 lg:px-3 font-normal text-base-300`} key={th.name}>
+                <span className={`flex items-center gap-3`}>
+                  {th.name}
+                  {!true ? (
+                    <NXNarrowArrowUp className="text-primary-500" />
+                  ) : (
+                    <NXNarrowArrowUpDown />
+                  )}
+                </span>
+              </th>
+            ))}
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {tableData.map((row, index) => (
+            <tr className="border-b border-[#EEEFF2] font-semibold" key={index}>
+              <td className="text-center w-24 py-5 px-2 lg:px-3">
+                <input
+                  className="form-checkbox rounded-full bg-gray-200 checked:bg-red-600"
+                  type="checkbox"
+                />
+              </td>
+              <td className="text-start py-3 flex items-center gap-5 px-2 lg:px-3">
+                <div className="w-10 aspect-square rounded-full bg-base-400"></div>
+                {row.customer_name}
+              </td>
+              <td className="py-3 px-2 lg:px-3">{row.email}</td>
+              <td className="py-3 px-2 lg:px-3">{row.location}</td>
+              <td className="py-3 px-2 lg:px-3">{row.orders} orders</td>
+              <td className="py-3 px-2 lg:px-3">${row.spent}</td>
+              <td className="py-3 px-2 lg:px-3">
+                <NXDots className="text-base-300" />
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 }
 

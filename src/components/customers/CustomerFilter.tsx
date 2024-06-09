@@ -4,11 +4,11 @@ function CustomerFilter() {
     const [inputType, setInputType] = useState("text");
   return (
     <>
-      <div className="flex items-center gap-5 px-10 py-5 border-b">
+      <div className="flex flex-col px-10 md:flex md:flex-row md:items-center md:gap-5 md:px-10 md:py-5 md:border-b">
         <div className="w-full">
           <label
             htmlFor="location"
-            className="font-nunito font-extrabold text-xl"
+            className="font-nunito font-bold text-base md:font-extrabold md:text-xl"
           >
             Location
           </label>
@@ -22,7 +22,7 @@ function CustomerFilter() {
         <div className="w-full">
           <label
             htmlFor="amount_spent"
-            className="font-nunito font-extrabold text-xl"
+            className="font-nunito font-bold text-base md:font-extrabold md:text-xl"
           >
             Amount Spent
           </label>
@@ -36,7 +36,7 @@ function CustomerFilter() {
         <div className="w-full">
           <label
             htmlFor="order_date"
-            className="font-nunito font-extrabold text-xl"
+            className="font-nunito font-bold text-base md:font-extrabold md:text-xl"
           >
             Order date
           </label>
@@ -52,7 +52,7 @@ function CustomerFilter() {
         <div className="w-full">
           <label
             htmlFor="product_type"
-            className="font-nunito font-extrabold text-xl"
+            className="font-nunito font-bold text-base md:font-extrabold md:text-xl"
           >
             Type of Products
           </label>

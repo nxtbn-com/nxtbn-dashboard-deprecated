@@ -1,7 +1,20 @@
+import axios from "axios";
 import nxtbnlogo from "../../assets/nxtbn_black.png";
-import { useEffect, useState } from "react";
+import { useEffect, useState, FormEvent } from "react";
+import { useNavigate } from "react-router-dom";
+
+
 
 function LoginLeftSide() {
+
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isEmailValid, setIsEmailValid] = useState(false);
+  const [isPasswordValid, setIsPasswordValid] = useState(false);
+  const [isFormValid, setIsFormValid] = useState(false);
+
+
   // password and email validation
   const validateEmail = (email: string): boolean => {
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -10,15 +23,10 @@ function LoginLeftSide() {
 
   const validatePassword = (password: string): boolean => {
     // Password validation logic (e.g., min length 8)
-    return password.length >= 8;
+    return password.length >= 4;
   };
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [isEmailValid, setIsEmailValid] = useState(false);
-  const [isPasswordValid, setIsPasswordValid] = useState(false);
-  const [isFormValid, setIsFormValid] = useState(false);
-
+  
   useEffect(() => {
     setIsEmailValid(validateEmail(email));
   }, [email]);
@@ -39,6 +47,53 @@ function LoginLeftSide() {
     setPassword(e.target.value);
   };
 
+  
+  interface ResponseData {
+    user: {
+      id: number,
+      username: string,
+    },
+    token: {
+      access: string,
+      refresh: string
+    }
+  }
+
+
+  const [error, setError] = useState('');
+
+  const navigate = useNavigate()
+
+  const API_URL =  'http://127.0.0.1:8000' || 'http://localhost:8000'
+
+
+  const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      const res = await axios.post<ResponseData>(`${API_URL}/user/dashboard/api/login/`, {'email': email, 'password': password});
+
+
+      if (res.status === 200){
+        localStorage.setItem('username', res.data.user.username)
+        localStorage.setItem('accessToken', res.data.token.access)
+        localStorage.setItem('refreshToken', res.data.token.refresh)
+
+        navigate('/dashboard')
+        window.location.reload()
+
+      }  
+      
+
+    } catch (error:any) {
+      console.log(error)
+      if (error.response.status === 400){
+        setError(error.response.data.detail)
+      }
+    }
+  };
+
+
+
   return (
     <div className="flex flex-col md:gap-[70px] gap-[150px] px-3 mt-[35px] md:mt-[80px] md:px-[5%] lg:px-[15%] xl:px-[20%]">
       <div>
@@ -48,7 +103,8 @@ function LoginLeftSide() {
       <div className="flex flex-col justify-center mb-[150px] md:justify-start w-[100%] px-3 gap-10">
         <h3 className="text-[32px] font-nunito-h3 text-center md:text-start">Login to your account</h3>
         <div className="flex flex-col gap-10">
-          <form className="flex flex-col gap-6">
+          <p className="text-red-500 text-center">{error}</p>
+          <form className="flex flex-col gap-6" onSubmit={handleLogin}>
             <input
               type="email"
               name="email"
@@ -84,6 +140,7 @@ function LoginLeftSide() {
                   : "bg-[#86D7B0] cursor-not-allowed"
               }`}
               disabled={!isFormValid}
+              type="submit"
             >
               Sign in with email
             </button>

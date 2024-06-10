@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   NXIconNotificationActive,
   NXMenu,
@@ -20,6 +20,20 @@ function Header({
   const toggleSideBar = () => {
     setSidebarOpen((prev) => !prev);
   };
+
+  const username = localStorage.getItem("username")
+
+  const navigate = useNavigate()
+
+  const handleLogout = (e:any) => {
+    e.preventDefault()
+    localStorage.removeItem("username")
+    localStorage.removeItem("accessToken")
+    localStorage.removeItem("refreshToken")
+    
+    navigate("/dashboard/login/")
+  }
+
   return (
     <header className="w-full overflow-hidden sticky top-0 z-0 md:z-10">
       {/* Desktop Nav */}
@@ -68,11 +82,12 @@ function Header({
             <div className="md:h-[35px] lg:h-[48px] aspect-square rounded-full bg-secondary-500"></div>
             <div className="flex flex-col justify-center">
               <h3 className="font-nunito font-[900] md:text-sm lg:text-xl">
-                Mac Gibson
+                {username}
               </h3>
               <span className="font-lato font-[400] md:text-sm text-base-400 hidden md:block">
                 Marketing Head
               </span>
+              <span onClick={handleLogout}>Logout</span>
             </div>
           </div>
         </div>

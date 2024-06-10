@@ -1,9 +1,6 @@
 import React, { useState } from "react";
 import {
-  NXAlertCircle,
-  NXCheck,
-  NXDoubleSelect,
-  NXDownArrow,
+  NXAlertCircle
 } from "../../icons";
 import "./select-hide.css";
 

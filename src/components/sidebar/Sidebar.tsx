@@ -1,5 +1,5 @@
 import logo from "../../assets/nxtbn_black.png";
-import { NXCross, NXRightArrow } from "../../icons";
+import { NXCross } from "../../icons";
 import FixedMenu from "./FixedMenu";
 import MenuItems from "./MenuItems";
 

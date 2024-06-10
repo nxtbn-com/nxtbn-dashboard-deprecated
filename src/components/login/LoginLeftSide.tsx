@@ -1,8 +1,13 @@
 import nxtbnlogo from "../../assets/nxtbn_black.png";
 import { useEffect, useState } from "react";
 
+import useApi from "../../api";
+
 function LoginLeftSide() {
-  // password and email validation
+  
+  const api = useApi();
+
+
   const validateEmail = (email: string): boolean => {
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return re.test(email);

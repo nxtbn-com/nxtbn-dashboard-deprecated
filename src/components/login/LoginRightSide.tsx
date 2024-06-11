@@ -7,19 +7,19 @@ import product from "../../assets/Product 1.png";
 const LoginRightSide = () => {
   const slides = [
     {
-      title: "Single-Click Payment Gateway Installation – No Jokes!",
+      title: "Single-Click Payment Gateway Installation – seriously!",
       description:
         "Instantly install thousand+ major payment gateways such as Stripe, 2Checkout, Square, PayPal, and Adyen, along with thousand others, with our single-click solution. Simplify your checkout process for smoother transactions, or customize your own payment gateway to fit your needs.",
     },
     {
-      title: "Easy Integration with Major Payment Gateways",
+      title: "Extendable with Pluggable Architecture",
       description:
-        "Our platform supports seamless integration with top payment gateways, ensuring a smooth and hassle-free experience for your customers.",
+        "Nxtbn supports a pluggable architecture, allowing you to seamlessly extend and customize functionality with ease. Integrate new modules and services effortlessly to meet your evolving business needs.",
     },
     {
-      title: "Customize Your Payment Solutions",
+      title: "Multi-Currency Support for Global Transactions",
       description:
-        "Tailor your payment gateways to suit your specific needs with our customizable options, providing flexibility and control over your transactions.",
+        "Expand your business globally with our multi-currency support. Accept payments in various currencies, provide localized pricing, and simplify the checkout experience for international customers.",
     },
   ];
 

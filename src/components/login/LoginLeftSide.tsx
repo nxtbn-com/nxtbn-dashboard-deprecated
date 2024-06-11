@@ -105,6 +105,9 @@ function LoginLeftSide() {
               Sign in with email
             </button>
           </form>
+          <p className="text-red-500">
+            Stop right there! Admin credentials needed to proceed. Don't have them? Your friendly web admin can assist. Developers, you know the routine!
+          </p>
         </div>
       </div>
     </div>

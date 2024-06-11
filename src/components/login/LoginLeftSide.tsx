@@ -39,7 +39,7 @@ function LoginLeftSide() {
     }));
   };
 
-  const isFormValid = formData.email.includes('@') && formData.password.length >= 8;
+  const isFormValid = formData.email.includes('@') && formData.password.length >= 1;
 
   const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -79,19 +79,8 @@ function LoginLeftSide() {
               placeholder="Password"
               className="w-full bg-secondary-50 outline-none border-none px-5 py-2 rounded-md"
               required
-              minLength={8}
+              minLength={1}
             />
-
-            <div className="flex justify-between items-center">
-              <div className="flex items-center gap-3">
-                <input
-                  className="form-checkbox rounded-full bg-base-100 checked:bg-red-600"
-                  type="checkbox"
-                  id="remember-me"
-                />
-                <label htmlFor="remember-me">Remember Me</label>
-              </div>
-            </div>
 
             <button
               className={`flex justify-center items-center gap-3 px-7 py-3 rounded-xl text-white font-nunito-button ${
@@ -102,7 +91,7 @@ function LoginLeftSide() {
               disabled={!isFormValid}
               type="submit"
             >
-              Sign in with email
+              Login
             </button>
           </form>
           <p className="text-red-500">

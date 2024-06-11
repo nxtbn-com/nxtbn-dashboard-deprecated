@@ -1,6 +1,8 @@
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import { AddNewProduct, Customers, Dashboard, OrderDetails, Orders, Products, Login } from "./pages";
 import RootLayout from "./layouts/RootLayout";
+import PrivateRoute from './PrivateRoute';
+
 function App() {
   return (
     <BrowserRouter>
@@ -17,13 +19,15 @@ function App() {
               Dashboard routes that require RootLayout.
               These routes are nested under /dashboard to avoid conflicts with Django and to ensure a consistent layout.
             */}
-            <Route path="/dashboard" element={<RootLayout />}>
-                <Route index element={<Dashboard />} />
-                <Route path="orders" element={<Orders />} />
-                <Route path="orders/:id" element={<OrderDetails />} />
-                <Route path="products" element={<Products />} />
-                <Route path="products/add-new-product" element={<AddNewProduct />} />
-                <Route path="customers" element={<Customers />} />
+            <Route path="dashboard/*" element={<PrivateRoute />}>
+              <Route element={<RootLayout />}>
+                  <Route index element={<Dashboard />} />
+                  <Route path="orders" element={<Orders />} />
+                  <Route path="orders/:id" element={<OrderDetails />} />
+                  <Route path="products" element={<Products />} />
+                  <Route path="products/add-new-product" element={<AddNewProduct />} />
+                  <Route path="customers" element={<Customers />} />
+              </Route>
             </Route>
 
             {/* 

@@ -24,9 +24,12 @@ const useInterceptors = () => {
     instance.interceptors.request.use(
         config => {
             const accessToken = Cookies.get('accessToken');
-            if(accessToken){
-                config.headers['Authorization'] =  "Bearer "+ accessToken;
+            if (accessToken && !config.headers['skip-authorization']) {
+                config.headers['Authorization'] = "Bearer " + accessToken;
+            } else {
+                delete config.headers['Authorization'];
             }
+            delete config.headers['skip-authorization'];
             return config
         },
         error => {

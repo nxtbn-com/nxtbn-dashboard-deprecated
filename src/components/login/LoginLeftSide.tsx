@@ -1,8 +1,27 @@
-import nxtbnlogo from "../../assets/nxtbn_black.png";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+
+import nxtbnlogo from "../../assets/nxtbn_black.png";
 import useApi from "../../api";
+import { login } from "../../redux/authSlice";
+import { AxiosResponse } from "axios";
+
+interface LoginResponse {
+  user: {
+    id: number;
+    username: string;
+    first_name: string;
+    last_name: string;
+  };
+  token: {
+    access: string;
+    refresh: string;
+  };
+}
+
 
 function LoginLeftSide() {
+  const dispatch = useDispatch();
   const api = useApi();
 
   const [formData, setFormData] = useState({
@@ -20,14 +39,15 @@ function LoginLeftSide() {
 
   const isFormValid = formData.email.includes('@') && formData.password.length >= 8;
 
-  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    api.adminLogin(formData).then((response) => {
-      console.log(response);
+    api.adminLogin(formData).then((response: AxiosResponse<LoginResponse>) => {
+      const loginResponse = response as unknown as LoginResponse; // Cast response to LoginResponse
+      dispatch(login(loginResponse.token.access));
     }).catch((error) => {
       console.error(error);
-    })
-  }
+    });
+  };
 
   return (
     <div className="flex flex-col md:gap-[70px] gap-[150px] px-3 mt-[35px] md:mt-[80px] md:px-[5%] lg:px-[15%] xl:px-[20%]">

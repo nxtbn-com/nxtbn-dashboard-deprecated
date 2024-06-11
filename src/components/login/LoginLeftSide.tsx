@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import { useNavigate } from 'react-router-dom';
 
 import nxtbnlogo from "../../assets/nxtbn_black.png";
 import useApi from "../../api";
@@ -23,6 +24,7 @@ interface LoginResponse {
 function LoginLeftSide() {
   const dispatch = useDispatch();
   const api = useApi();
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     email: "",
@@ -44,6 +46,7 @@ function LoginLeftSide() {
     api.adminLogin(formData).then((response: AxiosResponse<LoginResponse>) => {
       const loginResponse = response as unknown as LoginResponse; // Cast response to LoginResponse
       dispatch(login(loginResponse.token.access));
+      navigate('/dashboard');
     }).catch((error) => {
       console.error(error);
     });

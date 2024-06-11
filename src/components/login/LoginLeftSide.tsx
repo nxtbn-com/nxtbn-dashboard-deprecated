@@ -20,6 +20,15 @@ function LoginLeftSide() {
 
   const isFormValid = formData.email.includes('@') && formData.password.length >= 8;
 
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    api.adminLogin(formData).then((response) => {
+      console.log(response);
+    }).catch((error) => {
+      console.error(error);
+    })
+  }
+
   return (
     <div className="flex flex-col md:gap-[70px] gap-[150px] px-3 mt-[35px] md:mt-[80px] md:px-[5%] lg:px-[15%] xl:px-[20%]">
       <div>
@@ -29,7 +38,7 @@ function LoginLeftSide() {
       <div className="flex flex-col justify-center mb-[150px] md:justify-start w-[100%] px-3 gap-10">
         <h3 className="text-[32px] font-nunito-h3 text-center md:text-start">Login to your account</h3>
         <div className="flex flex-col gap-10">
-          <form className="flex flex-col gap-6" noValidate>
+          <form className="flex flex-col gap-6" onSubmit={handleLogin}>
             <input
               type="email"
               name="email"
@@ -68,6 +77,7 @@ function LoginLeftSide() {
                   : "bg-[#86D7B0] cursor-not-allowed"
               }`}
               disabled={!isFormValid}
+              type="submit"
             >
               Sign in with email
             </button>

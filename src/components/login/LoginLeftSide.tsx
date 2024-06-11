@@ -1,74 +1,53 @@
 import nxtbnlogo from "../../assets/nxtbn_black.png";
-import { useEffect, useState } from "react";
-
+import { useState } from "react";
 import useApi from "../../api";
 
 function LoginLeftSide() {
-  
   const api = useApi();
 
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
 
-  const validateEmail = (email: string): boolean => {
-    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return re.test(email);
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
-  const validatePassword = (password: string): boolean => {
-    // Password validation logic (e.g., min length 8)
-    return password.length >= 8;
-  };
-
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [isEmailValid, setIsEmailValid] = useState(false);
-  const [isPasswordValid, setIsPasswordValid] = useState(false);
-  const [isFormValid, setIsFormValid] = useState(false);
-
-  useEffect(() => {
-    setIsEmailValid(validateEmail(email));
-  }, [email]);
-
-  useEffect(() => {
-    setIsPasswordValid(validatePassword(password));
-  }, [password]);
-
-  useEffect(() => {
-    setIsFormValid(isEmailValid && isPasswordValid);
-  }, [isEmailValid, isPasswordValid]);
-
-  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
-  };
-
-  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value);
-  };
+  const isFormValid = formData.email.includes('@') && formData.password.length >= 8;
 
   return (
     <div className="flex flex-col md:gap-[70px] gap-[150px] px-3 mt-[35px] md:mt-[80px] md:px-[5%] lg:px-[15%] xl:px-[20%]">
       <div>
-        <img src={nxtbnlogo} alt="" className="w-[100px] md:w-[252px]" />
+        <img src={nxtbnlogo} alt="NXTBN Logo" className="w-[100px] md:w-[252px]" />
       </div>
 
       <div className="flex flex-col justify-center mb-[150px] md:justify-start w-[100%] px-3 gap-10">
         <h3 className="text-[32px] font-nunito-h3 text-center md:text-start">Login to your account</h3>
         <div className="flex flex-col gap-10">
-          <form className="flex flex-col gap-6">
+          <form className="flex flex-col gap-6" noValidate>
             <input
               type="email"
               name="email"
-              value={email}
-              onChange={handleEmailChange}
+              value={formData.email}
+              onChange={handleChange}
               placeholder="Email"
               className="w-full bg-secondary-50 outline-none border-none px-5 py-2 rounded-md"
+              required
             />
             <input
               type="password"
               name="password"
-              value={password}
-              onChange={handlePasswordChange}
+              value={formData.password}
+              onChange={handleChange}
               placeholder="Password"
               className="w-full bg-secondary-50 outline-none border-none px-5 py-2 rounded-md"
+              required
+              minLength={8}
             />
 
             <div className="flex justify-between items-center">

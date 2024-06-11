@@ -19,7 +19,7 @@ const LoginRightSide = () => {
     {
       title: "Multi-Currency Support for Global Transactions",
       description:
-        "Expand your business globally with our multi-currency support. Accept payments in various currencies, provide localized pricing, and simplify the checkout experience for international customers.",
+        "Expand your business globally with nxtbn's multi-currency support. Accept payments in various currencies, provide localized pricing, and simplify the checkout experience for international customers.",
     },
   ];
 

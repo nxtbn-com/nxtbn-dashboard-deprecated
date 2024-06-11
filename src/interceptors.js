@@ -1,6 +1,8 @@
 
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 
 
@@ -8,6 +10,8 @@ export const NXTBN_API_URL = process.env.NXTBN_API_URL || "http://127.0.0.1:8000
 
 
 const useInterceptors = () => {
+    const navigate = useNavigate();
+
     const instance = axios.create({
         baseURL:NXTBN_API_URL,
         timeout: 10000,
@@ -47,13 +51,21 @@ const useInterceptors = () => {
                 return Promise.reject(normalizedError)
             }
             else if(error.response.status === 403) {
+                const errorMessage = error.response.data?.detail;
+                const errorCode = error.response.data?.code;
+
+                toast.error(errorMessage, {position: "bottom-left",});
+                if (errorCode === 'token_invalid_or_expired') {
+                    Cookies.remove('accessToken');
+                    navigate('/dashboard/login');
+                }
 
             }
             else if(error.response.status === 404) {
         
             }
             else if(error.response.status === 400) {
-        
+               
             }
             else if(error.response.status === 409) {
         

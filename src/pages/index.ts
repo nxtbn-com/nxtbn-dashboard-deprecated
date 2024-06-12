@@ -5,6 +5,7 @@ import OrderDetails from "./OrderDetails";
 import Customers from "./Customers";
 import Products from "./Products";
 import AddNewProduct from "./AddNewProduct";
+import UserManagement from "./UserManagement";
 
 export {
   Dashboard,
@@ -14,4 +15,5 @@ export {
   Customers,
   Products,
   AddNewProduct,
+  UserManagement
 };

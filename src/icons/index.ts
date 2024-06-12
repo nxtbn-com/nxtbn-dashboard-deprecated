@@ -45,6 +45,7 @@ import NXCheck from "./NXCheck";
 import NXDoubleSelect from "./NXDoubleSelect";
 import NXMenu from "./NXMenu";
 import NXCross from "./NXCross";
+import NXDelete from "./NXDelete";
 
 export {
   NXIconNotificationActive,
@@ -94,4 +95,5 @@ export {
   NXDoubleSelect,
   NXMenu,
   NXCross,
+  NXDelete
 };

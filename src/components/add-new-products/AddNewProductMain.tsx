@@ -1,15 +1,14 @@
-import React, { useState } from "react";
-import {
-  NXAlertCircle,
-  NXCheck,
-  NXDoubleSelect,
-  NXDownArrow,
-} from "../../icons";
+import React, { ChangeEvent, useEffect, useState } from "react";
+import { NXAlertCircle, NXLeftArrow, NXRightArrow } from "../../icons";
 import "./select-hide.css";
-
 import SelectStyled from "../Select";
+import CategoryItem from "./category/CategoryItem";
+import { Category } from "./category/types";
+import useApi from "../../api";
+
 
 function AddNewProductMain() {
+  const { getCategories } = useApi();
   const [text, setText] = useState<string>("");
 
   const handleTextChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -42,19 +41,70 @@ function AddNewProductMain() {
     }),
   };
 
-  const categoryOption = [
-    { value: "Accessories", label: "Accessories" },
-    {
-      value: "fashion",
-      label: "Fashion",
-      subcategories: [
-        { value: "men_dress", label: "Men Dress Collection" },
-        { value: "women_dress", label: "Women Dress Collection" },
-      ],
-    },
-    { value: "electronics", label: "Electronics" },
-    { value: "books", label: "Books" },
-  ];
+  const [categories, setCategories] = useState<Category[]>([]);
+
+  useEffect(() => {
+    categoryList();
+  }, []);
+
+  const categoryList = async () => {
+    try {
+      const response: any = await getCategories();
+      setCategories(response);
+      setCurrentCategories(response)
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const [openCategory, setOpenCategory] = useState(false);
+
+  const toggleCategory = () => {
+    setOpenCategory(!openCategory);
+  };
+
+  const [categoryName, setCategoryName] = useState<any>();
+
+  const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
+    setCategoryName(event.target.value);
+    
+  };
+
+  const [currentCategories, setCurrentCategories] = useState<Category[]>(categories);
+  const [currentCategory, setCurrentCategory] = useState<Category | null>(null);
+
+  const handleCategoryClick = (category: Category) => {
+    if (category.subcategories.length > 0) {
+      setCurrentCategories(category.subcategories);
+      setCurrentCategory(category);
+    }
+  };
+
+  const handleBackClick = () => {
+    if (currentCategory) {
+      const parentCategory = findParentCategory(categories, currentCategory.id);
+      if (parentCategory) {
+        setCurrentCategories(parentCategory.subcategories);
+        setCurrentCategory(parentCategory);
+      } else {
+        setCurrentCategories(categories);
+        setCurrentCategory(null);
+      }
+    }
+  };
+
+  const findParentCategory = (categories: Category[], id: number): Category | null => {
+    for (const category of categories) {
+      if (category.subcategories.some((sub) => sub.id === id)) {
+        return category;
+      }
+      const parent = findParentCategory(category.subcategories, id);
+      if (parent) {
+        return parent;
+      }
+    }
+    return null;
+  };
 
   return (
     <section className="px-10 py-5">
@@ -296,13 +346,39 @@ function AddNewProductMain() {
               <NXAlertCircle className="text-base-300" />
             </div>
 
-            <div className="w-full relative mt-10">
+            <div className="w-full mt-10">
               <label htmlFor="category">Category</label>
-              <div className="mt-3">
-                <SelectStyled
-                  options={categoryOption}
-                  customStyles={customStyle}
+              <div className="relative mt-3 ">
+                <input
+                  onClick={toggleCategory}
+                  value={categoryName}
+                  className="w-full mb-2 h-[50px] px-5 py-3 focus:outline-[#0CAF60] active:outline-[#0CAF60] bg-secondary-50 mt-3 rounded-md font-nunito placeholder:text-black"
+                  onChange={handleChange}
                 />
+                <div
+                  className={`absolute bg-white w-full z-50 p-5 shadow-xl border-t-2 border-l-2 border-r-2 rounded-md ${
+                    openCategory ? "block" : "hidden"
+                  }`}
+                >
+                  {currentCategory && (
+                    <div
+                      className="mb-4 p-2 bg-[#EFEFEF] rounded cursor-pointer flex items-center"
+                      onClick={handleBackClick}
+                    >
+                      <span className="mr-2"><NXLeftArrow className="h-[22px]"/></span> {currentCategory.name}
+                    </div>
+                  )}
+                  <ul className="list-none pl-0 overflow-y-auto h-[300px]">
+                    {currentCategories.map((category) => (
+                      <CategoryItem
+                        key={category.id}
+                        category={category}
+                        onClick={handleCategoryClick}
+                        setCategoryName={setCategoryName}
+                      />
+                    ))}
+                  </ul>
+                </div>
               </div>
             </div>
             <div className="my-5">

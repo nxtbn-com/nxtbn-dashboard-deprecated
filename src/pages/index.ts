@@ -6,6 +6,7 @@ import Customers from "./Customers";
 import Products from "./Products";
 import AddNewProduct from "./AddNewProduct";
 import UserManagement from "./UserManagement";
+import Plugin from "./Plugin";
 
 export {
   Dashboard,
@@ -15,5 +16,6 @@ export {
   Customers,
   Products,
   AddNewProduct,
-  UserManagement
+  UserManagement,
+  Plugin
 };

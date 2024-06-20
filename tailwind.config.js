@@ -14,6 +14,7 @@ module.exports = {
       fontFamily: {
         'nunito': ['Nunito', 'sans-serif'],
         'lato': ['Lato', 'sans-serif'],
+        'poppins': ['Poppins', 'sans-serif'],
       },
       fontWeight: {
         'nunito-h1': 900,

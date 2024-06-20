@@ -46,6 +46,13 @@ import NXDoubleSelect from "./NXDoubleSelect";
 import NXMenu from "./NXMenu";
 import NXCross from "./NXCross";
 import NXDelete from "./NXDelete";
+import NXAirbnb from "./NXAirbnb";
+import NXQiWi from "./NXQiWi";
+import NXGPay from "./NXGPay";
+import NXStripe from "./NXStripe";
+import NXPaypal from "./NXPaypal";
+import NXSkrill from "./NXSkrill";
+
 
 export {
   NXIconNotificationActive,
@@ -95,5 +102,11 @@ export {
   NXDoubleSelect,
   NXMenu,
   NXCross,
-  NXDelete
+  NXDelete,
+  NXAirbnb,
+  NXQiWi,
+  NXGPay,
+  NXPaypal,
+  NXStripe,
+  NXSkrill
 };

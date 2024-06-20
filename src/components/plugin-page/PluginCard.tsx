@@ -1,11 +1,5 @@
-import {
-  NXAirbnb,
-  NXGPay,
-  NXPaypal,
-  NXQiWi,
-  NXSkrill,
-  NXStripe,
-} from "../../icons";
+import { NXPlugin } from "../../icons";
+
 
 const pluginData = [
   {
@@ -49,7 +43,7 @@ function PluginCard() {
         <div className="border border-[#EDF2F7] rounded-md">
           <div className="flex flex-col justify-center items-center gap-4 text-center p-8">
             <div className="bg-[#fff5e2] h-12 w-12 rounded-lg flex justify-center items-center">
-              <NXAirbnb className="h-6" />
+             <NXPlugin/>
             </div>
 
             <div className="font-poppins text-[14px]">{plugin.pluginName}</div>
@@ -62,13 +56,7 @@ function PluginCard() {
                 Install
               </button>
             </div>
-            {/* <div className="">
-            <NXQiWi />
-            <NXGPay />
-            <NXStripe />
-            <NXPaypal />
-            <NXSkrill />
-          </div> */}
+        
           </div>
         </div>
       ))}

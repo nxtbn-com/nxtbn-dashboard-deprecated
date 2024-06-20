@@ -2,41 +2,6 @@ import axios from "axios";
 import { NXPlugin } from "../../icons";
 import { useEffect, useState } from "react";
 
-const pluginData = [
-  {
-    pluginName: "PlugIn Name",
-    description: "Which description in this section",
-  },
-  {
-    pluginName: "PlugIn Name",
-    description: "Which description in this section",
-  },
-  {
-    pluginName: "PlugIn Name",
-    description: "Which description in this section",
-  },
-  {
-    pluginName: "PlugIn Name",
-    description: "Which description in this section",
-  },
-  {
-    pluginName: "PlugIn Name",
-    description: "Which description in this section",
-  },
-  {
-    pluginName: "PlugIn Name",
-    description: "Which description in this section",
-  },
-  {
-    pluginName: "PlugIn Name",
-    description: "Which description in this section",
-  },
-  {
-    pluginName: "PlugIn Name",
-    description: "Which description in this section",
-  },
-];
-
 
 
 function PluginCard() {
@@ -65,7 +30,7 @@ function PluginCard() {
         <div className="border border-[#EDF2F7] rounded-md">
           <div className="flex flex-col justify-center items-center gap-4 text-center p-8">
             <div className="bg-[#fff5e2] h-12 w-12 rounded-lg flex justify-center items-center">
-              {plugin?.logo?.length > 0 ? <img src={`${plugin.logo}`} alt=""/> : <NXPlugin/>}
+              {plugin?.logo ? <img src={`${plugin.logo}`} alt=""/> : <NXPlugin/>}
             </div>
 
             <div className="font-poppins text-[14px]">{plugin.title}</div>

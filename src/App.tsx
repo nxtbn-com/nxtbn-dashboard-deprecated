@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
-import { AddNewProduct, Customers, Dashboard, OrderDetails, Orders, Products, Login, UserManagement } from "./pages";
+import { AddNewProduct, Customers, Dashboard, OrderDetails, Orders, Products, Login, UserManagement, Plugin } from "./pages";
 import RootLayout from "./layouts/RootLayout";
 import PrivateRoute from './PrivateRoute';
 
@@ -29,6 +29,7 @@ function App() {
                   <Route path="products/add-new-product" element={<AddNewProduct />} />
                   <Route path="user-management" element={<UserManagement/>}/>
                   <Route path="customers" element={<Customers />} />
+                  <Route path="plugin" element={<Plugin/>} />
               </Route>
             </Route>
 

@@ -2,7 +2,12 @@ import PluginMain from "../components/plugin/PluginMain"
 
 
 function Plugin(){
-    return <PluginMain/>
+    return (
+        <>
+            <PluginMain/>
+            
+        </>
+    )
 }
 
 export default Plugin

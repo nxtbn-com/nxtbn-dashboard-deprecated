@@ -1,7 +1,7 @@
 
 import axios from 'axios';
 import Cookies from 'js-cookie';
-
+import { deleteAllCookies } from './utils';
 
 
 export const NXTBN_API_URL = process.env.NXTBN_API_URL || "http://127.0.0.1:8000/"
@@ -47,7 +47,9 @@ const useInterceptors = () => {
                 return Promise.reject(normalizedError)
             }
             else if(error.response.status === 403) {
-
+                if (error.response.data.code === "token_invalid_or_expired") {
+                    deleteAllCookies();
+                }
             }
             else if(error.response.status === 404) {
         

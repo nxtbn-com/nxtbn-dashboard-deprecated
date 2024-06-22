@@ -45,7 +45,7 @@ function LoginLeftSide() {
     e.preventDefault();
     api.adminLogin(formData).then((response: AxiosResponse<LoginResponse>) => {
       const loginResponse = response as unknown as LoginResponse; // Cast response to LoginResponse
-      dispatch(login(loginResponse.token.access));
+      dispatch(login(loginResponse));
       navigate('/dashboard');
     }).catch((error) => {
       console.error(error);

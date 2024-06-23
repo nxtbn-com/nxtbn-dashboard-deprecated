@@ -28,11 +28,6 @@ const useMenuItems = () => {
       count: 12
     },
     {
-      name: "User Management",
-      url: "/dashboard/user-management",
-      icon: <NXUser />,
-    },
-    {
       name: "Analytics",
       url: "/dashboard/analytics",
       icon: <NXAnalytics />,
@@ -66,6 +61,11 @@ const useMenuItems = () => {
       name: "Coupon",
       url: "/dashboard/coupon",
       icon: <NXCoupon />,
+    },
+    {
+      name: "Users",
+      url: "/dashboard/user-management",
+      icon: <NXUser />,
     },
   ]);
 

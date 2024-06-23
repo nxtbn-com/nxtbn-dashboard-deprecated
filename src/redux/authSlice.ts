@@ -13,9 +13,9 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    login: (state, action: PayloadAction<string>) => {
-      Cookies.set("accessToken", action.payload);
-      console.log(action.payload)
+    login: (state, action: PayloadAction<any>) => {
+      Cookies.set("accessToken", action.payload.token.access);
+      Cookies.set("refreshToken", action.payload.token.refresh);
       state.isLoggedIn = true;
     },
     logout: (state) => {

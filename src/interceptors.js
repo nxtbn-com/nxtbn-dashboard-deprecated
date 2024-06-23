@@ -1,15 +1,12 @@
-
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { deleteAllCookies } from './utils';
 
-
 export const NXTBN_API_URL = process.env.NXTBN_API_URL || "http://127.0.0.1:8000/"
-
 
 const useInterceptors = () => {
     const instance = axios.create({
-        baseURL:NXTBN_API_URL,
+        baseURL: NXTBN_API_URL,
         timeout: 10000,
     });
 
@@ -19,24 +16,25 @@ const useInterceptors = () => {
 
     instance.interceptors.request.use(
         config => {
-            const accessToken = Cookies.get('accessToken');
-            if(accessToken){
-                config.headers['Authorization'] =  "Bearer "+ accessToken;
+            if (!config.NxtbnPublicAPI) {
+                const accessToken = Cookies.get('accessToken');
+                if (accessToken) {
+                    config.headers['Authorization'] = "Bearer " + accessToken;
+                }
             }
-            return config
+            return config;
         },
         error => {
-            Promise.reject(error)
+            return Promise.reject(error);
         }
-    )
-
+    );
 
     instance.interceptors.response.use(
         response => {
-            return response.data
+            return response.data;
         },
         error => {
-            if(error.response.status === 500) {
+            if (error.response.status === 500) {
                 var normalizedError = { 
                     response: {
                         data: {
@@ -44,32 +42,23 @@ const useInterceptors = () => {
                         }
                     }
                 }
-                return Promise.reject(normalizedError)
+                return Promise.reject(normalizedError);
+            } else if (error.response.status === 403) {
+                // Handle 403 error
+            } else if (error.response.status === 404) {
+                // Handle 404 error
+            } else if (error.response.status === 400) {
+                // Handle 400 error
+            } else if (error.response.status === 409) {
+                // Handle 409 error
+            } else if (error.response.status === 401) {
+                // Handle 401 error
             }
-            else if(error.response.status === 403) {
-                if (error.response.data.code === "token_invalid_or_expired") {
-                    deleteAllCookies();
-                }
-            }
-            else if(error.response.status === 404) {
-        
-            }
-            else if(error.response.status === 400) {
-        
-            }
-            else if(error.response.status === 409) {
-        
-            }
-            else if(error.response.status === 401){
-                // localStorage.clear()
-                // deleteAllCookies();  
-            }
-            return Promise.reject(error)
-            }
+            return Promise.reject(error);
+        }
     );
 
-    return (instance);
-
+    return instance;
 }
 
-export default  useInterceptors;
+export default useInterceptors;

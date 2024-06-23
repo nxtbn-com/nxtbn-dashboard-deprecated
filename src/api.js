@@ -1,15 +1,17 @@
 import useInterceptors from './interceptors';
+import axios from 'axios';
 
 const useApi = () => {
-    const axios = useInterceptors();
+    const interceptor = useInterceptors();
    
     const api = {
-        adminLogin: (data, params={}) => axios.post(`user/dashboard/api/login/`, data, {params : params}),
-        adminLogout: (data, params={}) => axios.post(`user/dashboard/api/logout/`, data, {params : params}),
-        getCategories: (params = {}) => axios.get(`/product/dashboard/api/categories/`, {params: params}),
+        adminLogin: (data, params = {}) => interceptor.post(`/user/dashboard/api/login/`, data, { params: params, NxtbnPublicAPI: true }),
+        refreshToken: (data, params = {}) => interceptor.post(`/user/dashboard/api/token/refresh/`, data, { params: params, NxtbnPublicAPI: true }),
+        adminLogout: (data, params = {}) => interceptor.post(`/user/dashboard/api/logout/`, data, { params: params }),
+        getCategories: (params = {}) => interceptor.get(`/product/dashboard/api/categories/`, { params: params }),
     };
 
     return api;
 }
 
-export default  useApi;
+export default useApi;

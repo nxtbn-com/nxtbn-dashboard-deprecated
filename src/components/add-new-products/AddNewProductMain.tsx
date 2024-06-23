@@ -3,18 +3,11 @@ import { NXAlertCircle, NXLeftArrow, NXRightArrow } from "../../icons";
 import "./select-hide.css";
 import SelectStyled from "../Select";
 import NestedSelect from "../nestedSelect";
-import CategoryItem from "./category/CategoryItem";
-import { Category } from "./category/types";
 import useApi from "../../api";
 
 
 function AddNewProductMain() {
-  const { getCategories } = useApi();
-  const [text, setText] = useState<string>("");
-
-  const handleTextChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setText(event.target.value);
-  };
+  const api = useApi();
 
   let [isChecked, setIsChecked] = useState<boolean>(false);
 
@@ -42,70 +35,9 @@ function AddNewProductMain() {
     }),
   };
 
-  const [categories, setCategories] = useState<Category[]>([]);
 
-  useEffect(() => {
-    categoryList();
-  }, []);
 
-  const categoryList = async () => {
-    try {
-      const response: any = await getCategories();
-      setCategories(response);
-      setCurrentCategories(response)
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
-  const [openCategory, setOpenCategory] = useState(false);
-
-  const toggleCategory = () => {
-    setOpenCategory(!openCategory);
-  };
-
-  const [categoryName, setCategoryName] = useState<any>();
-
-  const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    setCategoryName(event.target.value);
-    
-  };
-
-  const [currentCategories, setCurrentCategories] = useState<Category[]>(categories);
-  const [currentCategory, setCurrentCategory] = useState<Category | null>(null);
-
-  const handleCategoryClick = (category: Category) => {
-    if (category.subcategories.length > 0) {
-      setCurrentCategories(category.subcategories);
-      setCurrentCategory(category);
-    }
-  };
-
-  const handleBackClick = () => {
-    if (currentCategory) {
-      const parentCategory = findParentCategory(categories, currentCategory.id);
-      if (parentCategory) {
-        setCurrentCategories(parentCategory.subcategories);
-        setCurrentCategory(parentCategory);
-      } else {
-        setCurrentCategories(categories);
-        setCurrentCategory(null);
-      }
-    }
-  };
-
-  const findParentCategory = (categories: Category[], id: number): Category | null => {
-    for (const category of categories) {
-      if (category.subcategories.some((sub) => sub.id === id)) {
-        return category;
-      }
-      const parent = findParentCategory(category.subcategories, id);
-      if (parent) {
-        return parent;
-      }
-    }
-    return null;
-  };
 
   return (
     <section className="px-10 py-5">
@@ -144,7 +76,7 @@ function AddNewProductMain() {
               <div className="flex justify-between">
                 <label htmlFor="product_description">Description</label>
                 <span className="text-base-300 text-sm">
-                  {text.length}/2000
+                  1/2000
                 </span>
               </div>
               <textarea
@@ -152,7 +84,6 @@ function AddNewProductMain() {
                 name=""
                 id="product_description"
                 className="w-full px-5 py-3 h-[224px] bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60]"
-                onChange={handleTextChange}
               ></textarea>
             </div>
           </div>
@@ -263,10 +194,6 @@ function AddNewProductMain() {
 
                     <div className="absolute top-[13px] right-12 w-[90px] md:w-[120px]">
                       <SelectStyled
-                        options={[
-                          { value: "kg", label: "Kg" },
-                          { value: "pound", label: "Pound" },
-                        ]}
                         customStyles={customStyle}
                       />
                     </div>
@@ -349,38 +276,7 @@ function AddNewProductMain() {
 
             <div className="w-full mt-10">
               <label htmlFor="category">Category</label>
-              <div className="relative mt-3 ">
-                <input
-                  onClick={toggleCategory}
-                  value={categoryName}
-                  className="w-full mb-2 h-[50px] px-5 py-3 focus:outline-[#0CAF60] active:outline-[#0CAF60] bg-secondary-50 mt-3 rounded-md font-nunito placeholder:text-black"
-                  onChange={handleChange}
-                />
-                <div
-                  className={`absolute bg-white w-full z-50 p-5 shadow-xl border-t-2 border-l-2 border-r-2 rounded-md ${
-                    openCategory ? "block" : "hidden"
-                  }`}
-                >
-                  {currentCategory && (
-                    <div
-                      className="mb-4 p-2 bg-[#EFEFEF] rounded cursor-pointer flex items-center"
-                      onClick={handleBackClick}
-                    >
-                      <span className="mr-2"><NXLeftArrow className="h-[22px]"/></span> {currentCategory.name}
-                    </div>
-                  )}
-                  <ul className="list-none pl-0 overflow-y-auto h-[300px]">
-                    {currentCategories.map((category) => (
-                      <CategoryItem
-                        key={category.id}
-                        category={category}
-                        onClick={handleCategoryClick}
-                        setCategoryName={setCategoryName}
-                      />
-                    ))}
-                  </ul>
-                </div>
-              </div>
+              <NestedSelect />
             </div>
             <div className="my-5">
               <label htmlFor="product_type">Product type</label>
@@ -404,7 +300,6 @@ function AddNewProductMain() {
                 <SelectStyled isMulti={true} customStyles={customStyle} />
               </div>
             </div>
-            <NestedSelect />
           </div>
         </div>
         <div className="flex flex-col-reverse justify-center gap-5 mb-5 md:hidden">

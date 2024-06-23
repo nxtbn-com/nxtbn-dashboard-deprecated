@@ -1,10 +1,45 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import axios from 'axios';
 import { RootState } from './redux/rootReducer';
+import { login } from "./redux/authSlice";
+import { AxiosResponse } from "axios";
+import useApi from "./api";
+
+
 
 const PrivateRoute = () => {
   const isAuthenticated = useSelector((state: RootState) => !!state.auth.isLoggedIn);
+  const dispatch = useDispatch();
+  const api = useApi();
+
+
+  const refreshAccessToken = async () => {
+    const payload = {}
+    api.refreshToken(payload).then((response: AxiosResponse<any>) => {
+      const loginResponse = response as unknown as any; // Cast response to any
+      dispatch(login(loginResponse));
+    }).catch((error) => {
+      console.error(error);
+    });
+
+  };
+ 
+  
+  
+
+  useEffect(() => {
+    refreshAccessToken();
+
+    // Set up interval to refresh the token every 29 minutes
+    const interval = setInterval(() => {
+      refreshAccessToken();
+    }, 29 * 60 * 1000);
+
+    // Clean up the interval on component unmount
+    return () => clearInterval(interval);
+  }, []);
 
   return isAuthenticated ? <Outlet /> : <Navigate to="/dashboard/login" />;
 };

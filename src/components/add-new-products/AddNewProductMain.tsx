@@ -2,6 +2,7 @@ import React, { ChangeEvent, useEffect, useState } from "react";
 import { NXAlertCircle, NXLeftArrow, NXRightArrow } from "../../icons";
 import "./select-hide.css";
 import SelectStyled from "../Select";
+import NestedSelect from "../nestedSelect";
 import CategoryItem from "./category/CategoryItem";
 import { Category } from "./category/types";
 import useApi from "../../api";
@@ -403,6 +404,7 @@ function AddNewProductMain() {
                 <SelectStyled isMulti={true} customStyles={customStyle} />
               </div>
             </div>
+            <NestedSelect />
           </div>
         </div>
         <div className="flex flex-col-reverse justify-center gap-5 mb-5 md:hidden">

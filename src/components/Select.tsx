@@ -28,94 +28,9 @@ const defaultOptions: Option[] = [
   { value: "vanilla", label: "Vanilla" },
 ];
 
-const defaultCustomStyles = {
-  control: (provided: any) => ({
-    ...provided,
-    borderColor: "#ced4da",
-    "&:hover": {
-      borderColor: "#343a40",
-    },
-    boxShadow: "none",
-  }),
-  option: (provided: any, state: any) => ({
-    ...provided,
-    backgroundColor: state.isSelected ? "#28a745" : "white",
-    color: state.isSelected ? "white" : "black",
-  }),
-};
 
-const getCustomStyles = (
-  accentColor: string,
-  bg: string,
-  border: boolean,
-  indicator: boolean,
-  customStyles?: any
-) => {
-  const defaultStyles = {
-    dropdownIndicator: () => ({
-      display: !indicator && "block",
-    }),
-    indicatorSeparator: () => ({}),
-    option: (provided: any, state: any) => ({
-      ...provided,
-      color: state.isSelected ? accentColor : "#343a40",
-      textAlign: "left",
-      fontSize: "16px",
-      backgroundColor: bg,
-    }),
-    control: (provided: any, state: any) => ({
-      ...provided,
-        border: !border
-          ? "none"
-          : state.menuIsOpen || state.isFocused
-          ? `1px solid ${accentColor} !important`
-          : `1px solid #ced4da !important`,
-      borderColor: state.isFocused ? "#0CAF60" : "white",
-
-      "&:hover": {
-        borderColor: state.isFocused ? "#0CAF60" : "white",
-      },
-
-     
-      borderRadius: 10,
-      padding: "0.25rem 0.5rem",
-      width: "100%",
-      maxHeight: "80px",
-      outline: "none",
-      boxShadow: "none",
-      textAlign: "left",
-      backgroundColor: bg,
-      fontSize: "16px",
-      whiteSpace: "nowrap",
-      overflow: "initial",
-      flexWrap: "nowrap",
-      background: 'red',
-    }),
-    menuList: (base: any) => ({
-      ...base,
-      maxHeight: "200px",
-      zIndex: 9999,
-    }),
-    placeholder: (defaultStyles: any) => ({
-      ...defaultStyles,
-      color: "#6b6e6f",
-      opacity: 0.7,
-    }),
-  };
-
-  return {
-    ...defaultStyles,
-    ...defaultCustomStyles,
-    ...customStyles,
-  };
-};
 
 const SelectStyled: React.FC<SelectStyledProps> = ({
-  bg = "#fff",
-  border = true,
-  accentColor = "#28a745",
-  name = "item",
-  indicator = true,
   options = defaultOptions,
   defaultValue,
   onChange,
@@ -158,15 +73,7 @@ const SelectStyled: React.FC<SelectStyledProps> = ({
         </small>
       )}
       <Select
-        styles={getCustomStyles(
-          accentColor,
-          bg,
-          border,
-          indicator,
-          customStyles
-        )}
         defaultValue={defaultValue}
-        name={name}
         isOptionDisabled={
           values.length ? () => values.length >= valueMax : undefined
         }

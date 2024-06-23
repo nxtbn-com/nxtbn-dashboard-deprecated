@@ -44,9 +44,7 @@ const useInterceptors = () => {
                 }
                 return Promise.reject(normalizedError);
             } else if (error.response.status === 403) {
-                if (error.response.data.code === "token_invalid_or_expired") {
-                    deleteAllCookies();
-                }
+                // Handle 403 error
             } else if (error.response.status === 404) {
                 // Handle 404 error
             } else if (error.response.status === 400) {

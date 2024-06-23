@@ -2,7 +2,7 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import { deleteAllCookies } from './utils';
 
-export const NXTBN_API_URL = process.env.NXTBN_API_URL || "http://127.0.0.1:8000/"
+export const NXTBN_API_URL = process.env.REACT_APP_NXTBN_API_URL || "http://127.0.0.1:8000/"
 
 const useInterceptors = () => {
     const instance = axios.create({

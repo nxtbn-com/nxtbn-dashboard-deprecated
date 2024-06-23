@@ -8,17 +8,53 @@ interface Option {
   children?: Option[];
 }
 
-const options: Option[] = [
-  { value: 'main1', label: 'Main Item 1', children: [
-    { value: 'sub1-1', label: 'Sub Item 1-1', children: [
-      { value: 'subsub1-1-1', label: 'Sub Sub Item 1-1-1' },
+interface NestedSelectProps {
+  options?: Option[];
+  defaultValue?: Option | Option[];
+  defaultOption?: Option;
+  placeholder?: string;
+  onChange?: (value: any, actionMeta: any) => void;
+  customStyles?: any;
+}
+
+
+
+const defaultOptions: Option[] = [
+  { value: 'flavors', label: 'Flavors', children: [
+    { value: 'chocolate', label: 'Chocolate', children: [
+      { value: 'dark-chocolate', label: 'Dark Chocolate' },
+      { value: 'milk-chocolate', label: 'Milk Chocolate' },
+      { value: 'white-chocolate', label: 'White Chocolate' },
     ]},
-    { value: 'sub1-2', label: 'Sub Item 1-2' },
+    { value: 'vanilla', label: 'Vanilla', children: [
+      { value: 'french-vanilla', label: 'French Vanilla' },
+      { value: 'madagascar-vanilla', label: 'Madagascar Vanilla' },
+    ]},
+    { value: 'strawberry', label: 'Strawberry', children: [
+      { value: 'fresh-strawberry', label: 'Fresh Strawberry' },
+      { value: 'strawberry-cheesecake', label: 'Strawberry Cheesecake' },
+    ]},
   ]},
-  { value: 'main2', label: 'Main Item 2', children: [
-    { value: 'sub2-1', label: 'Sub Item 2-1' },
+  { value: 'toppings', label: 'Toppings', children: [
+    { value: 'nuts', label: 'Nuts', children: [
+      { value: 'almonds', label: 'Almonds' },
+      { value: 'peanuts', label: 'Peanuts' },
+      { value: 'walnuts', label: 'Walnuts' },
+    ]},
+    { value: 'syrups', label: 'Syrups', children: [
+      { value: 'chocolate-syrup', label: 'Chocolate Syrup' },
+      { value: 'caramel-syrup', label: 'Caramel Syrup' },
+      { value: 'strawberry-syrup', label: 'Strawberry Syrup' },
+    ]},
+    { value: 'fruits', label: 'Fruits', children: [
+      { value: 'banana', label: 'Banana' },
+      { value: 'cherry', label: 'Cherry' },
+      { value: 'blueberry', label: 'Blueberry' },
+    ]},
   ]},
 ];
+
+
 
 const CustomOption = (props: OptionProps<Option, false, GroupBase<Option>>) => {
   const { data, innerRef, innerProps, selectOption } = props;
@@ -59,12 +95,26 @@ const CustomOption = (props: OptionProps<Option, false, GroupBase<Option>>) => {
   );
 };
 
-const NestedSelect: React.FC = () => {
+const NestedSelect: React.FC<NestedSelectProps> = ({
+  options = defaultOptions,
+  defaultValue,
+  defaultOption = { value: '', label: 'Select an option' },
+  placeholder = "Select an item",
+  onChange,
+  customStyles,
+  ...rest
+}) => {
+  const defaultVal = defaultValue || defaultOption;
+
   return (
     <Select<Option>
       options={options}
-      placeholder="Select an item"
+      defaultValue={defaultVal}
+      placeholder={placeholder}
       components={{ Option: CustomOption }}
+      onChange={onChange}
+      styles={customStyles}
+      {...rest}
     />
   );
 };

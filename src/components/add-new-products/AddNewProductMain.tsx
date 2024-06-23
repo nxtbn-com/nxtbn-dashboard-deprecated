@@ -5,6 +5,17 @@ import SelectStyled from "../Select";
 import NestedSelect from "../nestedSelect";
 import useApi from "../../api";
 
+const categoryOptions = [
+  { value: 'main1', label: 'Main Item 1', children: [
+    { value: 'sub1-1', label: 'Sub Item 1-1', children: [
+      { value: 'subsub1-1-1', label: 'Sub Sub Item 1-1-1' },
+    ]},
+    { value: 'sub1-2', label: 'Sub Item 1-2' },
+  ]},
+  { value: 'main2', label: 'Main Item 2', children: [
+    { value: 'sub2-1', label: 'Sub Item 2-1' },
+  ]},
+];
 
 function AddNewProductMain() {
   const api = useApi();
@@ -276,7 +287,7 @@ function AddNewProductMain() {
 
             <div className="w-full mt-10">
               <label htmlFor="category">Category</label>
-              <NestedSelect />
+              <NestedSelect options={categoryOptions} />
             </div>
             <div className="my-5">
               <label htmlFor="product_type">Product type</label>

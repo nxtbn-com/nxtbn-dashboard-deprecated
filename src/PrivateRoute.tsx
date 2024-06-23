@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import Cookies from 'js-cookie';
 import { Navigate, Outlet } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
@@ -16,7 +17,7 @@ const PrivateRoute = () => {
 
 
   const refreshAccessToken = async () => {
-    const payload = {}
+    const payload = {"refresh_token": Cookies.get('refreshToken')}
     api.refreshToken(payload).then((response: AxiosResponse<any>) => {
       const loginResponse = response as unknown as any; // Cast response to any
       dispatch(login(loginResponse));

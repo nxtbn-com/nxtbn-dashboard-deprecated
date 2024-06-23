@@ -4,6 +4,7 @@ import "./select-hide.css";
 import SelectStyled from "../Select";
 import NestedSelect from "../nestedSelect";
 import useApi from "../../api";
+import {makeCategoryEnumFriendly} from "../../enum";
 
 const categoryOptions = [
   { value: 'main1', label: 'Main Item 1', children: [
@@ -19,6 +20,7 @@ const categoryOptions = [
 
 function AddNewProductMain() {
   const api = useApi();
+  const [categories, setCategories] = useState<any[]>([]);
 
   let [isChecked, setIsChecked] = useState<boolean>(false);
 
@@ -45,6 +47,18 @@ function AddNewProductMain() {
       borderRadius: "20px",
     }),
   };
+
+
+  useEffect(() => {
+    api.getCategories().then((response) => {
+      const category = makeCategoryEnumFriendly(response as any)
+      setCategories(category)
+    
+    }).catch((error) => {
+      console.log(error);
+    
+    })
+  }, [])
 
 
 
@@ -287,7 +301,7 @@ function AddNewProductMain() {
 
             <div className="w-full mt-10">
               <label htmlFor="category">Category</label>
-              <NestedSelect options={categoryOptions} />
+              <NestedSelect options={categories} />
             </div>
             <div className="my-5">
               <label htmlFor="product_type">Product type</label>

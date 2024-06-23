@@ -8,6 +8,7 @@ import { login } from "./redux/authSlice";
 import { AxiosResponse } from "axios";
 import useApi from "./api";
 
+import { deleteAllCookies } from './utils';
 
 
 const PrivateRoute = () => {
@@ -22,7 +23,7 @@ const PrivateRoute = () => {
       const loginResponse = response as unknown as any; // Cast response to any
       dispatch(login(loginResponse));
     }).catch((error) => {
-      console.error(error);
+      deleteAllCookies()
     });
 
   };

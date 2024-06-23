@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import Cookies from 'js-cookie';
-import { Navigate, Outlet } from 'react-router-dom';
+import { Navigate, Outlet, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 import { RootState } from './redux/rootReducer';
@@ -15,6 +15,7 @@ const PrivateRoute = () => {
   const isAuthenticated = useSelector((state: RootState) => !!state.auth.isLoggedIn);
   const dispatch = useDispatch();
   const api = useApi();
+  const navigate = useNavigate();
 
 
   const refreshAccessToken = async () => {
@@ -23,7 +24,8 @@ const PrivateRoute = () => {
       const loginResponse = response as unknown as any; // Cast response to any
       dispatch(login(loginResponse));
     }).catch((error) => {
-      deleteAllCookies()
+      deleteAllCookies();
+      navigate('/dashboard/login');
     });
 
   };

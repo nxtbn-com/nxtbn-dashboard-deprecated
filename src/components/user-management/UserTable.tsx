@@ -130,7 +130,7 @@ function UserTable() {
                   <input
                     className="form-checkbox rounded-full bg-gray-200 checked:bg-red-600"
                     type="checkbox"
-                    checked={row.permission[0]}
+                    defaultChecked={row.permission[0]}
                   />
                   <span>Read</span>
                 </div>
@@ -138,7 +138,7 @@ function UserTable() {
                   <input
                     className="form-checkbox rounded-full bg-gray-200 checked:bg-red-600"
                     type="checkbox"
-                    checked={row.permission[1]}
+                    defaultChecked={row.permission[1]}
                   />
                   <span>Write</span>
                 </div>
@@ -146,7 +146,7 @@ function UserTable() {
                   <input
                     className="form-checkbox rounded-full bg-gray-200 checked:bg-red-600"
                     type="checkbox"
-                    checked={row.permission[2]}
+                    defaultChecked={row.permission[2]}
                   />
                   <span>Edit</span>
                 </div>

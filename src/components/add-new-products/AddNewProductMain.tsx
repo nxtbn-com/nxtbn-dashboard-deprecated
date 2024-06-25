@@ -4,18 +4,26 @@ import "./select-hide.css";
 import SelectStyled from "../Select";
 import NestedSelect from "../nestedSelect";
 import useApi from "../../api";
-import {makeCategoryEnumFriendly} from "../../enum";
+import { makeCategoryEnumFriendly } from "../../enum";
 
 const categoryOptions = [
-  { value: 'main1', label: 'Main Item 1', children: [
-    { value: 'sub1-1', label: 'Sub Item 1-1', children: [
-      { value: 'subsub1-1-1', label: 'Sub Sub Item 1-1-1' },
-    ]},
-    { value: 'sub1-2', label: 'Sub Item 1-2' },
-  ]},
-  { value: 'main2', label: 'Main Item 2', children: [
-    { value: 'sub2-1', label: 'Sub Item 2-1' },
-  ]},
+  {
+    value: "main1",
+    label: "Main Item 1",
+    children: [
+      {
+        value: "sub1-1",
+        label: "Sub Item 1-1",
+        children: [{ value: "subsub1-1-1", label: "Sub Sub Item 1-1-1" }],
+      },
+      { value: "sub1-2", label: "Sub Item 1-2" },
+    ],
+  },
+  {
+    value: "main2",
+    label: "Main Item 2",
+    children: [{ value: "sub2-1", label: "Sub Item 2-1" }],
+  },
 ];
 
 function AddNewProductMain() {
@@ -51,13 +59,13 @@ function AddNewProductMain() {
 
   useEffect(() => {
     api.getCategories().then((response) => {
-      const category = makeCategoryEnumFriendly(response as any)
-      setCategories(category)
-    
-    }).catch((error) => {
-      console.log(error);
-    
-    })
+        const category = makeCategoryEnumFriendly(response as any)
+        setCategories(category)
+
+      }).catch((error) => {
+        console.log(error);
+
+      })
   }, [])
 
 
@@ -217,9 +225,9 @@ function AddNewProductMain() {
                       className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] placeholder:text-black"
                     />
 
-                    <div className="absolute top-[13px] right-12 w-[90px] md:w-[120px]">
-                      <SelectStyled
-                        customStyles={customStyle}
+                    <div className="absolute top-[17px] right-12 w-[90px] md:w-[120px]">
+                      <SelectStyled 
+                      customStyles={customStyle}
                       />
                     </div>
                   </div>
@@ -301,7 +309,9 @@ function AddNewProductMain() {
 
             <div className="w-full mt-10">
               <label htmlFor="category">Category</label>
-              <NestedSelect options={categories} />
+              <div className="pt-3">
+                <NestedSelect options={categories} />
+              </div>
             </div>
             <div className="my-5">
               <label htmlFor="product_type">Product type</label>

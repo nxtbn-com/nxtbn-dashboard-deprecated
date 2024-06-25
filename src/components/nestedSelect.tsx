@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Select, { components, GroupBase, OptionProps } from 'react-select';
+import { NXDownArrow, NXRightArrow } from '../icons';
 
 interface Option {
   value: string;
@@ -73,10 +74,10 @@ const CustomOption = (props: OptionProps<Option, false, GroupBase<Option>>) => {
   return (
     <div ref={innerRef} {...innerProps} onClick={handleSelect}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <span>{data.label}</span>
+        <span className='cursor-pointer px-3 py-2 hover:bg-slate-200 w-full'>{data.label}</span>
         {data.children && (
           <span onClick={handleToggle} style={{ cursor: 'pointer' }}>
-            {isOpen ? '▼' : '▶'}
+            {isOpen ? <NXDownArrow className='h-6'/> : <NXRightArrow className='h-6'/> }
           </span>
         )}
       </div>

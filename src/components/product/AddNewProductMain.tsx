@@ -136,31 +136,6 @@ function AddNewProductMain() {
             </div>
           </div>
 
-
-          {/* Product Config */}
-          <div className=" bg-white p-5 rounded-md mt-5">
-            <div>
-              <h1 className="font-nunito font-[900] text-2xl">Product Config</h1>
-            </div>
-
-            <div className="flex items-center gap-3 my-5">
-              <input onChange={handleProductConfig} type="checkbox" name="charge_tax" />
-              <label className="font-nunito">Charge tax</label>
-            </div>
-            <div className="flex items-center gap-3 my-5">
-            <input onChange={handleProductConfig} type="checkbox" name="physical_product" />
-              <label className="font-nunito">Physical Product</label>
-            </div>
-            <div className="flex items-center gap-3 my-5">
-            <input onChange={handleProductConfig} type="checkbox" name="track_inventory" />
-              <label className="font-nunito">Track Inventory</label>
-            </div>
-            <div className="flex items-center gap-3 my-5">
-            <input onChange={handleProductConfig} type="checkbox" name="has_variant" />
-              <label className="font-nunito">Has Variant</label>
-            </div>
-          </div>
-
           {/* tax class */}
           {productConfig.charge_tax && (
           <div className=" bg-white p-5 rounded-md mt-5">
@@ -277,7 +252,34 @@ function AddNewProductMain() {
               </div>
             </div>
           </div>
+
+          {/* Product Control */}
+          <div className=" bg-white p-5 rounded-md mt-5">
+            <div>
+              <h1 className="font-nunito font-[900] text-2xl">Product Control</h1>
+            </div>
+
+            <div className="flex items-center gap-3 my-5">
+              <input onChange={handleProductConfig} type="checkbox" name="charge_tax" />
+              <label className="font-nunito">Charge tax</label>
+            </div>
+            <div className="flex items-center gap-3 my-5">
+            <input onChange={handleProductConfig} type="checkbox" name="physical_product" />
+              <label className="font-nunito">Physical Product</label>
+            </div>
+            <div className="flex items-center gap-3 my-5">
+            <input onChange={handleProductConfig} type="checkbox" name="track_stock" />
+              <label className="font-nunito">Track Inventory</label>
+            </div>
+            <div className="flex items-center gap-3 my-5">
+            <input onChange={handleProductConfig} type="checkbox" name="has_variant" />
+              <label className="font-nunito">Has Variant</label>
+            </div>
+          </div>
+
         </div>
+
+
         <div className="flex flex-col-reverse justify-center gap-5 mb-5 md:hidden">
           <button className="text-[#0CAF60] border border-[#0CAF60] px-10 py-3 rounded-xl font-nunito font-[900]">
             Discard

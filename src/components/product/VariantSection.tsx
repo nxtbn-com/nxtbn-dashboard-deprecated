@@ -68,7 +68,7 @@ const VariantSection: React.FC<VariantSectionProps> = ({ productConfig, onVarian
           />
         </div>
 
-        {productConfig.track_inventory && (
+        {productConfig.track_stock && (
           <div className="w-full">
             <label htmlFor="Stock">Stock</label>
             <input

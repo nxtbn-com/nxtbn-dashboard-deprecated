@@ -1,14 +1,16 @@
 import React, { ChangeEvent, useState } from "react";
 import { NXAlertCircle } from "../../icons";
 import SelectStyled from "../Select";
+import { makeColorEnum } from "../../enum";
 
 interface VariantSectionProps {
   productConfig: any;
   onVariantChange: any;
   serial: number;
+  color: any[];
 }
 
-const VariantSection: React.FC<VariantSectionProps> = ({ productConfig, onVariantChange, serial }) => {
+const VariantSection: React.FC<VariantSectionProps> = ({ productConfig, onVariantChange, serial, color }) => {
   const [metaSection, setMetaSection] = useState<number>(0);
 
   const addNewMetasection = (event: any) => {
@@ -102,7 +104,7 @@ const VariantSection: React.FC<VariantSectionProps> = ({ productConfig, onVarian
         
         <div className="w-full">
           <label htmlFor="color-name">Color Name</label>
-          <SelectStyled />
+          <SelectStyled options={makeColorEnum(color)} />
         </div>
         <div className="w-full">
           <label htmlFor="color">Color</label>

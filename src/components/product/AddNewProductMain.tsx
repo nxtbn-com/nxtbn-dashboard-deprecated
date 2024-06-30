@@ -10,7 +10,12 @@ import VariantSection from "./VariantSection";
 
 function AddNewProductMain() {
   const api = useApi();
+
+  // fetched data
   const [categories, setCategories] = useState<any[]>([]);
+  const [color, setColor] = useState<any[]>([]);
+
+
   const [fromData, setFormData] = useState<any>({});
   const [productConfig, setProductConfig] = useState<any>({});
   const [variantSection, setVariantSection] = useState<number>(1);
@@ -32,8 +37,6 @@ function AddNewProductMain() {
       ...prevData,
       [name]: inputValue,
     }));
-
-    console.log(productConfig);
   };
 
   const onVariantChange = (event: any) => {
@@ -50,11 +53,16 @@ function AddNewProductMain() {
     api.getCategories().then((response) => {
         const category = makeCategoryEnumFriendly(response as any)
         setCategories(category)
-
       }).catch((error) => {
         console.log(error);
+    });
 
-      })
+    api.getColor().then((response) => {
+      setColor(response as any)
+    }).catch((error) => {
+      console.log(error);
+    });
+
   }, [])
 
 
@@ -176,7 +184,13 @@ function AddNewProductMain() {
           {/* tax class end */}
 
           {Array.from({ length: variantSection }, (_, index) => (
-              <VariantSection key={index} productConfig={productConfig} onVariantChange={onVariantChange} serial={index + 1} />
+              <VariantSection
+                key={index}
+                productConfig={productConfig}
+                onVariantChange={onVariantChange}
+                serial={index + 1}
+                color={color}
+              />
            ))}
          
 

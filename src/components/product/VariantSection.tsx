@@ -65,22 +65,41 @@ const VariantSection: React.FC<VariantSectionProps> = ({ productConfig, onVarian
             className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] placeholder:text-black border-[2px] border-dashed"
           />
         </div>
-        <div className="w-full">
-          <label htmlFor="Stock">Stock</label>
-          <input
-            onChange={onVariantChange}
-            id="Stock"
-            type="number"
-            placeholder="--"
-            className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] placeholder:text-black border-[2px] border-dashed"
-          />
-        </div>
+
+        {productConfig.track_inventory && (
+          <div className="w-full">
+            <label htmlFor="Stock">Stock</label>
+            <input
+              onChange={onVariantChange}
+              id="Stock"
+              type="number"
+              placeholder="--"
+              className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] placeholder:text-black border-[2px] border-dashed"
+            />
+          </div>
+        )}
+      
       </div>
       <div className="flex items-center gap-5 mt-5">
-        <div className="w-full">
-          <label htmlFor="profit">Weight</label>
-          <SelectStyled />
-        </div>
+        {productConfig.physical_product && (
+          <>
+          <div className="w-full">
+            <label htmlFor="profit">Weight</label>
+            <SelectStyled />
+          </div>
+          <div className="w-full">
+            <label htmlFor="profit">Value</label>
+            <input
+              onChange={onVariantChange}
+              id="Value"
+              type="number"
+              placeholder="--"
+              className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] placeholder:text-black border-[2px] border-dashed"
+            />
+          </div>
+          </>
+        )}
+        
         <div className="w-full">
           <label htmlFor="color-name">Color Name</label>
           <SelectStyled />

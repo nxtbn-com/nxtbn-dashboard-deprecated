@@ -1,5 +1,5 @@
-import React, { ChangeEvent, useState } from "react";
-import { NXAlertCircle } from "../../icons";
+import React, { useState } from "react";
+import { NXAlertCircle, NXDelete } from "../../icons";
 import SelectStyled from "../Select";
 import { makeColorEnum } from "../../enum";
 
@@ -8,18 +8,27 @@ interface VariantSectionProps {
   onVariantChange: any;
   serial: number;
   color: any[];
+  deleteVariant: any;
 }
 
-const VariantSection: React.FC<VariantSectionProps> = ({ productConfig, onVariantChange, serial, color }) => {
+const VariantSection: React.FC<VariantSectionProps> = ({
+  productConfig,
+  onVariantChange,
+  serial,
+  color,
+  deleteVariant
+}) => {
   const [metaSection, setMetaSection] = useState<number>(0);
 
   const addNewMetasection = (event: any) => {
     event.preventDefault();
     setMetaSection(prevVariantSection => prevVariantSection + 1);
-  }
+  };
+  
 
   return (
-    <div className="p-5 border-[1px] border-solid border-base-200">
+    <div className="p-5 border-[1px] border-solid border-base-200 relative">
+      <button onClick={deleteVariant}  className="absolute top-3 right-3 bg-red-500 px-2 py-2 rounded"> <NXDelete className="text-white" /> </button>
       <div className="flex items-center gap-3">
         <h1 className="font-nunito font-[900] text-2xl">{productConfig.has_variant ? `Variant - ${serial}` : `Info`}</h1>
         <NXAlertCircle className="text-base-300" />

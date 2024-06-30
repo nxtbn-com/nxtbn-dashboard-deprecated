@@ -1,43 +1,18 @@
 function NXDelete({ className }: { className?: string }) {
   return (
-    <svg
-    className={className}
-      width="20"
-      height="20"
-      viewBox="0 0 20 20"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M1.42859 5H18.5714"
-        stroke="#EF4444"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      />
-      <path
-        d="M3.57147 5H16.4286V17.8571C16.4286 18.236 16.278 18.5994 16.0102 18.8673C15.7423 19.1351 15.3789 19.2857 15 19.2857H5.00004C4.62116 19.2857 4.2578 19.1351 3.98989 18.8673C3.72199 18.5994 3.57147 18.236 3.57147 17.8571V5Z"
-        stroke="#EF4444"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      />
-      <path
-        d="M6.42859 4.99958V4.2853C6.42859 3.3381 6.80486 2.42968 7.47463 1.75991C8.1444 1.09014 9.05282 0.713867 10 0.713867C10.9472 0.713867 11.8556 1.09014 12.5254 1.75991C13.1952 2.42968 13.5714 3.3381 13.5714 4.2853V4.99958"
-        stroke="#EF4444"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      />
-      <path
-        d="M7.85718 9.28711V15.0036"
-        stroke="#EF4444"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      />
-      <path
-        d="M12.1429 9.28711V15.0036"
-        stroke="#EF4444"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      />
+    <svg className={className} width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <g clipPath="url(#clip0_4287_3334)">
+        <path d="M1 3.5H13" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M2.5 3.5H11.5V12.5C11.5 12.7652 11.3946 13.0196 11.2071 13.2071C11.0196 13.3946 10.7652 13.5 10.5 13.5H3.5C3.23478 13.5 2.98043 13.3946 2.79289 13.2071C2.60536 13.0196 2.5 12.7652 2.5 12.5V3.5Z" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M4.5 3.5V3C4.5 2.33696 4.76339 1.70107 5.23223 1.23223C5.70107 0.763392 6.33696 0.5 7 0.5C7.66304 0.5 8.29893 0.763392 8.76777 1.23223C9.23661 1.70107 9.5 2.33696 9.5 3V3.5" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M5.5 6.50146V10.503" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M8.5 6.50146V10.503" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" />
+      </g>
+      <defs>
+        <clipPath id="clip0_4287_3334">
+          <rect width="14" height="14" fill="white" />
+        </clipPath>
+      </defs>
     </svg>
   );
 }

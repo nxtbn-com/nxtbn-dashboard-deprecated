@@ -63,7 +63,13 @@ function AddNewProductMain() {
       console.log(error);
     });
 
-  }, [])
+  }, []);
+
+  const deleteVariant = (event: any) => {
+    alert('delete')
+    event.preventDefault();
+    setVariantSection(prevVariantSection => prevVariantSection - 1);
+  }
 
 
 
@@ -166,6 +172,7 @@ function AddNewProductMain() {
                 onVariantChange={onVariantChange}
                 serial={index + 1}
                 color={color}
+                deleteVariant={deleteVariant}
               />
            ))}
 

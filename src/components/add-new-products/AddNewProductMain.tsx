@@ -24,15 +24,16 @@ function AddNewProductMain() {
   };
 
   const handleProductConfig = (event: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
+    const { name, checked, type, value } = event.target;
+    const inputValue = type === 'checkbox' ? checked : value;
+
     setProductConfig((prevData: any) => ({
       ...prevData,
-      [name]: value,
+      [name]: inputValue,
     }));
 
-    console.log(productConfig)
-  
-  }
+    console.log(productConfig);
+  };
 
 
   useEffect(() => {
@@ -80,7 +81,7 @@ function AddNewProductMain() {
                 type="text"
                 id="product_name"
                 placeholder="Type your product name"
-                className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60]"
+                className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] border-[2px] border-dashed"
               />
             </div>
             <div className="mt-5">
@@ -94,7 +95,7 @@ function AddNewProductMain() {
                 placeholder="Type your product description here"
                 name=""
                 id="product_description"
-                className="w-full px-5 py-3 h-[224px] bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60]"
+                className="w-full px-5 py-3 h-[224px] bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] border-[2px] border-dashed"
               ></textarea>
             </div>
           </div>
@@ -116,68 +117,9 @@ function AddNewProductMain() {
               </label>
             </div>
           </div>
-          {/* pricing */}
-          <div className=" bg-white p-5 rounded-md mt-5">
-            <div className="flex items-center gap-3">
-              <h1 className="font-nunito font-[900] text-2xl">Pricing</h1>
-              <NXAlertCircle className="text-base-300" />
-            </div>
-            <div className="flex items-center gap-5 mt-5">
-              <div className="w-full">
-                <label htmlFor="price">Price</label>
-                <input
-                  id="price"
-                  type="text"
-                  placeholder="$0.00"
-                  className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] placeholder:text-black"
-                />
-              </div>
-              <div className="w-full">
-                <label htmlFor="compare-price">Price</label>
-                <input
-                  id="compare-price"
-                  type="text"
-                  placeholder="$0.00"
-                  className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] placeholder:text-black"
-                />
-              </div>
-            </div>
-            <div className="flex items-center gap-3 my-5">
-              <input type="checkbox" name="" id="bangladesh" />
-              <p className="font-nunito">Charge tax on this product</p>
-            </div>
-            <div className="flex items-center gap-5 mt-5">
-              <div className="w-full">
-                <label htmlFor="cost_per_item">Cost per item</label>
-                <input
-                  id="cost_per_item"
-                  type="text"
-                  placeholder="$0.00"
-                  className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] placeholder:text-black"
-                />
-              </div>
-              <div className="w-full">
-                <label htmlFor="profit">Profit</label>
-                <input
-                  id="profit"
-                  type="text"
-                  placeholder="--"
-                  className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] placeholder:text-black"
-                />
-              </div>
-              <div className="w-full">
-                <label htmlFor="margin">Margin</label>
-                <input
-                  id="margin"
-                  type="text"
-                  placeholder="--"
-                  className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] placeholder:text-black"
-                />
-              </div>
-            </div>
-          </div>
 
-          {/* variant */}
+
+          {/* Product Config */}
           <div className=" bg-white p-5 rounded-md mt-5">
             <div>
               <h1 className="font-nunito font-[900] text-2xl">Product Config</h1>
@@ -201,6 +143,96 @@ function AddNewProductMain() {
             </div>
           </div>
 
+
+          {/* Variant */}
+          <div className=" bg-white p-5 rounded-md mt-5">
+            <div className="flex items-center gap-3">
+              <h1 className="font-nunito font-[900] text-2xl">{productConfig.has_variant ? `Variant` : `Info`}</h1>
+              <NXAlertCircle className="text-base-300" />
+            </div>
+
+            <div className="flex items-center gap-5 mt-5">
+              <div className="w-full">
+                <label htmlFor="price">Price</label>
+                <input
+                  id="price"
+                  type="text"
+                  placeholder="$0.00"
+                  className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] placeholder:text-black border-[2px] border-dashed"
+                />
+              </div>
+              <div className="w-full">
+                <label htmlFor="compare-price">SKU</label>
+                <input
+                  id="compare-price"
+                  type="text"
+                  placeholder="SKU01"
+                  className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] placeholder:text-black border-[2px] border-dashed"
+                />
+              </div>
+            </div>
+            <div className="flex items-center gap-5 mt-5">
+              <div className="w-full">
+                <label htmlFor="cost_per_item">Cost per item</label>
+                <input
+                  id="cost_per_item"
+                  type="text"
+                  placeholder="$0.00"
+                  className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] placeholder:text-black border-[2px] border-dashed"
+                />
+              </div>
+              <div className="w-full">
+                <label htmlFor="profit">Profit</label>
+                <input
+                  id="profit"
+                  type="text"
+                  placeholder="--"
+                  className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] placeholder:text-black border-[2px] border-dashed"
+                />
+              </div>
+              <div className="w-full">
+                <label htmlFor="Stock">Stock</label>
+                <input
+                  id="Stock"
+                  type="number"
+                  placeholder="--"
+                  className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] placeholder:text-black border-[2px] border-dashed"
+                />
+              </div>
+            </div>
+            <div className="flex items-center gap-5 mt-5">
+              <div className="w-full">
+                <label htmlFor="profit">Weight</label>
+                <SelectStyled/>
+              </div>
+              <div className="w-full">
+                <label htmlFor="color-name">Color Name</label>
+                <SelectStyled/>
+              </div>
+              <div className="w-full">
+                <label htmlFor="color">Color</label>
+                <input
+                  id="color"
+                  type="color"
+                />
+              </div>
+            </div>
+
+            <button className="font-nunito font-[800] flex items-center gap-1 mt-3">
+              + Add Meta
+            </button>
+          </div>
+
+          {productConfig.has_variant && (
+          <div className=" bg-white p-5 rounded-md mt-5">
+            <div className="items-center">
+            <button className="font-nunito font-[800] gap-1 mt-3">
+              + Add Variant
+            </button>
+            </div>
+          </div>)}
+
+
           {/* tax class */}
           {productConfig.charge_tax && (
           <div className=" bg-white p-5 rounded-md mt-5">
@@ -209,27 +241,6 @@ function AddNewProductMain() {
             </div>
 
             <p>Tax Class Dropdown goes there</p>
-          </div>)}
-
-          {/* variant */}
-          {productConfig.has_variant && (
-          <div className=" bg-white p-5 rounded-md mt-5">
-            <div>
-              <h1 className="font-nunito font-[900] text-2xl">Variants</h1>
-            </div>
-
-            <div className="flex items-center gap-3 my-5">
-              <input type="checkbox" name="" />
-              <label className="font-nunito">Charge tax on this product</label>
-            </div>
-            <div className="flex items-center gap-3 my-5">
-              <input type="checkbox" name="" />
-              <label className="font-nunito">Charge tax on this product</label>
-            </div>
-
-            <button className="font-nunito font-[800] flex items-center gap-1 mt-3">
-              + Add options like size or color
-            </button>
           </div>)}
 
         </div>
@@ -293,14 +304,6 @@ function AddNewProductMain() {
               <label htmlFor="product_type">Product type</label>
               <input
                 id="product_type"
-                type="text"
-                className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-md font-nunito outline-[#0CAF60]"
-              />
-            </div>
-            <div className="my-5">
-              <label htmlFor="vendor">Vendor</label>
-              <input
-                id="vendor"
                 type="text"
                 className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-md font-nunito outline-[#0CAF60]"
               />

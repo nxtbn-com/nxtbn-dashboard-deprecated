@@ -1,5 +1,4 @@
 import useInterceptors from './interceptors';
-import axios from 'axios';
 
 const useApi = () => {
     const interceptor = useInterceptors();
@@ -9,7 +8,10 @@ const useApi = () => {
         refreshToken: (data, params = {}) => interceptor.post(`/user/dashboard/api/token/refresh/`, data, { params: params, NxtbnPublicAPI: true }),
         adminLogout: (data, params = {}) => interceptor.post(`/user/dashboard/api/logout/`, data, { params: params }),
         getCategories: (params = {}) => interceptor.get(`/product/dashboard/api/categories/`, { params: params }),
-        pluginInstall: (data, params={}) => interceptor.post(`/plugins/dashboard/api/plugin-install-via-zip-url/`, data, {params : params})
+        pluginInstall: (data, params={}) => interceptor.post(`/plugins/dashboard/api/plugin-install-via-zip-url/`, data, {params : params}),
+
+        // product
+        createProduct: (data, params = {}) => interceptor.post(`/product/dashboard/api/products/`, data, { params: params }),
     };
 
     return api;

@@ -1,4 +1,4 @@
-import AddNewProductMain from "../components/add-new-products/AddNewProductMain";
+import AddNewProductMain from "../components/product/AddNewProductMain";
 
 function AddNewProduct() {
   return <AddNewProductMain />;

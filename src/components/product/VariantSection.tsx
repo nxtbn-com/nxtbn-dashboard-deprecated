@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from "react";
+import React, { ChangeEvent, useState } from "react";
 import { NXAlertCircle } from "../../icons";
 import SelectStyled from "../Select";
 
@@ -9,6 +9,13 @@ interface VariantSectionProps {
 }
 
 const VariantSection: React.FC<VariantSectionProps> = ({ productConfig, onVariantChange, serial }) => {
+  const [metaSection, setMetaSection] = useState<number>(0);
+
+  const addNewMetasection = (event: any) => {
+    event.preventDefault();
+    setMetaSection(prevVariantSection => prevVariantSection + 1);
+  }
+
   return (
     <div className="bg-white p-5 rounded-md mt-5">
       <div className="flex items-center gap-3">
@@ -86,8 +93,44 @@ const VariantSection: React.FC<VariantSectionProps> = ({ productConfig, onVarian
           />
         </div>
       </div>
-      <button className="font-nunito font-[800] flex items-center gap-1 mt-3">
-        + Add Meta
+
+
+      {metaSection > 0 && (
+         <div className="flex items-center mt-3">
+         <h1 className="font-nunito font-[900] text-2xl">Metadata</h1>
+         <NXAlertCircle className="text-base-300" />
+       </div>
+      )}
+     
+      {Array.from({ length: metaSection }, (_, index) => (
+          <div className="flex items-center gap-5 mt-5">
+            <div className="w-full">
+              <label htmlFor="cost_per_item">Name</label>
+              <input
+                onChange={onVariantChange}
+                id="cost_per_item"
+                type="text"
+                placeholder="eg. Capacity"
+                className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] placeholder:text-black border-[2px] border-dashed"
+              />
+            </div>
+            <div className="w-full">
+              <label htmlFor="profit">Value</label>
+              <input
+                onChange={onVariantChange}
+                id="profit"
+                type="text"
+                placeholder="--"
+                className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] placeholder:text-black border-[2px] border-dashed"
+              />
+            </div>
+          </div>
+      ))}
+
+      
+
+      <button onClick={addNewMetasection} className="font-nunito font-[800] flex items-center gap-1 mt-3">
+        + Add Metadata
       </button>
     </div>
   );

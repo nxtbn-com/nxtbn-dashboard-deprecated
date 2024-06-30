@@ -153,6 +153,17 @@ function AddNewProductMain() {
             </div>
           </div>
 
+          {/* tax class */}
+          {productConfig.charge_tax && (
+          <div className=" bg-white p-5 rounded-md mt-5">
+            <div>
+              <h1 className="font-nunito font-[900] text-2xl">Tax Class</h1>
+            </div>
+
+            <p>Tax Class Dropdown goes there</p>
+          </div>)}
+          {/* tax class end */}
+
           {Array.from({ length: variantSection }, (_, index) => (
               <VariantSection key={index} productConfig={productConfig} onVariantChange={onVariantChange} serial={index + 1} />
            ))}
@@ -168,15 +179,6 @@ function AddNewProductMain() {
           </div>)}
 
 
-          {/* tax class */}
-          {productConfig.charge_tax && (
-          <div className=" bg-white p-5 rounded-md mt-5">
-            <div>
-              <h1 className="font-nunito font-[900] text-2xl">Tax Class</h1>
-            </div>
-
-            <p>Tax Class Dropdown goes there</p>
-          </div>)}
 
         </div>
         <div className="w-full md:w-[40%]">
@@ -240,7 +242,7 @@ function AddNewProductMain() {
               <input
                 id="product_type"
                 type="text"
-                className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-md font-nunito outline-[#0CAF60]"
+                className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-md font-nunito outline-[#0CAF60] border-[2px] border-dashed"
               />
             </div>
             <div className="my-5">

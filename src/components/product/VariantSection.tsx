@@ -19,7 +19,7 @@ const VariantSection: React.FC<VariantSectionProps> = ({ productConfig, onVarian
   }
 
   return (
-    <div className="p-5 mt-5">
+    <div className="p-5 border-[1px] border-solid border-base-200">
       <div className="flex items-center gap-3">
         <h1 className="font-nunito font-[900] text-2xl">{productConfig.has_variant ? `Variant - ${serial}` : `Info`}</h1>
         <NXAlertCircle className="text-base-300" />
@@ -124,7 +124,7 @@ const VariantSection: React.FC<VariantSectionProps> = ({ productConfig, onVarian
       )}
      
       {Array.from({ length: metaSection }, (_, index) => (
-          <div className="flex items-center gap-5 mt-5">
+          <div className="flex items-center gap-5 outline-[#0CAF60] border-[1px] border-double p-5">
             <div className="w-full">
               <label htmlFor="cost_per_item">Name</label>
               <input

@@ -164,6 +164,17 @@ function AddNewProductMain() {
           </div>)}
           {/* tax class end */}
 
+          {/* tax class */}
+          {productConfig.physical_product && (
+          <div className=" bg-white p-5 rounded-md mt-5">
+            <div>
+              <h1 className="font-nunito font-[900] text-2xl">Shipping</h1>
+            </div>
+
+            <p>Shipping Handler goes there</p>
+          </div>)}
+          {/* tax class end */}
+
           {Array.from({ length: variantSection }, (_, index) => (
               <VariantSection key={index} productConfig={productConfig} onVariantChange={onVariantChange} serial={index + 1} />
            ))}

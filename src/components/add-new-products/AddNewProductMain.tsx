@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React, { ChangeEvent, useEffect, useState, FormEvent } from "react";
 import { NXAlertCircle, NXLeftArrow, NXRightArrow } from "../../icons";
 import "./select-hide.css";
 import SelectStyled from "../Select";
@@ -6,29 +6,12 @@ import NestedSelect from "../nestedSelect";
 import useApi from "../../api";
 import { makeCategoryEnumFriendly } from "../../enum";
 
-const categoryOptions = [
-  {
-    value: "main1",
-    label: "Main Item 1",
-    children: [
-      {
-        value: "sub1-1",
-        label: "Sub Item 1-1",
-        children: [{ value: "subsub1-1-1", label: "Sub Sub Item 1-1-1" }],
-      },
-      { value: "sub1-2", label: "Sub Item 1-2" },
-    ],
-  },
-  {
-    value: "main2",
-    label: "Main Item 2",
-    children: [{ value: "sub2-1", label: "Sub Item 2-1" }],
-  },
-];
+
 
 function AddNewProductMain() {
   const api = useApi();
   const [categories, setCategories] = useState<any[]>([]);
+  const [fromData, setFormData] = useState<any>({});
 
   let [isChecked, setIsChecked] = useState<boolean>(false);
 
@@ -56,6 +39,15 @@ function AddNewProductMain() {
     }),
   };
 
+  const handleProductCreate = (event: FormEvent) => {
+    event.preventDefault()
+    api.createProduct(fromData).then((response) => {
+
+    }).catch((error) => {
+
+    })
+  }
+
 
   useEffect(() => {
     api.getCategories().then((response) => {
@@ -81,7 +73,7 @@ function AddNewProductMain() {
         </button>
         <button
           className="text-white bg-[#0CAF60] px-10 py-3 rounded-xl font-nunito font-[900] disabled:bg-[#0caf609a]"
-          disabled
+          onClick={handleProductCreate}
         >
           Save
         </button>

@@ -66,7 +66,7 @@ function AddNewProductMain() {
 
   useEffect(() => {
     fetchData();
-  }, [api]);
+  }, []);
 
   const deleteVariant = (event: any) => {
     alert('delete')

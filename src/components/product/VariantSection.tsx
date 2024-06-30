@@ -19,7 +19,7 @@ const VariantSection: React.FC<VariantSectionProps> = ({ productConfig, onVarian
   }
 
   return (
-    <div className="bg-white p-5 rounded-md mt-5">
+    <div className="p-5 mt-5">
       <div className="flex items-center gap-3">
         <h1 className="font-nunito font-[900] text-2xl">{productConfig.has_variant ? `Variant - ${serial}` : `Info`}</h1>
         <NXAlertCircle className="text-base-300" />
@@ -118,7 +118,7 @@ const VariantSection: React.FC<VariantSectionProps> = ({ productConfig, onVarian
 
       {metaSection > 0 && (
          <div className="flex items-center mt-3">
-         <h1 className="font-nunito font-[900] text-2xl">Metadata</h1>
+         <h3 className="font-nunito font-[900]">Metadata</h3>
          <NXAlertCircle className="text-base-300" />
        </div>
       )}

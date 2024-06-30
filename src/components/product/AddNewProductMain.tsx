@@ -158,7 +158,8 @@ function AddNewProductMain() {
           </div>)}
           {/* tax class end */}
 
-          {Array.from({ length: variantSection }, (_, index) => (
+          <div className="bg-white p-5 rounded-md mt-5">
+            {Array.from({ length: variantSection }, (_, index) => (
               <VariantSection
                 key={index}
                 productConfig={productConfig}
@@ -167,6 +168,8 @@ function AddNewProductMain() {
                 color={color}
               />
            ))}
+          </div>
+          
          
 
           {productConfig.has_variant && (
@@ -178,9 +181,9 @@ function AddNewProductMain() {
             </div>
           </div>)}
 
-
-
         </div>
+
+
         <div className="w-full md:w-[40%]">
           <div className=" bg-white p-5 rounded-md">
             <div>
@@ -269,7 +272,7 @@ function AddNewProductMain() {
             </div>
             <div className="flex items-center gap-3 my-5">
             <input onChange={handleProductConfig} type="checkbox" name="track_stock" />
-              <label className="font-nunito">Track Inventory</label>
+              <label className="font-nunito">Track Stock</label>
             </div>
             <div className="flex items-center gap-3 my-5">
             <input onChange={handleProductConfig} type="checkbox" name="has_variant" />

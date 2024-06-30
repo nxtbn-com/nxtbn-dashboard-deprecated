@@ -39,7 +39,7 @@ function LoginLeftSide() {
     }));
   };
 
-  const isFormValid = formData.email.includes('@') && formData.password.length >= 8;
+  const isFormValid = formData.email.includes('@') && formData.password.length >= 2;
 
   const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -79,7 +79,7 @@ function LoginLeftSide() {
               placeholder="Password"
               className="w-full bg-secondary-50 outline-none border-none px-5 py-2 rounded-md"
               required
-              minLength={8}
+              minLength={2}
             />
 
             <div className="flex justify-between items-center">

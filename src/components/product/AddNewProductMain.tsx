@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useEffect, useState, FormEvent } from "react";
-import { NXAlertCircle, NXLeftArrow, NXRightArrow } from "../../icons";
+import { NXAlertCircle, NXPlus } from "../../icons";
 import "./select-hide.css";
 import SelectStyled from "../Select";
 import NestedSelect from "../nestedSelect";
@@ -10,7 +10,12 @@ import VariantSection from "./VariantSection";
 
 function AddNewProductMain() {
   const api = useApi();
+
+  // fetched data
   const [categories, setCategories] = useState<any[]>([]);
+  const [color, setColor] = useState<any[]>([]);
+
+
   const [fromData, setFormData] = useState<any>({});
   const [productConfig, setProductConfig] = useState<any>({});
   const [variantSection, setVariantSection] = useState<number>(1);
@@ -32,8 +37,6 @@ function AddNewProductMain() {
       ...prevData,
       [name]: inputValue,
     }));
-
-    console.log(productConfig);
   };
 
   const onVariantChange = (event: any) => {
@@ -50,12 +53,23 @@ function AddNewProductMain() {
     api.getCategories().then((response) => {
         const category = makeCategoryEnumFriendly(response as any)
         setCategories(category)
-
       }).catch((error) => {
         console.log(error);
+    });
 
-      })
-  }, [])
+    api.getColor().then((response) => {
+      setColor(response as any)
+    }).catch((error) => {
+      console.log(error);
+    });
+
+  }, []);
+
+  const deleteVariant = (event: any) => {
+    alert('delete')
+    event.preventDefault();
+    setVariantSection(prevVariantSection => prevVariantSection - 1);
+  }
 
 
 
@@ -128,31 +142,6 @@ function AddNewProductMain() {
             </div>
           </div>
 
-
-          {/* Product Config */}
-          <div className=" bg-white p-5 rounded-md mt-5">
-            <div>
-              <h1 className="font-nunito font-[900] text-2xl">Product Config</h1>
-            </div>
-
-            <div className="flex items-center gap-3 my-5">
-              <input onChange={handleProductConfig} type="checkbox" name="charge_tax" />
-              <label className="font-nunito">Charge tax</label>
-            </div>
-            <div className="flex items-center gap-3 my-5">
-            <input onChange={handleProductConfig} type="checkbox" name="physical_product" />
-              <label className="font-nunito">Physical Product</label>
-            </div>
-            <div className="flex items-center gap-3 my-5">
-            <input onChange={handleProductConfig} type="checkbox" name="track_inventory" />
-              <label className="font-nunito">Track Inventory</label>
-            </div>
-            <div className="flex items-center gap-3 my-5">
-            <input onChange={handleProductConfig} type="checkbox" name="has_variant" />
-              <label className="font-nunito">Has Variant</label>
-            </div>
-          </div>
-
           {/* tax class */}
           {productConfig.charge_tax && (
           <div className=" bg-white p-5 rounded-md mt-5">
@@ -175,23 +164,34 @@ function AddNewProductMain() {
           </div>)}
           {/* tax class end */}
 
-          {Array.from({ length: variantSection }, (_, index) => (
-              <VariantSection key={index} productConfig={productConfig} onVariantChange={onVariantChange} serial={index + 1} />
+          <div className="bg-white p-5 rounded-md mt-5">
+            {Array.from({ length: variantSection }, (_, index) => (
+              <VariantSection
+                key={index}
+                productConfig={productConfig}
+                onVariantChange={onVariantChange}
+                serial={index + 1}
+                color={color}
+                deleteVariant={deleteVariant}
+              />
            ))}
-         
 
-          {productConfig.has_variant && (
-          <div className=" bg-white p-5 rounded-md mt-5">
-            <div className="items-center">
-            <button onClick={addNewVariant} className="font-nunito font-[800] gap-1 mt-3">
-              + Add Variant
-            </button>
-            </div>
-          </div>)}
+            {productConfig.has_variant && (
+              <div className="flex justify-center mt-3">
+                <button
+                  onClick={addNewVariant}
+                  className="flex items-center font-nunito font-[800] gap-2 px-5 py-3 bg-primary-500 text-white rounded-xl"
+                >
+                  <NXPlus className="mr-1" /> Add Variant
+                </button>
+              </div>
+            )}
 
-
+          </div>
 
         </div>
+
+
         <div className="w-full md:w-[40%]">
           <div className=" bg-white p-5 rounded-md">
             <div>
@@ -263,7 +263,34 @@ function AddNewProductMain() {
               </div>
             </div>
           </div>
+
+          {/* Product Control */}
+          <div className=" bg-white p-5 rounded-md mt-5">
+            <div>
+              <h1 className="font-nunito font-[900] text-2xl">Product Control</h1>
+            </div>
+
+            <div className="flex items-center gap-3 my-5">
+              <input onChange={handleProductConfig} type="checkbox" name="charge_tax" />
+              <label className="font-nunito">Charge tax</label>
+            </div>
+            <div className="flex items-center gap-3 my-5">
+            <input onChange={handleProductConfig} type="checkbox" name="physical_product" />
+              <label className="font-nunito">Physical Product</label>
+            </div>
+            <div className="flex items-center gap-3 my-5">
+            <input onChange={handleProductConfig} type="checkbox" name="track_stock" />
+              <label className="font-nunito">Track Stock</label>
+            </div>
+            <div className="flex items-center gap-3 my-5">
+            <input onChange={handleProductConfig} type="checkbox" name="has_variant" />
+              <label className="font-nunito">Has Variant</label>
+            </div>
+          </div>
+
         </div>
+
+
         <div className="flex flex-col-reverse justify-center gap-5 mb-5 md:hidden">
           <button className="text-[#0CAF60] border border-[#0CAF60] px-10 py-3 rounded-xl font-nunito font-[900]">
             Discard

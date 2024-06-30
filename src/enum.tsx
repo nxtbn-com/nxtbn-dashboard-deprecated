@@ -1,15 +1,21 @@
-interface inputOption {
+interface CategoryinputOption {
     id: number;
     name: string;
     description?: string | null;
-    children?: inputOption[];
-  }
+    children?: CategoryinputOption[];
+}
   
-  interface Option {
+interface CategoryOption {
     value: number;
     label: string;
-    children?: Option[];
-}
+    children?: CategoryOption[];
+};
+
+
+type Option = {
+  value: string;
+  label: string;
+};
 
 const enumChoice = {
     sex: [
@@ -20,9 +26,9 @@ const enumChoice = {
   
 
 
-function makeCategoryEnumFriendly(data: inputOption[]): Option[] {
+function makeCategoryEnumFriendly(data: CategoryinputOption[]): CategoryOption[] {
     return data.map(item => {
-      let transformedItem: Option = {
+      let transformedItem: CategoryOption = {
         value: item.id,
         label: item.name,
       };
@@ -31,9 +37,16 @@ function makeCategoryEnumFriendly(data: inputOption[]): Option[] {
       }
       return transformedItem;
     });
+};
+
+function makeColorEnum(data: any[]): Option[] {
+  return data.map(item => ({
+      value: item.id,
+      label: item.name
+  }));
 }
 
 
-export { makeCategoryEnumFriendly };
+export { makeCategoryEnumFriendly, makeColorEnum };
 
 export default enumChoice;

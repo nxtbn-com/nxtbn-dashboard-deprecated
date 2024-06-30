@@ -1,23 +1,34 @@
-import React, { ChangeEvent, useState } from "react";
-import { NXAlertCircle } from "../../icons";
+import React, { useState } from "react";
+import { NXAlertCircle, NXDelete } from "../../icons";
 import SelectStyled from "../Select";
+import { makeColorEnum } from "../../enum";
 
 interface VariantSectionProps {
   productConfig: any;
   onVariantChange: any;
   serial: number;
+  color: any[];
+  deleteVariant: any;
 }
 
-const VariantSection: React.FC<VariantSectionProps> = ({ productConfig, onVariantChange, serial }) => {
+const VariantSection: React.FC<VariantSectionProps> = ({
+  productConfig,
+  onVariantChange,
+  serial,
+  color,
+  deleteVariant
+}) => {
   const [metaSection, setMetaSection] = useState<number>(0);
 
   const addNewMetasection = (event: any) => {
     event.preventDefault();
     setMetaSection(prevVariantSection => prevVariantSection + 1);
-  }
+  };
+  
 
   return (
-    <div className="bg-white p-5 rounded-md mt-5">
+    <div className="p-5 border-[1px] border-solid border-base-200 relative">
+      <button onClick={deleteVariant}  className="absolute top-3 right-3 bg-red-500 px-2 py-2 rounded"> <NXDelete className="text-white" /> </button>
       <div className="flex items-center gap-3">
         <h1 className="font-nunito font-[900] text-2xl">{productConfig.has_variant ? `Variant - ${serial}` : `Info`}</h1>
         <NXAlertCircle className="text-base-300" />
@@ -66,7 +77,7 @@ const VariantSection: React.FC<VariantSectionProps> = ({ productConfig, onVarian
           />
         </div>
 
-        {productConfig.track_inventory && (
+        {productConfig.track_stock && (
           <div className="w-full">
             <label htmlFor="Stock">Stock</label>
             <input
@@ -102,7 +113,7 @@ const VariantSection: React.FC<VariantSectionProps> = ({ productConfig, onVarian
         
         <div className="w-full">
           <label htmlFor="color-name">Color Name</label>
-          <SelectStyled />
+          <SelectStyled options={makeColorEnum(color)} />
         </div>
         <div className="w-full">
           <label htmlFor="color">Color</label>
@@ -116,13 +127,13 @@ const VariantSection: React.FC<VariantSectionProps> = ({ productConfig, onVarian
 
       {metaSection > 0 && (
          <div className="flex items-center mt-3">
-         <h1 className="font-nunito font-[900] text-2xl">Metadata</h1>
+         <h3 className="font-nunito font-[900]">Metadata</h3>
          <NXAlertCircle className="text-base-300" />
        </div>
       )}
      
       {Array.from({ length: metaSection }, (_, index) => (
-          <div className="flex items-center gap-5 mt-5">
+          <div className="flex items-center gap-5 outline-[#0CAF60] border-[1px] border-double p-5">
             <div className="w-full">
               <label htmlFor="cost_per_item">Name</label>
               <input

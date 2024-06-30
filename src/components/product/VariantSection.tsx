@@ -7,7 +7,7 @@ interface VariantSectionProps {
   productConfig: any;
   onVariantChange: any;
   serial: number;
-  color: any[];
+  colors: any[];
   deleteVariant: any;
 }
 
@@ -15,7 +15,7 @@ const VariantSection: React.FC<VariantSectionProps> = ({
   productConfig,
   onVariantChange,
   serial,
-  color,
+  colors,
   deleteVariant
 }) => {
   const [metaSection, setMetaSection] = useState<number>(0);
@@ -28,11 +28,30 @@ const VariantSection: React.FC<VariantSectionProps> = ({
 
   return (
     <div className="p-5 border-[1px] border-solid border-base-200 relative">
-      <button onClick={deleteVariant}  className="absolute top-3 right-3 bg-red-500 px-2 py-2 rounded"> <NXDelete className="text-white" /> </button>
+
+      {productConfig.has_variant && (
+        <button onClick={deleteVariant}  className="absolute top-3 right-3 bg-red-500 px-2 py-2 rounded"> <NXDelete className="text-white" /> </button>
+      )}
+      
       <div className="flex items-center gap-3">
         <h1 className="font-nunito font-[900] text-2xl">{productConfig.has_variant ? `Variant - ${serial}` : `Info`}</h1>
         <NXAlertCircle className="text-base-300" />
       </div>
+
+      {productConfig.has_variant && (
+      <div className="flex items-center gap-5 mt-5">
+        <div className="w-full">
+          <label htmlFor="name">Variant Name</label>
+          <input
+            onChange={onVariantChange}
+            id="name"
+            type="text"
+            placeholder="Variant Name"
+            className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] placeholder:text-black border-[2px] border-dashed"
+          />
+        </div>
+      </div>)}
+
       <div className="flex items-center gap-5 mt-5">
         <div className="w-full">
           <label htmlFor="price">Price</label>
@@ -113,7 +132,7 @@ const VariantSection: React.FC<VariantSectionProps> = ({
         
         <div className="w-full">
           <label htmlFor="color-name">Color Name</label>
-          <SelectStyled options={makeColorEnum(color)} />
+          <SelectStyled options={makeColorEnum(colors)} />
         </div>
         <div className="w-full">
           <label htmlFor="color">Color</label>
@@ -125,38 +144,39 @@ const VariantSection: React.FC<VariantSectionProps> = ({
       </div>
 
 
+
+
       {metaSection > 0 && (
-         <div className="flex items-center mt-3">
-         <h3 className="font-nunito font-[900]">Metadata</h3>
-         <NXAlertCircle className="text-base-300" />
-       </div>
+        <div className="mt-5">
+          <h3 className="font-nunito font-[900]">Metadata</h3>
+          
+          <div className="flex items-center gap-5 mt-3">
+            <div className="w-full font-nunito font-[900]">Name</div>
+            <div className="w-full font-nunito font-[900]">Value</div>
+          </div>
+        </div>
       )}
      
-      {Array.from({ length: metaSection }, (_, index) => (
-          <div className="flex items-center gap-5 outline-[#0CAF60] border-[1px] border-double p-5">
-            <div className="w-full">
-              <label htmlFor="cost_per_item">Name</label>
-              <input
-                onChange={onVariantChange}
-                id="cost_per_item"
-                type="text"
-                placeholder="eg. Capacity"
-                className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] placeholder:text-black border-[2px] border-dashed"
-              />
-            </div>
-            <div className="w-full">
-              <label htmlFor="profit">Value</label>
-              <input
-                onChange={onVariantChange}
-                id="profit"
-                type="text"
-                placeholder="--"
-                className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] placeholder:text-black border-[2px] border-dashed"
-              />
-            </div>
+     {Array.from({ length: metaSection }, (_, index) => (
+        <div key={index} className="flex items-center gap-5 p-1">
+          <div className="w-full">
+            <input
+              onChange={onVariantChange}
+              type="text"
+              placeholder="eg. Capacity"
+              className="w-full px-5 py-3 bg-secondary-50 rounded-xl font-nunito outline-[#0CAF60] placeholder:text-black border-[2px] border-dashed"
+            />
           </div>
+          <div className="w-full">
+            <input
+              onChange={onVariantChange}
+              type="text"
+              placeholder="--"
+              className="w-full px-5 py-3 bg-secondary-50 rounded-xl font-nunito outline-[#0CAF60] placeholder:text-black border-[2px] border-dashed"
+            />
+          </div>
+        </div>
       ))}
-
       
 
       <button onClick={addNewMetasection} className="font-nunito font-[800] flex items-center gap-1 mt-3">

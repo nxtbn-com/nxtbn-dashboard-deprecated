@@ -13,7 +13,7 @@ function AddNewProductMain() {
 
   // fetched data
   const [categories, setCategories] = useState<any[]>([]);
-  const [color, setColor] = useState<any[]>([]);
+  const [colors, setColors] = useState<any[]>([]);
 
 
   const [fromData, setFormData] = useState<any>({});
@@ -48,21 +48,24 @@ function AddNewProductMain() {
     setVariantSection(prevVariantSection => prevVariantSection + 1);
   }
 
-
-  useEffect(() => {
+  const fetchData = () => {
     api.getCategories().then((response) => {
-        const category = makeCategoryEnumFriendly(response as any)
-        setCategories(category)
-      }).catch((error) => {
-        console.log(error);
+      const category = makeCategoryEnumFriendly(response as any);
+      setCategories(category);
+    }).catch((error) => {
+      console.error("Error fetching categories:", error);
     });
 
     api.getColor().then((response) => {
-      setColor(response as any)
+      setColors(response as any);
     }).catch((error) => {
-      console.log(error);
+      console.error("Error fetching colors:", error);
     });
+  };
 
+
+  useEffect(() => {
+    fetchData();
   }, []);
 
   const deleteVariant = (event: any) => {
@@ -171,7 +174,7 @@ function AddNewProductMain() {
                 productConfig={productConfig}
                 onVariantChange={onVariantChange}
                 serial={index + 1}
-                color={color}
+                colors={colors}
                 deleteVariant={deleteVariant}
               />
            ))}

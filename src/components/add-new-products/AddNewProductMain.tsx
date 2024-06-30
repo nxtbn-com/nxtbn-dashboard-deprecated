@@ -12,6 +12,7 @@ function AddNewProductMain() {
   const api = useApi();
   const [categories, setCategories] = useState<any[]>([]);
   const [fromData, setFormData] = useState<any>({});
+  const [productConfig, setProductConfig] = useState<any>({});
 
   const handleProductCreate = (event: FormEvent) => {
     event.preventDefault()
@@ -20,6 +21,17 @@ function AddNewProductMain() {
     }).catch((error) => {
 
     })
+  };
+
+  const handleProductConfig = (event: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    setProductConfig((prevData: any) => ({
+      ...prevData,
+      [name]: value,
+    }));
+
+    console.log(productConfig)
+  
   }
 
 
@@ -172,23 +184,35 @@ function AddNewProductMain() {
             </div>
 
             <div className="flex items-center gap-3 my-5">
-              <input type="checkbox" name="" />
+              <input onChange={handleProductConfig} type="checkbox" name="charge_tax" />
               <label className="font-nunito">Charge tax</label>
             </div>
             <div className="flex items-center gap-3 my-5">
-              <input type="checkbox" name="" />
+            <input onChange={handleProductConfig} type="checkbox" name="physical_product" />
               <label className="font-nunito">Physical Product</label>
             </div>
             <div className="flex items-center gap-3 my-5">
-              <input type="checkbox" name="" />
+            <input onChange={handleProductConfig} type="checkbox" name="track_inventory" />
               <label className="font-nunito">Track Inventory</label>
             </div>
             <div className="flex items-center gap-3 my-5">
-              <input type="checkbox" name="" />
+            <input onChange={handleProductConfig} type="checkbox" name="has_variant" />
               <label className="font-nunito">Has Variant</label>
             </div>
           </div>
 
+          {/* tax class */}
+          {productConfig.charge_tax && (
+          <div className=" bg-white p-5 rounded-md mt-5">
+            <div>
+              <h1 className="font-nunito font-[900] text-2xl">Tax Class</h1>
+            </div>
+
+            <p>Tax Class Dropdown goes there</p>
+          </div>)}
+
+          {/* variant */}
+          {productConfig.has_variant && (
           <div className=" bg-white p-5 rounded-md mt-5">
             <div>
               <h1 className="font-nunito font-[900] text-2xl">Variants</h1>
@@ -206,7 +230,7 @@ function AddNewProductMain() {
             <button className="font-nunito font-[800] flex items-center gap-1 mt-3">
               + Add options like size or color
             </button>
-          </div>
+          </div>)}
 
         </div>
         <div className="w-full md:w-[40%]">

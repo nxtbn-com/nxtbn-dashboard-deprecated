@@ -7,7 +7,7 @@ interface VariantSectionProps {
   productConfig: any;
   onVariantChange: any;
   serial: number;
-  color: any[];
+  colors: any[];
   deleteVariant: any;
 }
 
@@ -15,7 +15,7 @@ const VariantSection: React.FC<VariantSectionProps> = ({
   productConfig,
   onVariantChange,
   serial,
-  color,
+  colors,
   deleteVariant
 }) => {
   const [metaSection, setMetaSection] = useState<number>(0);
@@ -28,7 +28,11 @@ const VariantSection: React.FC<VariantSectionProps> = ({
 
   return (
     <div className="p-5 border-[1px] border-solid border-base-200 relative">
-      <button onClick={deleteVariant}  className="absolute top-3 right-3 bg-red-500 px-2 py-2 rounded"> <NXDelete className="text-white" /> </button>
+
+      {productConfig.has_variant && (
+        <button onClick={deleteVariant}  className="absolute top-3 right-3 bg-red-500 px-2 py-2 rounded"> <NXDelete className="text-white" /> </button>
+      )}
+      
       <div className="flex items-center gap-3">
         <h1 className="font-nunito font-[900] text-2xl">{productConfig.has_variant ? `Variant - ${serial}` : `Info`}</h1>
         <NXAlertCircle className="text-base-300" />
@@ -113,7 +117,7 @@ const VariantSection: React.FC<VariantSectionProps> = ({
         
         <div className="w-full">
           <label htmlFor="color-name">Color Name</label>
-          <SelectStyled options={makeColorEnum(color)} />
+          <SelectStyled options={makeColorEnum(colors)} />
         </div>
         <div className="w-full">
           <label htmlFor="color">Color</label>

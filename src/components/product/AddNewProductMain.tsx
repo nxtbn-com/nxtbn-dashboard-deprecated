@@ -5,39 +5,15 @@ import SelectStyled from "../Select";
 import NestedSelect from "../nestedSelect";
 import useApi from "../../api";
 import { makeCategoryEnumFriendly } from "../../enum";
-
+import VariantSection from "./VariantSection";
 
 
 function AddNewProductMain() {
   const api = useApi();
   const [categories, setCategories] = useState<any[]>([]);
   const [fromData, setFormData] = useState<any>({});
-
-  let [isChecked, setIsChecked] = useState<boolean>(false);
-
-  let handleChecked = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setIsChecked(!isChecked);
-  };
-
-  const customStyle = {
-    control: (provided: any, state: any) => ({
-      ...provided,
-
-      borderColor: state.isFocused ? "#0CAF60" : "white",
-      borderWidth: "1px",
-      boxShadow: state.isFocused ? "0 0 0 1px #0CAF60" : "white",
-      "&:hover": {
-        borderColor: "none",
-      },
-
-      padding: "4px 8px",
-    }),
-    multiValue: (provided: any, state: any) => ({
-      ...provided,
-
-      borderRadius: "20px",
-    }),
-  };
+  const [productConfig, setProductConfig] = useState<any>({});
+  const [variantSection, setVariantSection] = useState<number>(1);
 
   const handleProductCreate = (event: FormEvent) => {
     event.preventDefault()
@@ -46,6 +22,27 @@ function AddNewProductMain() {
     }).catch((error) => {
 
     })
+  };
+
+  const handleProductConfig = (event: ChangeEvent<HTMLInputElement>) => {
+    const { name, checked, type, value } = event.target;
+    const inputValue = type === 'checkbox' ? checked : value;
+
+    setProductConfig((prevData: any) => ({
+      ...prevData,
+      [name]: inputValue,
+    }));
+
+    console.log(productConfig);
+  };
+
+  const onVariantChange = (event: any) => {
+
+  }
+
+  const addNewVariant = (event: any) => {
+    event.preventDefault();
+    setVariantSection(prevVariantSection => prevVariantSection + 1);
   }
 
 
@@ -94,7 +91,7 @@ function AddNewProductMain() {
                 type="text"
                 id="product_name"
                 placeholder="Type your product name"
-                className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60]"
+                className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] border-[2px] border-dashed"
               />
             </div>
             <div className="mt-5">
@@ -108,7 +105,7 @@ function AddNewProductMain() {
                 placeholder="Type your product description here"
                 name=""
                 id="product_description"
-                className="w-full px-5 py-3 h-[224px] bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60]"
+                className="w-full px-5 py-3 h-[224px] bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] border-[2px] border-dashed"
               ></textarea>
             </div>
           </div>
@@ -130,117 +127,57 @@ function AddNewProductMain() {
               </label>
             </div>
           </div>
-          {/* pricing */}
+
+
+          {/* Product Config */}
           <div className=" bg-white p-5 rounded-md mt-5">
-            <div className="flex items-center gap-3">
-              <h1 className="font-nunito font-[900] text-2xl">Pricing</h1>
-              <NXAlertCircle className="text-base-300" />
+            <div>
+              <h1 className="font-nunito font-[900] text-2xl">Product Config</h1>
             </div>
-            <div className="flex items-center gap-5 mt-5">
-              <div className="w-full">
-                <label htmlFor="price">Price</label>
-                <input
-                  id="price"
-                  type="text"
-                  placeholder="$0.00"
-                  className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] placeholder:text-black"
-                />
-              </div>
-              <div className="w-full">
-                <label htmlFor="compare-price">Price</label>
-                <input
-                  id="compare-price"
-                  type="text"
-                  placeholder="$0.00"
-                  className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] placeholder:text-black"
-                />
-              </div>
+
+            <div className="flex items-center gap-3 my-5">
+              <input onChange={handleProductConfig} type="checkbox" name="charge_tax" />
+              <label className="font-nunito">Charge tax</label>
             </div>
             <div className="flex items-center gap-3 my-5">
-              <input type="checkbox" name="" id="bangladesh" />
-              <p className="font-nunito">Charge tax on this product</p>
+            <input onChange={handleProductConfig} type="checkbox" name="physical_product" />
+              <label className="font-nunito">Physical Product</label>
             </div>
-            <div className="flex items-center gap-5 mt-5">
-              <div className="w-full">
-                <label htmlFor="cost_per_item">Cost per item</label>
-                <input
-                  id="cost_per_item"
-                  type="text"
-                  placeholder="$0.00"
-                  className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] placeholder:text-black"
-                />
-              </div>
-              <div className="w-full">
-                <label htmlFor="profit">Profit</label>
-                <input
-                  id="profit"
-                  type="text"
-                  placeholder="--"
-                  className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] placeholder:text-black"
-                />
-              </div>
-              <div className="w-full">
-                <label htmlFor="margin">Margin</label>
-                <input
-                  id="margin"
-                  type="text"
-                  placeholder="--"
-                  className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] placeholder:text-black"
-                />
-              </div>
+            <div className="flex items-center gap-3 my-5">
+            <input onChange={handleProductConfig} type="checkbox" name="track_inventory" />
+              <label className="font-nunito">Track Inventory</label>
+            </div>
+            <div className="flex items-center gap-3 my-5">
+            <input onChange={handleProductConfig} type="checkbox" name="has_variant" />
+              <label className="font-nunito">Has Variant</label>
             </div>
           </div>
-          {/* shipping */}
+
+          {Array.from({ length: variantSection }, (_, index) => (
+              <VariantSection key={index} productConfig={productConfig} onVariantChange={onVariantChange} serial={index + 1} />
+           ))}
+         
+
+          {productConfig.has_variant && (
+          <div className=" bg-white p-5 rounded-md mt-5">
+            <div className="items-center">
+            <button onClick={addNewVariant} className="font-nunito font-[800] gap-1 mt-3">
+              + Add Variant
+            </button>
+            </div>
+          </div>)}
+
+
+          {/* tax class */}
+          {productConfig.charge_tax && (
           <div className=" bg-white p-5 rounded-md mt-5">
             <div>
-              <h1 className="font-nunito font-[900] text-2xl">Shipping</h1>
+              <h1 className="font-nunito font-[900] text-2xl">Tax Class</h1>
             </div>
-            <div className="flex items-center gap-3 my-7">
-              <input
-                type="checkbox"
-                name=""
-                id="physical_product"
-                checked={isChecked}
-                onChange={handleChecked}
-              />
-              <p className="font-nunito">This is a physical product</p>
-            </div>
-            {isChecked && (
-              <div className="flex items-center gap-5 mt-5">
-                <div className="w-full">
-                  <label htmlFor="weight">Weight</label>
-                  <div className="relative">
-                    <input
-                      id="weight"
-                      type="number"
-                      placeholder="0.0"
-                      className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] placeholder:text-black"
-                    />
 
-                    <div className="absolute top-[17px] right-12 w-[90px] md:w-[120px]">
-                      <SelectStyled 
-                      customStyles={customStyle}
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )}
-            <hr className="border w-full my-5 border-[#C8C8C8]" />
+            <p>Tax Class Dropdown goes there</p>
+          </div>)}
 
-            <button className="font-nunito font-[800] flex items-center gap-1 mt-3">
-              + Add customs information
-            </button>
-          </div>
-          {/* variant */}
-          <div className=" bg-white p-5 rounded-md mt-5">
-            <div>
-              <h1 className="font-nunito font-[900] text-2xl">Variants</h1>
-            </div>
-            <button className="font-nunito font-[800] flex items-center gap-1 mt-3">
-              + Add options like size or color
-            </button>
-          </div>
         </div>
         <div className="w-full md:w-[40%]">
           <div className=" bg-white p-5 rounded-md">
@@ -253,7 +190,6 @@ function AddNewProductMain() {
                   { value: "active", label: "Active" },
                   { value: "inactive", label: "InActive" },
                 ]}
-                customStyles={customStyle}
               />
               <div className="absolute inset-y-0 right-0 top-10 flex items-center px-2 pointer-events-none"></div>
             </div>
@@ -283,12 +219,6 @@ function AddNewProductMain() {
                 </span>
               </label>
             </div>
-            <p className="font-bold mt-7">Markets</p>
-
-            <div className="flex gap-2 items-center mt-3">
-              <input type="checkbox" name="" id="bangladesh" />
-              <label htmlFor="bangladesh">Bangladesh and International</label>
-            </div>
           </div>
           {/* product organization */}
           <div className=" bg-white p-5 rounded-md mt-5">
@@ -314,17 +244,9 @@ function AddNewProductMain() {
               />
             </div>
             <div className="my-5">
-              <label htmlFor="vendor">Vendor</label>
-              <input
-                id="vendor"
-                type="text"
-                className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-md font-nunito outline-[#0CAF60]"
-              />
-            </div>
-            <div className="my-5">
               <label htmlFor="tags">Tags</label>
               <div className="pt-3">
-                <SelectStyled isMulti={true} customStyles={customStyle} />
+                <SelectStyled isMulti={true} />
               </div>
             </div>
           </div>

@@ -13,6 +13,7 @@ function AddNewProductMain() {
   const [categories, setCategories] = useState<any[]>([]);
   const [fromData, setFormData] = useState<any>({});
   const [productConfig, setProductConfig] = useState<any>({});
+  const [variantSection, setVariantSection] = useState<number>(1);
 
   const handleProductCreate = (event: FormEvent) => {
     event.preventDefault()
@@ -37,6 +38,11 @@ function AddNewProductMain() {
 
   const onVariantChange = (event: any) => {
 
+  }
+
+  const addNewVariant = (event: any) => {
+    event.preventDefault();
+    setVariantSection(prevVariantSection => prevVariantSection + 1);
   }
 
 
@@ -147,13 +153,15 @@ function AddNewProductMain() {
             </div>
           </div>
 
-
-          <VariantSection productConfig={productConfig} onVariantChange={onVariantChange} />
+          {Array.from({ length: variantSection }, (_, index) => (
+              <VariantSection key={index} productConfig={productConfig} onVariantChange={onVariantChange} serial={index + 1} />
+           ))}
+         
 
           {productConfig.has_variant && (
           <div className=" bg-white p-5 rounded-md mt-5">
             <div className="items-center">
-            <button className="font-nunito font-[800] gap-1 mt-3">
+            <button onClick={addNewVariant} className="font-nunito font-[800] gap-1 mt-3">
               + Add Variant
             </button>
             </div>

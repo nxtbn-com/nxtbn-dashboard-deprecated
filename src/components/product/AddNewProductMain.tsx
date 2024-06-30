@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useEffect, useState, FormEvent } from "react";
-import { NXAlertCircle, NXLeftArrow, NXRightArrow } from "../../icons";
+import { NXAlertCircle, NXPlus } from "../../icons";
 import "./select-hide.css";
 import SelectStyled from "../Select";
 import NestedSelect from "../nestedSelect";
@@ -168,18 +168,19 @@ function AddNewProductMain() {
                 color={color}
               />
            ))}
-          </div>
-          
-         
 
-          {productConfig.has_variant && (
-          <div className=" bg-white p-5 rounded-md mt-5">
-            <div className="items-center">
-            <button onClick={addNewVariant} className="font-nunito font-[800] gap-1 mt-3">
-              + Add Variant
-            </button>
-            </div>
-          </div>)}
+            {productConfig.has_variant && (
+              <div className="flex justify-center mt-3">
+                <button
+                  onClick={addNewVariant}
+                  className="flex items-center font-nunito font-[800] gap-2 px-5 py-3 bg-primary-500 text-white rounded-xl"
+                >
+                  <NXPlus className="mr-1" /> Add Variant
+                </button>
+              </div>
+            )}
+
+          </div>
 
         </div>
 

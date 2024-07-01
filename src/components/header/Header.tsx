@@ -26,7 +26,7 @@ function Header({
       <div className="hidden md:flex w-full h-[100px] bg-white backdrop:blur md:px-5 lg:px-10 items-center justify-between border-b border-[#EEEFF2]">
         <div className="flex gap-5">
           {sidebarOpen && (
-            <button className="text-black w-10" onClick={toggleSideBar}>
+            <button className="block ml:hidden text-black w-10" onClick={toggleSideBar}>
               <NXMenu />
             </button>
           )}

@@ -1,7 +1,8 @@
 import { Link, useLocation } from "react-router-dom";
 import { MenuItemType } from "./useMenuItems";
 
-function MenuItem({ menuItem }: { menuItem: MenuItemType }) {
+
+function MenuItem({ menuItem, sidebarOpen }: { menuItem: MenuItemType, sidebarOpen: boolean }) {
   let location = useLocation();
 
   const active =
@@ -12,13 +13,17 @@ function MenuItem({ menuItem }: { menuItem: MenuItemType }) {
   return (
     <Link
       to={menuItem.url}
-      className={`flex justify-between items-center border-b border-[#EEEFF2] px-5 py-3.5 lg:text-base font-nunito tracking-wide ${
+      className={`flex justify-between items-center gap-1 border-b border-[#EEEFF2] px-5 py-3.5 lg:text-base font-nunito tracking-wide ${
         active && "text-primary-500 font-nunito-h1 relative"
       }`}
     >
       <div className="flex justify-center items-center gap-4 md:gap-3 lg:gap-4">
         <span className="">{menuItem.icon}</span>
+        {!sidebarOpen ? 
         <span>{menuItem.name}</span>
+        :
+        <></>
+        }
       </div>
       {menuItem?.count && (
         <div

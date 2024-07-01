@@ -1,7 +1,7 @@
 import { NXHelp, NXSetting } from "../../icons";
 import MenuItem from "./MenuItem";
 
-function FixedMenu({className}: {className?: string}) {
+function FixedMenu({className, sidebarOpen}: {className?: string, sidebarOpen: boolean}) {
     const menus = [
       {
         name: "Settings",
@@ -17,7 +17,7 @@ function FixedMenu({className}: {className?: string}) {
   return (
     <div className={`border-t border-[#EEEFF2] mh:text-sm ${className}`}>
       {menus.map((item) => (
-        <MenuItem menuItem={item} key={item.name} />
+        <MenuItem menuItem={item} key={item.name} sidebarOpen={sidebarOpen}/>
       ))}
     </div>
   );

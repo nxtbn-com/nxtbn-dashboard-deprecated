@@ -82,6 +82,7 @@ const SelectStyled: React.FC<SelectStyledProps> = ({
         onChange={onChangeWithLimit}
         required
         isMulti={isMulti}
+        styles={customStyles}
         {...rest}
       />
     </>

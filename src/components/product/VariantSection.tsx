@@ -24,10 +24,31 @@ const VariantSection: React.FC<VariantSectionProps> = ({
     event.preventDefault();
     setMetaSection(prevVariantSection => prevVariantSection + 1);
   };
+
+
+  const [selectedColor, setSelectedColor] = useState<any>({colorName: '', colorCode: '#ffffff'})
+
+  const colorNameSelect = (value: any, actionMeta: any) => {
+    setSelectedColor({colorName: value.label, colorCode: colors.filter((color)=>color.name === value.label)[0].code})
+  }
+
+  const colorCodeChange = (e:any) => {
+    setSelectedColor({colorCode: e.target.value})
+  }
+
+
+  const style = {
+    control: (provided:any, state:any) => ({
+      ...provided,
+      padding: '6px',
+      borderRadius: '10px',
+    }),
+  
+  }
   
 
   return (
-    <div className="p-5 border-[1px] border-solid border-base-200 relative">
+    <div className="p-5 border-[1px] border-solid rounded-md border-base-200 relative">
 
       {productConfig.has_variant && (
         <button onClick={deleteVariant}  className="absolute top-3 right-3 bg-red-500 px-2 py-2 rounded"> <NXDelete className="text-white" /> </button>
@@ -113,9 +134,9 @@ const VariantSection: React.FC<VariantSectionProps> = ({
       <div className="flex items-center gap-5 mt-5">
         {productConfig.physical_product && (
           <>
-          <div className="w-full">
+          <div className="w-full flex flex-col gap-3">
             <label htmlFor="profit">Weight</label>
-            <SelectStyled />
+            <SelectStyled customStyles={style}/>
           </div>
           <div className="w-full">
             <label htmlFor="profit">Value</label>
@@ -130,15 +151,18 @@ const VariantSection: React.FC<VariantSectionProps> = ({
           </>
         )}
         
-        <div className="w-full">
+        <div className="w-full flex flex-col gap-3 ">
           <label htmlFor="color-name">Color Name</label>
-          <SelectStyled options={makeColorEnum(colors)} />
+          <SelectStyled options={makeColorEnum(colors)} onChange={colorNameSelect} customStyles={style}/>
         </div>
-        <div className="w-full">
+        <div className="w-full flex flex-col justify-start gap-3">
           <label htmlFor="color">Color</label>
           <input
             id="color"
             type="color"
+            value={selectedColor.colorCode}
+            onChange={colorCodeChange}
+            style={{height:50, width:"100%", borderRadius: 10}}
           />
         </div>
       </div>
@@ -179,7 +203,7 @@ const VariantSection: React.FC<VariantSectionProps> = ({
       ))}
       
 
-      <button onClick={addNewMetasection} className="font-nunito font-[800] flex items-center gap-1 mt-3">
+      <button onClick={addNewMetasection} className="font-nunito font-[800] flex items-center gap-1 mt-6">
         + Add Metadata
       </button>
     </div>

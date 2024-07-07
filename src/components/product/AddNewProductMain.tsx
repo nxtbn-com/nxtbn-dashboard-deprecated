@@ -1,13 +1,13 @@
 import React, { ChangeEvent, useEffect, useState, FormEvent } from "react";
-import { NXAlertCircle, NXCross, NXDelete, NXPlus } from "../../icons";
+import { NXAlertCircle, NXPlus } from "../../icons";
 import "./select-hide.css";
 import SelectStyled from "../Select";
 import NestedSelect from "../nestedSelect";
 import useApi from "../../api";
 import { makeCategoryEnumFriendly } from "../../enum";
 import VariantSection from "./VariantSection";
-import { AxiosResponse } from "axios";
-import CustomModal from "../Modal";
+import { ImageField } from "../images";
+
 
 function AddNewProductMain() {
   const api = useApi();
@@ -73,116 +73,7 @@ function AddNewProductMain() {
     alert('delete')
     event.preventDefault();
     setVariantSection(prevVariantSection => prevVariantSection - 1);
-  }
-
-
-
-  const [newImages, setNewImages] = useState<any[]>([]);
-
-  const uploadImageHandle = (e: any) => {
-    const data = new FormData();
-
-    data.append("name", e.target.files[0]?.name);
-    data.append("image", e.target.files[0]);
-    data.append("image_alt_text", e.target.files[0]?.name);
-
-    api.productImage(data).then((response)=>setNewImages([...newImages, e.target.files[0]])).catch((error)=>console.log(error))
-  
   };
-
-  const deleteImage = (e: any, img: any) => {
-    e.preventDefault();
-    setNewImages(newImages.filter((image) => image !== img));
-  };
-
-  const [imageList, setImageList] = useState<any[]>([]);
-
-  useEffect(() => {
-    getUploadImages();
-  }, [newImages]);
-
-  const getUploadImages = async (): Promise<void> => {
-    api.getImages().then((response:any)=>setImageList(response?.results)).catch((error) => console.error("Error fetching uploaded images:", error))
-  }
-
-  const [isModalOpen, setModalOpen] = useState(false);
-
-  const handleOpenModal = () => {
-    setModalOpen(true);
-    getUploadImages();
-  };
-
-  const handleCloseModal = () => setModalOpen(false);
-
-  const [isImageDropped, setIsImageDropped] = useState(false);
-
-  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    const droppedFile = e.dataTransfer.files[0];
-    if (droppedFile) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        reader.result as string;
-      };
-      reader.readAsDataURL(droppedFile);
-
-      const data = new FormData();
-
-      data.append("name", droppedFile.name);
-      data.append("image", droppedFile);
-      data.append("image_alt_text", droppedFile.name);
-
-      api.productImage(data).then((response)=>setNewImages([...newImages, droppedFile])).catch((error)=>console.log(error))
-      setIsImageDropped(false);
-    }
-  };
-
-  const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    setIsImageDropped(true);
-  };
-
-  interface SelectImageType {
-    id: number;
-    isSelected: boolean;
-  }
-
-  const [selectImage, setSelectImage] = useState<SelectImageType[]>([]);
-
-  const onSelectImage = (e: any, id: number) => {
-    if (e.target.checked) {
-      setSelectImage([...selectImage, { id: id, isSelected: true }]);
-    } else {
-      setSelectImage(selectImage.filter((img) => img.id !== id));
-    }
-  };
-
-  const deleteSelectedImage = (e: any, selectedImg: any) => {
-    e.preventDefault();
-    for (let i = 0; i < selectedImg.length; i++) {
-      api.deleteImage(selectedImg[i].id).then((response) => console.log(response)).catch((error) => console.log(error));
-    }
-    setSelectImage([]);
-    getUploadImages();
-  };
-
-  const onSaveImage = async (e: any) => {
-    e.preventDefault();
-
-    const updatedImages = [...newImages];
-
-    for (let i = 0; i < selectImage.length; i++) {
-      const images = imageList.filter((img) => img.id === selectImage[i].id);
-
-      const response = await fetch(images[0].image);
-      const blob = await response.blob();
-      const file = new File([blob], images[0].name, { type: blob.type });
-      updatedImages.push(file);
-    }
-    setNewImages(updatedImages);
-    setModalOpen(false);
-  };
-
 
   return (
     <section className="px-10 py-5">
@@ -232,161 +123,9 @@ function AddNewProductMain() {
               ></textarea>
             </div>
           </div>
-          <div className=" bg-white p-5 rounded-md mt-5">
-            <div>
-              <label htmlFor="media">Images</label>
-              {newImages.length !== 0 ? (
-                <div className="flex gap-3 flex-wrap mt-3">
-                  {newImages.map((img, index) => (
-                    <div
-                      key={index}
-                      className="h-[200px] w-[200px] rounded-md border border-base-300 flex justify-center items-center relative group"
-                    >
-                      <img
-                        src={URL.createObjectURL(img)}
-                        alt=""
-                        className="absolute z-10 rounded-md"
-                      />
-                      <div className="absolute h-[200px] w-[200px] transition-all ease-linear rounded-md group-hover:bg-base-300 opacity-50 group-hover:z-20 hidden group-hover:block">
-                        <div onClick={(e) => deleteImage(e, img)}>
-                          <NXDelete className="h-[30px] w-[30px] rounded-md border border-red-600 bg-white p-1 absolute left-2 bottom-3 cursor-pointer" />
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                  <label
-                    htmlFor="media"
-                    className="h-[50px] w-[50px] rounded-md border-dashed border border-base-300 flex justify-center items-center cursor-pointer hover:bg-base-100"
-                  >
-                    +
-                  </label>
-                </div>
-              ) : (
-                <></>
-              )}
-              <div>
-                {newImages.length !== 0 ? (
-                    <></>
-                  ) : (
-                    <div
-                      className={`mt-2 cursor-pointer z-10 border-[2px] border-dashed border-base-50 text-black font-light p-5 flex justify-center items-center flex-col rounded-xl hover:bg-gray-100 ${
-                        isImageDropped ? "bg-gray-100 border border-base-400" : ""
-                      }`}
-                      onDrop={handleDrop}
-                      onDragOver={handleDragOver}
-                      onDragEnter={() => setIsImageDropped(true)}
-                      onDragLeave={() => setIsImageDropped(false)}
-                    >
-                      <div className="mb-2 pt-6">
-                        <label
-                          htmlFor="media"
-                          className="px-5 py-2 z-30 rounded-full bg-secondary-200 text-black mr-2 text-sm cursor-pointer"
-                        >
-                          Upload new
-                        </label>
 
-                        <button className="text-sm hover:underline" onClick={handleOpenModal}>Select existing</button>
-                      </div>
-                      <div className="text-sm font-thin pt-2 pb-5">
-                        Accept images, videos, or 3D models
-                      </div>
-                    </div>
-                  )}
-                </div>
-                <input
-                id="media"
-                type="file"
-                className="hidden"
-                onChange={uploadImageHandle}
-              />
-            </div>
-          </div>
-          <div>
-            <CustomModal isOpen={isModalOpen} onClose={handleCloseModal}>
-              <div className="p-4">
-                <div className="flex justify-between border-b pb-4">
-                  <strong className="text-sm">Select images</strong>
-                  <span onClick={handleCloseModal}>
-                    <NXCross className="h-4 cursor-pointer" />
-                  </span>
-                </div>
-                <div className="pt-6">
-                  {imageList.length === 0 ? (
-                    <span className="flex justify-center items-center">
-                      No Prevous Image Found
-                    </span>
-                  ) : (
-                    <span className="text-sm">
-                      Select Items: {selectImage?.length}
-                    </span>
-                  )}
-
-                  <div className="flex gap-4 flex-wrap p-6">
-                    {imageList?.map((img, index) => (
-                      <div
-                        key={index}
-                        className="h-[150px] w-[150px] border border-base-300 flex justify-center items-center rounded-md p-[1px] relative group "
-                      >
-                        <img src={img?.image} alt="" />
-                        <label
-                          htmlFor={`selectImg-${index}`}
-                          className={`absolute h-[150px] w-[150px] rounded-md group-hover:block ${
-                            selectImage.some(
-                              (selectedImg) => selectedImg.id === img.id
-                            )
-                              ? "block"
-                              : "hidden"
-                          } bg-base-200 opacity-50`}
-                        >
-                          <div>
-                            <input
-                              id={`selectImg-${index}`}
-                              type="checkbox"
-                              className="h-[30px] w-[30px] rounded-md border border-red-600 bg-white p-1 absolute left-2 bottom-3 cursor-pointer"
-                              checked={selectImage.some(
-                                (selectedImg) => selectedImg.id === img.id
-                              )}
-                              onChange={(e) => onSelectImage(e, img.id)}
-                            />
-                          </div>
-                        </label>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="flex justify-between items-center border-t p-4 mt-4">
-                    {selectImage.length !== 0 ? (
-                      <strong
-                        className="text-sm cursor-pointer text-red-600 hover:underline"
-                        onClick={() => setSelectImage([])}
-                      >
-                        Clear Selection
-                      </strong>
-                    ) : (
-                      <strong></strong>
-                    )}
-
-                    <span className="flex gap-4">
-                      <button
-                        type="submit"
-                        className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"
-                        onClick={(e) => deleteSelectedImage(e, selectImage)}
-                      >
-                        Delete
-                      </button>
-                      <button
-                        type="submit"
-                        className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
-                        data-autofocus
-                        onClick={onSaveImage}
-                      >
-                        Save
-                      </button>
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </CustomModal>
-          </div>
+         
+         <ImageField label="some label" />
 
           {/* tax class */}
           {productConfig.charge_tax && (

@@ -7,6 +7,7 @@ import useApi from "../../api";
 
 interface ImageChooseModalProps {
     onClose: () => void;
+    isOpen: boolean;
 }
 
 interface SelectImageType {
@@ -15,18 +16,13 @@ interface SelectImageType {
   }
 
 
-const ImageChooseModal: React.FC<ImageChooseModalProps> = ({ onClose }) => {
+const ImageChooseModal: React.FC<ImageChooseModalProps> = ({ onClose, isOpen }) => {
     const [isModalOpen, setModalOpen] = useState(false);
     const [selectImage, setSelectImage] = useState<SelectImageType[]>([]);
     const [newImages, setNewImages] = useState<any[]>([]);
     const [imageList, setImageList] = useState<any[]>([]);
 
-    const api = useApi();
-
-
-    const handleCloseModal = () => setModalOpen(false);
-  
-    
+    const api = useApi();   
 
     const onSelectImage = (e: any, id: number) => {
         if (e.target.checked) {
@@ -39,7 +35,7 @@ const ImageChooseModal: React.FC<ImageChooseModalProps> = ({ onClose }) => {
       const deleteSelectedImage = (e: any, selectedImg: any) => {
         e.preventDefault();
         for (let i = 0; i < selectedImg.length; i++) {
-        //   api.deleteImage(selectedImg[i].id).then((response) => console.log(response)).catch((error) => console.log(error));
+          api.deleteImage(selectedImg[i].id).then((response) => console.log(response)).catch((error) => console.log(error));
         }
         setSelectImage([]);
         getUploadImages();
@@ -69,12 +65,12 @@ const ImageChooseModal: React.FC<ImageChooseModalProps> = ({ onClose }) => {
 
     return (
         <>
-            <div>
-            <CustomModal isOpen={isModalOpen} onClose={handleCloseModal}>
+
+            <CustomModal isOpen={isOpen} onClose={onClose}>
               <div className="p-4">
                 <div className="flex justify-between border-b pb-4">
                   <strong className="text-sm">Select images</strong>
-                  <span onClick={handleCloseModal}>
+                  <span onClick={onClose}>
                     <NXCross className="h-4 cursor-pointer" />
                   </span>
                 </div>
@@ -154,7 +150,6 @@ const ImageChooseModal: React.FC<ImageChooseModalProps> = ({ onClose }) => {
                 </div>
               </div>
             </CustomModal>
-          </div>
         </>
     );
 };

@@ -1,4 +1,5 @@
 import React, { ChangeEvent, useState, useEffect } from 'react';
+import ImageChooseModal from './modal';
 import { NXDelete } from "../../icons";
 
 import useApi from "../../api";
@@ -74,7 +75,9 @@ const ImageField: React.FC<ImageFieldProps> = ({ label }) => {
     
       const getUploadImages = async (): Promise<void> => {
         api.getImages().then((response:any)=>setImageList(response?.results)).catch((error) => console.error("Error fetching uploaded images:", error))
-      }
+      };
+
+      const handleCloseModal = () => setModalOpen(false);
     
     
 
@@ -149,6 +152,7 @@ const ImageField: React.FC<ImageFieldProps> = ({ label }) => {
               />
             </div>
           </div>
+          <ImageChooseModal isOpen={isModalOpen} onClose={handleCloseModal} />
        </>
     );
 };

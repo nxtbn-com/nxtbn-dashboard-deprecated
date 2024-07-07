@@ -21,12 +21,12 @@ function Header({
     setSidebarOpen((prev) => !prev);
   };
   return (
-    <header className="w-full overflow-hidden sticky top-0 z-0 md:z-10">
+    <header className="w-full overflow-hidden sticky top-0 z-40">
       {/* Desktop Nav */}
-      <div className="hidden md:flex w-full h-[100px] bg-white backdrop:blur md:px-5 lg:px-10 items-center justify-between border-b border-[#EEEFF2]">
+      <div className="hidden z-50 md:flex w-full h-[100px] bg-white backdrop:blur md:px-5 lg:px-10 items-center justify-between border-b border-[#EEEFF2]">
         <div className="flex gap-5">
           {sidebarOpen && (
-            <button className="block ml:hidden text-black w-10" onClick={toggleSideBar}>
+            <button className="block mh:hidden text-black w-10" onClick={toggleSideBar}>
               <NXMenu />
             </button>
           )}
@@ -79,7 +79,7 @@ function Header({
       </div>
 
       {/* Mobile nav */}
-      <div className="block md:hidden px-7 sticky top-0 left-0 bg-white z-10 pb-3">
+      <div className="block md:hidden px-7 sticky top-0 left-0 bg-white z-40 pb-3">
         <div className="py-3 flex items-center justify-between gap-3">
           <div className="flex gap-2 items-center">
             <button className="text-black w-7" onClick={toggleSideBar}>

@@ -46,6 +46,14 @@ import NXDoubleSelect from "./NXDoubleSelect";
 import NXMenu from "./NXMenu";
 import NXCross from "./NXCross";
 import NXDelete from "./NXDelete";
+import NXUserAdmin from "./NXUserAdmin";
+import NXSettings from "./NXSettings";
+import NXbell from "./NXbell";
+import NXLock from "./NXLock";
+import NXDollarCircle2 from "./NXDollarCircle2";
+import NXTablerLink from "./NXTablerLink";
+import NXPen from "./NXPen";
+
 
 export {
   NXIconNotificationActive,
@@ -95,5 +103,12 @@ export {
   NXDoubleSelect,
   NXMenu,
   NXCross,
-  NXDelete
+  NXDelete,
+  NXUserAdmin,
+  NXSettings,
+  NXbell,
+  NXLock,
+  NXDollarCircle2,
+  NXTablerLink,
+  NXPen
 };

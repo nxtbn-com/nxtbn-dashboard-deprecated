@@ -17,8 +17,16 @@ const useApi = () => {
         createColor: (data, params = {}) => interceptor.post(`/product/dashboard/api/colors/`, data, { params: params }),
         deleteColor: (id, params = {}) => interceptor.delete(`/product/dashboard/api/colors/${id}/`, { params: params }),
         getColorById: (id, params = {}) => interceptor.get(`/product/dashboard/api/colors/${id}/`, { params: params }),
+        productImage: (data, params = {}) => {
+            const customHeaders = {
+                'Content-Type': 'multipart/form-data'
+            };
+            return interceptor.post(`/filemanager/dashboard/api/images/`, data, { params: params, headers: customHeaders });
+        },
+        getImages: (params = {}) => interceptor.get(`/filemanager/dashboard/api/images/`, { params: params }),
+        deleteImage: (id, params = {}) => interceptor.delete(`/filemanager/dashboard/api/image/${id}/`, { params: params }),
     };
-
+    
     return api;
 }
 

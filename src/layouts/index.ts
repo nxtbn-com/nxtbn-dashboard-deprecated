@@ -1,3 +1,4 @@
 import RootLayout from "./RootLayout";
+import SettingsLayout from "./SettingsLayout";
 
-export { RootLayout }
+export { RootLayout, SettingsLayout }

@@ -17,7 +17,7 @@ function RootLayout({ children }: { children?: ReactNode }) {
 
       {/* desktop screen sidebar collapse button */}
       <button
-        className={`hidden ml:block ml:fixed ml:z-[100] ${!sidebarOpen ? 'left-[14.5%]': 'left-[80px]'}  top-8 text-base-300 font-bold bg-white shadow-sm border border-[#EEEFF2] w-7 aspect-square rounded-full p-1`}
+        className={`hidden mh:block mh:fixed mh:z-[100] ${!sidebarOpen ? 'left-[14.5%]': 'left-[80px]'}  top-8 text-base-300 font-bold bg-white shadow-sm border border-[#EEEFF2] w-7 aspect-square rounded-full p-1`}
         onClick={toggleSideBar}
       >
         {!sidebarOpen ? <NXLeftArrow /> : <NXRightArrow />}

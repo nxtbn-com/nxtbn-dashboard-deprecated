@@ -1,7 +1,8 @@
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import { AddNewProduct, Customers, Dashboard, OrderDetails, Orders, Products, Login, UserManagement, Plugin } from "./pages";
-import RootLayout from "./layouts/RootLayout";
+import {RootLayout, SettingsLayout } from "./layouts";
 import PrivateRoute from './PrivateRoute';
+import { General, Account, Payment, LinkAccount, Password, PushNotification } from "./components/settings";
 
 
 function App() {
@@ -30,6 +31,16 @@ function App() {
                   <Route path="user-management" element={<UserManagement/>}/>
                   <Route path="customers" element={<Customers />} />
                   <Route path="plugin" element={<Plugin/>} />
+
+                  <Route path="settings/*" element={<SettingsLayout />}>
+                    <Route index element={<General/>}/>
+                    <Route path="account" element={<Account />} />
+                    <Route path="payment-and-billing" element={<Payment/>}/>
+                    <Route path="link-account" element={<LinkAccount/>}/>
+                    <Route path="password" element={<Password/>}/>
+                    <Route path="push-notification" element={<PushNotification/>}/>
+                  </Route>
+                
               </Route>
             </Route>
 

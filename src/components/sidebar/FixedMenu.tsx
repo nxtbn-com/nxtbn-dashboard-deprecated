@@ -5,7 +5,7 @@ function FixedMenu({className, sidebarOpen}: {className?: string, sidebarOpen: b
     const menus = [
       {
         name: "Settings",
-        url: "/settings",
+        url: "/dashboard/settings/",
         icon: <NXSetting />,
       },
       {

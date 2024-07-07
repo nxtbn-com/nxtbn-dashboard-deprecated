@@ -1,6 +1,6 @@
 import logo from "../../assets/nxtbn_black.png";
 import nxtbn_sm from "../../assets/nxtbn.png";
-import { NXCross, NXRightArrow } from "../../icons";
+import { NXCross } from "../../icons";
 import FixedMenu from "./FixedMenu";
 import MenuItems from "./MenuItems";
 
@@ -16,8 +16,8 @@ function Sidebar({
   };
   return (
     <div
-      className={` ml:sticky transition-all ease-linear  h-screen top-0 left-0 bg-white z-[30] border-r border-[#EEEFF2] ${
-        sidebarOpen ? "w-0 overflow-hidden ml:fixed ml:w-[100px]" : "fixed w-[70%] ml:w-[18%] ml:sticky "
+      className={` mh:sticky transition-all ease-linear  h-screen top-0 left-0 bg-white z-50 border-r border-[#EEEFF2] ${
+        sidebarOpen ? "w-0 overflow-hidden mh:fixed mh:w-[100px]" : "fixed w-[70%] mh:w-[18%] mh:sticky "
       }  `}
     >
       {/* <aside className="w-[18%] h-screen sticky top-0 overflow-hidden border-r border-[#EEEFF2]"> */}
@@ -26,7 +26,7 @@ function Sidebar({
           <img
             src={logo}
             alt="NXTBN logo"
-            className="w-[80px] ml:w-[100px] my-7 mx-5"
+            className="w-[80px] mh:w-[100px] my-7 mx-5"
           />
         ) : (
           <img
@@ -36,7 +36,7 @@ function Sidebar({
           />
         )}
         <button
-          className="ml:hidden mr-5 text-black w-5"
+          className="mh:hidden mr-5 text-black w-5"
           onClick={toggleSideBar}
         >
           <NXCross />
@@ -45,7 +45,7 @@ function Sidebar({
       <p className="px-5 pb-2 text-base-200 text-[12px]">MENU</p>
       <MenuItems sidebarOpen={sidebarOpen} />
       <FixedMenu
-        className="ml:absolute w-full bottom-10"
+        className="mh:absolute w-full bottom-10"
         sidebarOpen={sidebarOpen}
       />
     </div>

@@ -17,7 +17,9 @@ const useApi = () => {
         createColor: (data, params = {}) => interceptor.post(`/product/dashboard/api/colors/`, data, { params: params }),
         deleteColor: (id, params = {}) => interceptor.delete(`/product/dashboard/api/colors/${id}/`, { params: params }),
         getColorById: (id, params = {}) => interceptor.get(`/product/dashboard/api/colors/${id}/`, { params: params }),
-        productImage: (data, params = {}) => {
+
+        // file manager
+        postImage: (data, params = {}) => {
             const customHeaders = {
                 'Content-Type': 'multipart/form-data'
             };

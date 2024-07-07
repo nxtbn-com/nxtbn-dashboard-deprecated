@@ -7,6 +7,8 @@ import useApi from "../../api";
 
 interface ImageFieldProps {
     label: string;
+    name: string;
+    onChange: any;
 }
 
 interface SelectImageType {
@@ -14,7 +16,7 @@ interface SelectImageType {
     isSelected: boolean;
   }
 
-const ImageField: React.FC<ImageFieldProps> = ({ label }) => {
+const ImageField: React.FC<ImageFieldProps> = ({ label, name, onChange }) => {
     const [isModalOpen, setModalOpen] = useState(false);
     const [newImages, setNewImages] = useState<any[]>([]);
     const [isImageDropped, setIsImageDropped] = useState(false);
@@ -30,7 +32,9 @@ const ImageField: React.FC<ImageFieldProps> = ({ label }) => {
         data.append("image", e.target.files[0]);
         data.append("image_alt_text", e.target.files[0]?.name);
     
-        api.productImage(data).then((response)=>setNewImages([...newImages, e.target.files[0]])).catch((error)=>console.log(error)) 
+        api.postImage(data).then((response)=> {
+          setNewImages([...newImages, e.target.files[0]]);
+        }).catch((error)=>console.log(error)) 
     };
 
     const deleteImage = (e: any, img: any) => {
@@ -59,7 +63,7 @@ const ImageField: React.FC<ImageFieldProps> = ({ label }) => {
           data.append("image", droppedFile);
           data.append("image_alt_text", droppedFile.name);
     
-          api.productImage(data).then((response)=>setNewImages([...newImages, droppedFile])).catch((error)=>console.log(error))
+          api.postImage(data).then((response)=>setNewImages([...newImages, droppedFile])).catch((error)=>console.log(error))
           setIsImageDropped(false);
         }
       };

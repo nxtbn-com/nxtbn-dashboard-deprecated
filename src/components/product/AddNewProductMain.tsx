@@ -75,6 +75,14 @@ function AddNewProductMain() {
     setVariantSection(prevVariantSection => prevVariantSection - 1);
   };
 
+  const onMultiChange = (field: string, event: any) => {
+    setFormData((prevData: any) => ({
+      ...prevData,
+      [field]: event ? [...prevData[field], ...event.values.map((item: any) => item.id)] : prevData[field],
+    }));
+  };
+  
+
   return (
     <section className="px-10 py-5">
       {/* top action button */}
@@ -125,7 +133,7 @@ function AddNewProductMain() {
           </div>
 
          
-         <ImageField label="some label" />
+         <ImageField  label="Images" name="images" onChange={onMultiChange} />
 
           {/* tax class */}
           {productConfig.charge_tax && (

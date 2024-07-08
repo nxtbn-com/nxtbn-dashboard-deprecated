@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { AxiosResponse } from "axios";
 import CustomModal from "../Modal";
 import { NXCross } from "../../icons";
 import useApi from "../../api";
+import { use } from 'echarts';
 
 
 interface ImageChooseModalProps {
@@ -17,9 +18,7 @@ interface SelectImageType {
 
 
 const ImageChooseModal: React.FC<ImageChooseModalProps> = ({ onClose, isOpen }) => {
-    const [isModalOpen, setModalOpen] = useState(false);
     const [selectImage, setSelectImage] = useState<SelectImageType[]>([]);
-    const [newImages, setNewImages] = useState<any[]>([]);
     const [imageList, setImageList] = useState<any[]>([]);
 
     const api = useApi();   
@@ -38,29 +37,26 @@ const ImageChooseModal: React.FC<ImageChooseModalProps> = ({ onClose, isOpen }) 
           api.deleteImage(selectedImg[i].id).then((response) => console.log(response)).catch((error) => console.log(error));
         }
         setSelectImage([]);
-        getUploadImages();
+        getImageList();
       };
     
-      const onSaveImage = async (e: any) => {
+      const onSaveImage =  (e: any) => {
         e.preventDefault();
     
-        const updatedImages = [...newImages];
     
-        for (let i = 0; i < selectImage.length; i++) {
-          const images = imageList.filter((img) => img.id === selectImage[i].id);
-    
-          const response = await fetch(images[0].image);
-          const blob = await response.blob();
-          const file = new File([blob], images[0].name, { type: blob.type });
-          updatedImages.push(file);
-        }
-        setNewImages(updatedImages);
-        setModalOpen(false);
+        // setNewImages(updatedImages);
+        onClose();
       };
 
-      const getUploadImages = async (): Promise<void> => {
-        api.getImages().then((response:any)=>setImageList(response?.results)).catch((error) => console.error("Error fetching uploaded images:", error))
-      }
+      const getImageList =  (): void => {
+        api.getImages().then((response:any)=> {
+          setImageList(response?.results)
+        }).catch((error) => console.error("Error fetching uploaded images:", error))
+      };
+
+      useEffect(() => {
+        getImageList();
+      }, [])
     
 
     return (

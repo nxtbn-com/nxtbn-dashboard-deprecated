@@ -25,7 +25,7 @@ const useApi = () => {
             };
             return interceptor.post(`/filemanager/dashboard/api/images/`, data, { params: params, headers: customHeaders });
         },
-        getImages: (params = {}) => interceptor.get(`/filemanager/dashboard/api/images/`, { params: params }),
+        getImages: (page=1, params = {}) => interceptor.get(`/filemanager/dashboard/api/images/?page=${page}`, { params: params }),
         deleteImage: (id, params = {}) => interceptor.delete(`/filemanager/dashboard/api/image/${id}/`, { params: params }),
     };
     

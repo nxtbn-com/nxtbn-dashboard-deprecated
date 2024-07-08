@@ -1,6 +1,6 @@
-function NXDelete({ className }: { className?: string }) {
+function NXDelete({ className, onClick }: { className?: string, onClick?:() => void}) {
   return (
-    <svg className={className} width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg className={className} onClick={onClick} width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
       <g clipPath="url(#clip0_4287_3334)">
         <path d="M1 3.5H13" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" />
         <path d="M2.5 3.5H11.5V12.5C11.5 12.7652 11.3946 13.0196 11.2071 13.2071C11.0196 13.3946 10.7652 13.5 10.5 13.5H3.5C3.23478 13.5 2.98043 13.3946 2.79289 13.2071C2.60536 13.0196 2.5 12.7652 2.5 12.5V3.5Z" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" />

@@ -3,12 +3,12 @@ import { AxiosResponse } from "axios";
 import CustomModal from "../Modal";
 import { NXCross } from "../../icons";
 import useApi from "../../api";
-import { use } from 'echarts';
 
 
 interface ImageChooseModalProps {
     onClose: () => void;
     isOpen: boolean;
+    setNewImages: (value: any) => void;
 }
 
 interface SelectImageType {
@@ -17,7 +17,7 @@ interface SelectImageType {
   }
 
 
-const ImageChooseModal: React.FC<ImageChooseModalProps> = ({ onClose, isOpen }) => {
+const ImageChooseModal: React.FC<ImageChooseModalProps> = ({ onClose, isOpen, setNewImages }) => {
     const [selectImage, setSelectImage] = useState<SelectImageType[]>([]);
     const [imageList, setImageList] = useState<any[]>([]);
 
@@ -40,11 +40,11 @@ const ImageChooseModal: React.FC<ImageChooseModalProps> = ({ onClose, isOpen }) 
         getImageList();
       };
     
-      const onSaveImage =  (e: any) => {
-        e.preventDefault();
-    
-    
-        // setNewImages(updatedImages);
+      const onSaveImage =  (e:any) => {
+        e.preventDefault()
+        const savedImg = imageList.filter((img)=> selectImage.some((i)=>img.id===i.id))
+        console.log(savedImg, "saved")
+        setNewImages(savedImg)
         onClose();
       };
 

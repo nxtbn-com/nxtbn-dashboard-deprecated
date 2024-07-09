@@ -8,7 +8,7 @@ import useApi from "../../api";
 interface ImageFieldProps {
     label: string;
     name: string;
-    onChange: any;
+    onChange: (field:string, id:any)=>void;
 }
 
 interface SelectImageType {
@@ -24,6 +24,11 @@ const ImageField: React.FC<ImageFieldProps> = ({ label, name, onChange }) => {
 
     const api = useApi();
 
+    useEffect(()=>{
+      const imageId = imageList.filter(image => newImages.some(newImage => newImage.name === image.name)).map(image => image.id);
+
+      onChange(name, imageId)
+    },[newImages])
 
     const uploadImageHandle = (e: any) => {
         const data = new FormData();
@@ -97,11 +102,11 @@ const ImageField: React.FC<ImageFieldProps> = ({ label, name, onChange }) => {
                       key={index}
                       className="h-[200px] w-[200px] rounded-md border border-base-300 flex justify-center items-center relative group"
                     >
-                      <img
-                        src={URL.createObjectURL(img)}
-                        alt=""
-                        className="absolute z-10 rounded-md"
-                      />
+                       <img
+                          src={img instanceof File ? URL.createObjectURL(img) : img.image}
+                          alt=""
+                          className="absolute z-10 rounded-md"
+                        />
                       <div className="absolute h-[200px] w-[200px] transition-all ease-linear rounded-md group-hover:bg-base-300 opacity-50 group-hover:z-20 hidden group-hover:block">
                         <div onClick={(e) => deleteImage(e, img)}>
                           <NXDelete className="h-[30px] w-[30px] rounded-md border border-red-600 bg-white p-1 absolute left-2 bottom-3 cursor-pointer" />
@@ -156,7 +161,7 @@ const ImageField: React.FC<ImageFieldProps> = ({ label, name, onChange }) => {
               />
             </div>
           </div>
-          <ImageChooseModal isOpen={isModalOpen} onClose={handleCloseModal} />
+          <ImageChooseModal isOpen={isModalOpen} onClose={handleCloseModal} setNewImages={setNewImages}/>
        </>
     );
 };

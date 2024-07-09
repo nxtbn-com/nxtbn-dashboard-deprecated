@@ -17,13 +17,13 @@ function AddNewProductMain() {
   const [colors, setColors] = useState<any[]>([]);
 
 
-  const [fromData, setFormData] = useState<any>({});
+  const [formData, setFormData] = useState<any>({});
   const [productConfig, setProductConfig] = useState<any>({});
   const [variantSection, setVariantSection] = useState<number>(1);
 
   const handleProductCreate = (event: FormEvent) => {
     event.preventDefault()
-    api.createProduct(fromData).then((response) => {
+    api.createProduct(formData).then((response) => {
 
     }).catch((error) => {
 
@@ -75,13 +75,22 @@ function AddNewProductMain() {
     setVariantSection(prevVariantSection => prevVariantSection - 1);
   };
 
-  const onMultiChange = (field: string, event: any) => {
-    setFormData((prevData: any) => ({
-      ...prevData,
-      [field]: event ? [...prevData[field], ...event.values.map((item: any) => item.id)] : prevData[field],
+  // const onMultiChange = (field: string, event: any) => {
+  //   console.log(event, field)
+  //   setFormData((prevData: any) => ({
+  //     ...prevData,
+  //     [field]: event ? [...prevData[field], ...event.values.map((item: any) => item.id)] : prevData[field],
+  //   }));
+  // };
+
+  const onChangeImages = (field: string, imageID: any) => {
+    setFormData((prevFormData:any) => ({
+      ...prevFormData,
+      [field]: [...(prevFormData[field] || []).concat(imageID)]
     }));
-  };
+  }
   
+  console.log(formData, "======")
 
   return (
     <section className="px-10 py-5">
@@ -133,7 +142,7 @@ function AddNewProductMain() {
           </div>
 
          
-         <ImageField  label="Images" name="images" onChange={onMultiChange} />
+         <ImageField  label="Images" name="images" onChange={onChangeImages} />
 
           {/* tax class */}
           {productConfig.charge_tax && (

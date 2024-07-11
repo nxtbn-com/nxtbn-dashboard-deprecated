@@ -8,6 +8,8 @@ import { makeCategoryEnumFriendly } from "../../enum";
 import VariantSection from "./VariantSection";
 import { ImageField } from "../images";
 
+import { toast } from 'react-toastify';
+
 
 function AddNewProductMain() {
   const api = useApi();
@@ -24,9 +26,9 @@ function AddNewProductMain() {
   const handleProductCreate = (event: FormEvent) => {
     event.preventDefault()
     api.createProduct(fromData).then((response) => {
-
+      toast.success("Product Created Successfully!")
     }).catch((error) => {
-
+      toast.error("Product creation is failed!")
     })
   };
 

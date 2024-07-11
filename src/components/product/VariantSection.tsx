@@ -5,20 +5,21 @@ import { makeColorEnum } from "../../enum";
 
 interface VariantSectionProps {
   productConfig: any;
-  onVariantChange: any;
   serial: number;
   colors: any[];
   deleteVariant: any;
+  onChange: any;
 }
 
 const VariantSection: React.FC<VariantSectionProps> = ({
   productConfig,
-  onVariantChange,
   serial,
   colors,
-  deleteVariant
+  deleteVariant,
+  onChange,
 }) => {
   const [metaSection, setMetaSection] = useState<number>(0);
+  const [variantDate, setVariantDate] = useState<any>({});
 
   const addNewMetasection = (event: any) => {
     event.preventDefault();
@@ -34,6 +35,11 @@ const VariantSection: React.FC<VariantSectionProps> = ({
 
   const colorCodeChange = (e:any) => {
     setSelectedColor({colorCode: e.target.value})
+  };
+
+  const onChangeHandler = (e: any) => {
+    setVariantDate({...variantDate, [e.target.name]: e.target.value})
+    onChange({...variantDate, [e.target.name]: e.target.value}, serial - 1)
   }
 
 
@@ -64,8 +70,9 @@ const VariantSection: React.FC<VariantSectionProps> = ({
         <div className="w-full">
           <label htmlFor="name">Variant Name</label>
           <input
-            onChange={onVariantChange}
+            onChange={onChangeHandler}
             id="name"
+            name="name"
             type="text"
             placeholder="Variant Name"
             className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] placeholder:text-black border-[2px] border-dashed"
@@ -77,7 +84,8 @@ const VariantSection: React.FC<VariantSectionProps> = ({
         <div className="w-full">
           <label htmlFor="price">Price</label>
           <input
-            onChange={onVariantChange}
+            onChange={onChangeHandler}
+            name="price"
             id="price"
             type="text"
             placeholder="$0.00"
@@ -85,10 +93,11 @@ const VariantSection: React.FC<VariantSectionProps> = ({
           />
         </div>
         <div className="w-full">
-          <label htmlFor="compare-price">SKU</label>
+          <label htmlFor="sku-price">SKU</label>
           <input
-            onChange={onVariantChange}
-            id="compare-price"
+            onChange={onChangeHandler}
+            id="sku-price"
+            name="sku"
             type="text"
             placeholder="SKU01"
             className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] placeholder:text-black border-[2px] border-dashed"
@@ -99,8 +108,9 @@ const VariantSection: React.FC<VariantSectionProps> = ({
         <div className="w-full">
           <label htmlFor="cost_per_item">Cost per item</label>
           <input
-            onChange={onVariantChange}
+            onChange={onChangeHandler}
             id="cost_per_item"
+            name="cost_per_unit"
             type="text"
             placeholder="$0.00"
             className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] placeholder:text-black border-[2px] border-dashed"
@@ -109,8 +119,9 @@ const VariantSection: React.FC<VariantSectionProps> = ({
         <div className="w-full">
           <label htmlFor="profit">Profit</label>
           <input
-            onChange={onVariantChange}
+            onChange={onChangeHandler}
             id="profit"
+            name="profit"
             type="text"
             placeholder="--"
             className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] placeholder:text-black border-[2px] border-dashed"
@@ -121,8 +132,9 @@ const VariantSection: React.FC<VariantSectionProps> = ({
           <div className="w-full">
             <label htmlFor="Stock">Stock</label>
             <input
-              onChange={onVariantChange}
+              onChange={onChangeHandler}
               id="Stock"
+              name="Stock"
               type="number"
               placeholder="--"
               className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] placeholder:text-black border-[2px] border-dashed"
@@ -141,8 +153,9 @@ const VariantSection: React.FC<VariantSectionProps> = ({
           <div className="w-full">
             <label htmlFor="profit">Value</label>
             <input
-              onChange={onVariantChange}
+              onChange={onChangeHandler}
               id="Value"
+              name="margin"
               type="number"
               placeholder="--"
               className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] placeholder:text-black border-[2px] border-dashed"
@@ -185,7 +198,7 @@ const VariantSection: React.FC<VariantSectionProps> = ({
         <div key={index} className="flex items-center gap-5 p-1">
           <div className="w-full">
             <input
-              onChange={onVariantChange}
+              onChange={onChangeHandler}
               type="text"
               placeholder="eg. Capacity"
               className="w-full px-5 py-3 bg-secondary-50 rounded-xl font-nunito outline-[#0CAF60] placeholder:text-black border-[2px] border-dashed"
@@ -193,7 +206,7 @@ const VariantSection: React.FC<VariantSectionProps> = ({
           </div>
           <div className="w-full">
             <input
-              onChange={onVariantChange}
+              onChange={onChangeHandler}
               type="text"
               placeholder="--"
               className="w-full px-5 py-3 bg-secondary-50 rounded-xl font-nunito outline-[#0CAF60] placeholder:text-black border-[2px] border-dashed"

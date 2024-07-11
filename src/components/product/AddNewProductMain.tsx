@@ -8,6 +8,8 @@ import { makeCategoryEnumFriendly } from "../../enum";
 import VariantSection from "./VariantSection";
 import { ImageField } from "../images";
 
+import { toast } from 'react-toastify';
+
 
 function AddNewProductMain() {
   const api = useApi();
@@ -24,9 +26,9 @@ function AddNewProductMain() {
   const handleProductCreate = (event: FormEvent) => {
     event.preventDefault()
     api.createProduct(fromData).then((response) => {
-
+      toast.success("Product Created Successfully!")
     }).catch((error) => {
-
+      toast.error("Product creation is failed!")
     })
   };
 
@@ -40,9 +42,6 @@ function AddNewProductMain() {
     }));
   };
 
-  const onVariantChange = (event: any) => {
-
-  }
 
   const addNewVariant = (event: any) => {
     event.preventDefault();
@@ -89,7 +88,20 @@ function AddNewProductMain() {
       ...prevFormData,
       [name]: value
     }));
-  }
+  };
+
+  const onVariantChange = (data: any, index: number) => {
+    setFormData((prevFormData: any) => {
+      const updatedVariants = [...(prevFormData.variants_payload || [])];
+      updatedVariants[index] = data;
+  
+      return {
+        ...prevFormData,
+        variants_payload: updatedVariants
+      };
+    });
+  };
+  
 
   
 
@@ -128,6 +140,18 @@ function AddNewProductMain() {
                 className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] border-[2px] border-dashed"
               />
             </div>
+            <div className="my-5">
+              <label htmlFor="summary">summary</label>
+              <input
+                type="text"
+                id="summary"
+                name="summary"
+                onChange={onChangeHandler}
+                placeholder="Type product summary"
+                className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] border-[2px] border-dashed"
+              />
+            </div>
+
             <div className="mt-5">
               <div className="flex justify-between">
                 <label htmlFor="product_description">Description</label>
@@ -175,7 +199,7 @@ function AddNewProductMain() {
               <VariantSection
                 key={index}
                 productConfig={productConfig}
-                onVariantChange={onVariantChange}
+                onChange={onVariantChange}
                 serial={index + 1}
                 colors={colors}
                 deleteVariant={deleteVariant}

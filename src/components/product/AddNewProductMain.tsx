@@ -42,9 +42,6 @@ function AddNewProductMain() {
     }));
   };
 
-  const onVariantChange = (event: any) => {
-
-  }
 
   const addNewVariant = (event: any) => {
     event.preventDefault();
@@ -91,7 +88,20 @@ function AddNewProductMain() {
       ...prevFormData,
       [name]: value
     }));
-  }
+  };
+
+  const onVariantChange = (data: any, index: number) => {
+    setFormData((prevFormData: any) => {
+      const updatedVariants = [...(prevFormData.variants_payload || [])];
+      updatedVariants[index] = data;
+  
+      return {
+        ...prevFormData,
+        variants_payload: updatedVariants
+      };
+    });
+  };
+  
 
   
 
@@ -189,7 +199,7 @@ function AddNewProductMain() {
               <VariantSection
                 key={index}
                 productConfig={productConfig}
-                onVariantChange={onVariantChange}
+                onChange={onVariantChange}
                 serial={index + 1}
                 colors={colors}
                 deleteVariant={deleteVariant}

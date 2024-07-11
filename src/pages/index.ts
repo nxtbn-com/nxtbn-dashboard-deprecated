@@ -4,6 +4,7 @@ import Orders from "./Orders";
 import OrderDetails from "./OrderDetails";
 import Customers from "./Customers";
 import Products from "./Products";
+import EditProduct from "./editProduct";
 import AddNewProduct from "./AddNewProduct";
 import UserManagement from "./UserManagement";
 import Plugin from "./Plugin";
@@ -16,6 +17,7 @@ export {
   Customers,
   Products,
   AddNewProduct,
+  EditProduct,
   UserManagement,
   Plugin
 };

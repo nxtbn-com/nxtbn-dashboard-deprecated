@@ -19,8 +19,6 @@ const ImageField: React.FC<ImageFieldProps> = ({ label, name, onChange }) => {
     const [isModalOpen, setModalOpen] = useState(false);
     const [value, setValue] = useState<ImageData[]>([]);
     const [isImageDropped, setIsImageDropped] = useState(false);
-    const [imageList, setImageList] = useState<any[]>([]);
-
     const api = useApi();
 
     const uploadImageHandle = (e: any) => {
@@ -49,13 +47,16 @@ const ImageField: React.FC<ImageFieldProps> = ({ label, name, onChange }) => {
     }
 
     const deleteImage = (e: any, imgId: number) => {
-        e.preventDefault();
-        setValue(value.filter((image) => image.id !== imgId));
-    };
+      e.preventDefault();
+      setValue((prevValue) => {
+          const newValue = prevValue.filter((imgData) => imgData.id !== imgId);
+          onChange(name, newValue);
+          return newValue;
+      });
+  };
 
     const handleOpenModal = () => {
         setModalOpen(true);
-        getUploadImages();
     };
 
     const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
@@ -75,11 +76,13 @@ const ImageField: React.FC<ImageFieldProps> = ({ label, name, onChange }) => {
             data.append("image_alt_text", droppedFile.name);
     
             api.postImage(data).then((response: AxiosResponse) => {
-                const imageUrl = response.data.image;
-                const imageId = response.data.id;
-                const newImage = { id: imageId, image: imageUrl };
-
-                setValue((prevValue) => [...prevValue, newImage]);
+              const ImageResponse = response as unknown as any;
+                const newImage = { id: ImageResponse.id, image: ImageResponse.image };
+                setValue((prevValue) => {
+                    const newValue = [...prevValue, newImage];
+                    onChange(name, newValue);
+                    return newValue;
+                });
             }).catch((error) => console.log(error));
             setIsImageDropped(false);
         }
@@ -88,10 +91,6 @@ const ImageField: React.FC<ImageFieldProps> = ({ label, name, onChange }) => {
     const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
         e.preventDefault();
         setIsImageDropped(true);
-    };
-
-    const getUploadImages = async (): Promise<void> => {
-        api.getImages().then((response: any) => setImageList(response?.results)).catch((error) => console.error("Error fetching uploaded images:", error));
     };
 
     const handleCloseModal = () => setModalOpen(false);
@@ -109,7 +108,7 @@ const ImageField: React.FC<ImageFieldProps> = ({ label, name, onChange }) => {
                                     className="h-[200px] w-[200px] rounded-md border border-base-300 flex justify-center items-center relative group"
                                 >
                                     <img
-                                        src={imgData.image} // Use the image URL directly
+                                        src={imgData.image}
                                         alt=""
                                         className="absolute z-10 rounded-md"
                                     />

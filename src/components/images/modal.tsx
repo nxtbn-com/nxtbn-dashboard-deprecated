@@ -3,7 +3,6 @@ import { AxiosResponse } from "axios";
 import CustomModal from "../Modal";
 import { NXCross } from "../../icons";
 import useApi from "../../api";
-import { use } from 'echarts';
 
 
 interface ImageChooseModalProps {
@@ -42,8 +41,6 @@ const ImageChooseModal: React.FC<ImageChooseModalProps> = ({ onClose, isOpen }) 
     
       const onSaveImage =  (e: any) => {
         e.preventDefault();
-    
-    
         // setNewImages(updatedImages);
         onClose();
       };
@@ -55,8 +52,10 @@ const ImageChooseModal: React.FC<ImageChooseModalProps> = ({ onClose, isOpen }) 
       };
 
       useEffect(() => {
-        getImageList();
-      }, [])
+        if (isOpen) {
+          getImageList();
+        }
+      }, [isOpen])
     
 
     return (

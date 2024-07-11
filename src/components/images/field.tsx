@@ -73,9 +73,9 @@ const ImageField: React.FC<ImageFieldProps> = ({ label, name, onChange }) => {
         setIsImageDropped(true);
       };
 
-      useEffect(() => {
-        getUploadImages();
-      }, [newImages]);
+      // useEffect(() => {
+      //   getUploadImages();
+      // }, [newImages]);
     
       const getUploadImages = async (): Promise<void> => {
         api.getImages().then((response:any)=>setImageList(response?.results)).catch((error) => console.error("Error fetching uploaded images:", error))

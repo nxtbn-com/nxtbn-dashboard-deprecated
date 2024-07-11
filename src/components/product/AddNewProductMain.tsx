@@ -75,11 +75,8 @@ function AddNewProductMain() {
     setVariantSection(prevVariantSection => prevVariantSection - 1);
   };
 
-  const onMultiChange = (field: string, event: any) => {
-    setFormData((prevData: any) => ({
-      ...prevData,
-      [field]: event ? [...prevData[field], ...event.values.map((item: any) => item.id)] : prevData[field],
-    }));
+  const onMultiChange = (field: string, data: any) => {
+   console.log(field, data, 'onMultiChange')
   };
   
 

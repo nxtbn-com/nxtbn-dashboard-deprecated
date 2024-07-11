@@ -25,7 +25,6 @@ const ImageField: React.FC<ImageFieldProps> = ({ label, name, onChange }) => {
 
     const uploadImageHandle = (e: any) => {
         const data = new FormData();
-    
         data.append("name", e.target.files[0]?.name);
         data.append("image", e.target.files[0]);
         data.append("image_alt_text", e.target.files[0]?.name);
@@ -40,6 +39,14 @@ const ImageField: React.FC<ImageFieldProps> = ({ label, name, onChange }) => {
             });
         }).catch((error) => console.log(error));
     };
+
+    const onSelectedSave = (data: any) => {
+      setValue((prevValue) => {
+        const newValue = [...prevValue, ...data];
+        onChange(name, newValue);
+        return newValue;
+    });
+    }
 
     const deleteImage = (e: any, imgId: number) => {
         e.preventDefault();
@@ -159,7 +166,7 @@ const ImageField: React.FC<ImageFieldProps> = ({ label, name, onChange }) => {
                     />
                 </div>
             </div>
-            <ImageChooseModal isOpen={isModalOpen} onClose={handleCloseModal} />
+            <ImageChooseModal onSelectedSave={onSelectedSave} isOpen={isModalOpen} onClose={handleCloseModal} />
        </>
     );
 };

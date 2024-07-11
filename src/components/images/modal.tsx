@@ -7,26 +7,20 @@ import useApi from "../../api";
 
 interface ImageChooseModalProps {
     onClose: () => void;
+    onSelectedSave: (data: any) => void;
     isOpen: boolean;
 }
 
-interface SelectImageType {
-    id: number;
-    isSelected: boolean;
-  }
 
-
-const ImageChooseModal: React.FC<ImageChooseModalProps> = ({ onClose, isOpen }) => {
-    const [selectImage, setSelectImage] = useState<SelectImageType[]>([]);
+const ImageChooseModal: React.FC<ImageChooseModalProps> = ({ onClose, onSelectedSave, isOpen }) => {
+    const [selectImage, setSelectImage] = useState<any[]>([]);
     const [imageList, setImageList] = useState<any[]>([]);
 
     const api = useApi();   
 
-    const onSelectImage = (e: any, id: number) => {
+    const onSelectImage = (e: any, img: any) => {
         if (e.target.checked) {
-          setSelectImage([...selectImage, { id: id, isSelected: true }]);
-        } else {
-          setSelectImage(selectImage.filter((img) => img.id !== id));
+          setSelectImage([...selectImage, { id: img.id, image: img.image }]);
         }
       };
     
@@ -41,7 +35,7 @@ const ImageChooseModal: React.FC<ImageChooseModalProps> = ({ onClose, isOpen }) 
     
       const onSaveImage =  (e: any) => {
         e.preventDefault();
-        // setNewImages(updatedImages);
+        onSelectedSave(selectImage)
         onClose();
       };
 
@@ -102,10 +96,10 @@ const ImageChooseModal: React.FC<ImageChooseModalProps> = ({ onClose, isOpen }) 
                               id={`selectImg-${index}`}
                               type="checkbox"
                               className="h-[30px] w-[30px] rounded-md border border-red-600 bg-white p-1 absolute left-2 bottom-3 cursor-pointer"
-                              checked={selectImage.some(
-                                (selectedImg) => selectedImg.id === img.id
-                              )}
-                              onChange={(e) => onSelectImage(e, img.id)}
+                              // checked={selectImage.some(
+                              //   (selectedImg) => selectedImg.id === img.id
+                              // )}
+                              onChange={(e) => onSelectImage(e, img)}
                             />
                           </div>
                         </label>

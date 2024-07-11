@@ -75,12 +75,22 @@ function AddNewProductMain() {
     setVariantSection(prevVariantSection => prevVariantSection - 1);
   };
 
-  const onMultiChange = (field: string, event: any) => {
-    setFormData((prevData: any) => ({
-      ...prevData,
-      [field]: event ? [...prevData[field], ...event.values.map((item: any) => item.id)] : prevData[field],
+  const onImageChange = (field: string, data: any) => {
+    const imageIds = data.map((image: any) => image.id);
+    setFormData((prevFormData: any) => ({
+        ...prevFormData,
+        images: imageIds
     }));
   };
+
+  const onChangeHandler = (event: ChangeEvent<any>) => {
+    const { name, value } = event.target;
+    setFormData((prevFormData: any) => ({
+      ...prevFormData,
+      [name]: value
+    }));
+  }
+
   
 
   return (
@@ -112,6 +122,8 @@ function AddNewProductMain() {
               <input
                 type="text"
                 id="product_name"
+                name="name"
+                onChange={onChangeHandler}
                 placeholder="Type your product name"
                 className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] border-[2px] border-dashed"
               />
@@ -124,8 +136,9 @@ function AddNewProductMain() {
                 </span>
               </div>
               <textarea
+                name="description"
+                onChange={onChangeHandler}
                 placeholder="Type your product description here"
-                name=""
                 id="product_description"
                 className="w-full px-5 py-3 h-[224px] bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] border-[2px] border-dashed"
               ></textarea>
@@ -133,7 +146,7 @@ function AddNewProductMain() {
           </div>
 
          
-         <ImageField  label="Images" name="images" onChange={onMultiChange} />
+         <ImageField  label="Images" name="images" onChange={onImageChange} />
 
           {/* tax class */}
           {productConfig.charge_tax && (

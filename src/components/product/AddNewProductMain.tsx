@@ -128,6 +128,18 @@ function AddNewProductMain() {
                 className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] border-[2px] border-dashed"
               />
             </div>
+            <div className="my-5">
+              <label htmlFor="summary">summary</label>
+              <input
+                type="text"
+                id="summary"
+                name="summary"
+                onChange={onChangeHandler}
+                placeholder="Type product summary"
+                className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] border-[2px] border-dashed"
+              />
+            </div>
+
             <div className="mt-5">
               <div className="flex justify-between">
                 <label htmlFor="product_description">Description</label>

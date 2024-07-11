@@ -83,7 +83,7 @@ function AddNewProductMain() {
     }));
   };
 
-  const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
+  const onChangeHandler = (event: ChangeEvent<any>) => {
     const { name, value } = event.target;
     setFormData((prevFormData: any) => ({
       ...prevFormData,
@@ -136,8 +136,9 @@ function AddNewProductMain() {
                 </span>
               </div>
               <textarea
+                name="description"
+                onChange={onChangeHandler}
                 placeholder="Type your product description here"
-                name=""
                 id="product_description"
                 className="w-full px-5 py-3 h-[224px] bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] border-[2px] border-dashed"
               ></textarea>

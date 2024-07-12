@@ -36,12 +36,12 @@ function EditProduct() {
   const [productConfig, setProductConfig] = useState<any>({});
   const [variantSection, setVariantSection] = useState<number>(1);
 
-  const handleProductCreate = (event: FormEvent) => {
+  const handleProductUpdate = (event: FormEvent) => {
     event.preventDefault()
-    api.createProduct(fromData).then((response) => {
-      toast.success("Product Created Successfully!")
+    api.updateProduct(id, fromData).then((response) => {
+      toast.success("Product updated Successfully!")
     }).catch((error) => {
-      toast.error("Product creation is failed!")
+      toast.error("Product updated is failed!")
     })
   };
 
@@ -137,7 +137,7 @@ function EditProduct() {
         </button>
         <button
           className="text-white bg-[#0CAF60] px-10 py-3 rounded-xl font-nunito font-[900] disabled:bg-[#0caf609a]"
-          onClick={handleProductCreate}
+          onClick={handleProductUpdate}
         >
           Edit
         </button>

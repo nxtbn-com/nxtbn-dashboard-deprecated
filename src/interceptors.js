@@ -1,5 +1,7 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import qs from 'qs';
+
 import { deleteAllCookies } from './utils';
 
 export const NXTBN_API_URL = process.env.REACT_APP_NXTBN_API_URL || "http://127.0.0.1:8000/"
@@ -8,6 +10,17 @@ const useInterceptors = () => {
     const instance = axios.create({
         baseURL: NXTBN_API_URL,
         timeout: 10000,
+
+        paramsSerializer: params => {
+            const queryString = Object.keys(params).map(key => {
+            if (Array.isArray(params[key])) {
+                return `${key}=${params[key].join(',')}`;
+                }
+                return `${key}=${params[key]}`;
+            }).join('&');
+            return queryString;
+        },
+
     });
 
     instance.defaults.timeout = 10000;

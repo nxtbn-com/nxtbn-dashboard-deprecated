@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ImageChooseModal from './modal';
 import { NXDelete } from "../../icons";
 import { AxiosResponse } from "axios";
 import useApi from "../../api";
 
 interface ImageFieldProps {
-    label: string;
+    label?: string;
+    value?: any;
     name: string;
     onChange: any;
 }
@@ -15,9 +16,9 @@ interface ImageData {
     image: string;
 }
 
-const ImageField: React.FC<ImageFieldProps> = ({ label, name, onChange }) => {
+const ImageField: React.FC<ImageFieldProps> = ({ label = '', value,  name, onChange }) => {
     const [isModalOpen, setModalOpen] = useState(false);
-    const [value, setValue] = useState<ImageData[]>([]);
+    const [valueList, setValueList] = useState<ImageData[]>([]);
     const [isImageDropped, setIsImageDropped] = useState(false);
     const api = useApi();
 
@@ -30,7 +31,7 @@ const ImageField: React.FC<ImageFieldProps> = ({ label, name, onChange }) => {
         api.postImage(data).then((response: AxiosResponse) => {
           const ImageResponse = response as unknown as any;
             const newImage = { id: ImageResponse.id, image: ImageResponse.image };
-            setValue((prevValue) => {
+            setValueList((prevValue) => {
                 const newValue = [...prevValue, newImage];
                 onChange(name, newValue);
                 return newValue;
@@ -39,7 +40,7 @@ const ImageField: React.FC<ImageFieldProps> = ({ label, name, onChange }) => {
     };
 
     const onSelectedSave = (data: any) => {
-      setValue((prevValue) => {
+      setValueList((prevValue) => {
         const newValue = [...prevValue, ...data];
         onChange(name, newValue);
         return newValue;
@@ -48,7 +49,7 @@ const ImageField: React.FC<ImageFieldProps> = ({ label, name, onChange }) => {
 
     const deleteImage = (e: any, imgId: number) => {
       e.preventDefault();
-      setValue((prevValue) => {
+      setValueList((prevValue) => {
           const newValue = prevValue.filter((imgData) => imgData.id !== imgId);
           onChange(name, newValue);
           return newValue;
@@ -78,7 +79,7 @@ const ImageField: React.FC<ImageFieldProps> = ({ label, name, onChange }) => {
             api.postImage(data).then((response: AxiosResponse) => {
               const ImageResponse = response as unknown as any;
                 const newImage = { id: ImageResponse.id, image: ImageResponse.image };
-                setValue((prevValue) => {
+                setValueList((prevValue) => {
                     const newValue = [...prevValue, newImage];
                     onChange(name, newValue);
                     return newValue;
@@ -95,14 +96,20 @@ const ImageField: React.FC<ImageFieldProps> = ({ label, name, onChange }) => {
 
     const handleCloseModal = () => setModalOpen(false);
 
+    useEffect(() => { // for edit only to display pre uploaded images
+        if (value) {
+            setValueList(value);
+        }
+    }, [value]);
+
     return (
        <>
             <div className="bg-white p-5 rounded-md mt-5">
                 <div>
                     <label htmlFor="media">Images</label>
-                    {value.length !== 0 ? (
+                    {valueList.length !== 0 ? (
                         <div className="flex gap-3 flex-wrap mt-3">
-                            {value.map((imgData) => (
+                            {valueList.map((imgData) => (
                                 <div
                                     key={imgData.id}
                                     className="h-[200px] w-[200px] rounded-md border border-base-300 flex justify-center items-center relative group"
@@ -130,7 +137,7 @@ const ImageField: React.FC<ImageFieldProps> = ({ label, name, onChange }) => {
                         <></>
                     )}
                     <div>
-                        {value.length !== 0 ? (
+                        {valueList.length !== 0 ? (
                             <></>
                         ) : (
                             <div

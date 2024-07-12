@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useState, FormEvent } from "react";
+import { ChangeEvent, useEffect, useState, FormEvent } from "react";
 import { useParams } from 'react-router-dom';
 
 import { NXAlertCircle, NXPlus } from "../icons";
@@ -12,6 +12,15 @@ import { ImageField } from "../components/images";
 
 import { toast } from 'react-toastify';
 
+const processProductResponse = (productResponse: any) => {
+  const processedResponse = {
+    ...productResponse,
+    images: productResponse.images.map((image: any) => image.id)
+  };
+  return processedResponse;
+};
+
+
 
 function EditProduct() {
   const api = useApi();
@@ -23,15 +32,16 @@ function EditProduct() {
 
 
   const [fromData, setFormData] = useState<any>({});
+  const [imageList, setImageList] = useState<any[]>([]);
   const [productConfig, setProductConfig] = useState<any>({});
   const [variantSection, setVariantSection] = useState<number>(1);
 
-  const handleProductCreate = (event: FormEvent) => {
+  const handleProductUpdate = (event: FormEvent) => {
     event.preventDefault()
-    api.createProduct(fromData).then((response) => {
-      toast.success("Product Created Successfully!")
+    api.updateProduct(id, fromData).then((response) => {
+      toast.success("Product updated Successfully!")
     }).catch((error) => {
-      toast.error("Product creation is failed!")
+      toast.error("Product updated is failed!")
     })
   };
 
@@ -52,24 +62,32 @@ function EditProduct() {
   }
 
   const fetchData = () => {
-    api.getCategories().then((response) => {
-      const category = makeCategoryEnumFriendly(response as any);
-      setCategories(category);
-    }).catch((error) => {
-      console.error("Error fetching categories:", error);
+    Promise.all([
+      api.getCategories(),
+      api.getColor(),
+      api.getProductById(id)
+    ])
+    .then(([
+      categoriesResponse,
+      colorsResponse,
+      productResponse
+    ]) => {
+      const categories = makeCategoryEnumFriendly(categoriesResponse as any);
+      setCategories(categories);
+      setColors(colorsResponse as any);
+
+      const productData = productResponse as any;
+      const processedProductResponse = processProductResponse(productData);
+      setFormData(processedProductResponse);
+
+      const imagesArray = productData.images.map((image: any) => ({ id: image.id, image: image.image }));
+      setImageList(imagesArray);
+    })
+    .catch((error) => {
+      console.error("Error fetching data:", error);
     });
-
-    api.getColor().then((response) => {
-      setColors(response as any);
-    }).catch((error) => {
-      console.error("Error fetching colors:", error);
-    });
-
-    // api.getProduct(id)
-
   };
-
-
+  
   useEffect(() => {
     fetchData();
   }, []);
@@ -119,7 +137,7 @@ function EditProduct() {
         </button>
         <button
           className="text-white bg-[#0CAF60] px-10 py-3 rounded-xl font-nunito font-[900] disabled:bg-[#0caf609a]"
-          onClick={handleProductCreate}
+          onClick={handleProductUpdate}
         >
           Edit
         </button>
@@ -140,6 +158,7 @@ function EditProduct() {
                 type="text"
                 id="product_name"
                 name="name"
+                value={fromData.name}
                 onChange={onChangeHandler}
                 placeholder="Type your product name"
                 className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] border-[2px] border-dashed"
@@ -151,6 +170,7 @@ function EditProduct() {
                 type="text"
                 id="summary"
                 name="summary"
+                value={fromData.summary}
                 onChange={onChangeHandler}
                 placeholder="Type product summary"
                 className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] border-[2px] border-dashed"
@@ -166,6 +186,7 @@ function EditProduct() {
               </div>
               <textarea
                 name="description"
+                value={fromData.description}
                 onChange={onChangeHandler}
                 placeholder="Type your product description here"
                 id="product_description"
@@ -174,8 +195,7 @@ function EditProduct() {
             </div>
           </div>
 
-         
-         <ImageField  label="Images" name="images" onChange={onImageChange} />
+         <ImageField value={imageList}  label="Images" name="images" onChange={onImageChange} />
 
           {/* tax class */}
           {productConfig.charge_tax && (

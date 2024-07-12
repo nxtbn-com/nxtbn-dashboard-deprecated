@@ -14,6 +14,7 @@ const useApi = () => {
         // product
         createProduct: (data, params = {}) => interceptor.post(`/product/dashboard/api/products/`, data, { params: params }),
         getProducts: (params = {}) => interceptor.get(`/product/dashboard/api/products/`, { params: params }),
+        getProductById: (id, params = {}) => interceptor.get(`/product/dashboard/api/products/${id}/`, { params: params }),
         getColor: (params = {}) => interceptor.get(`/product/dashboard/api/colors/`, { params: params }),
         createColor: (data, params = {}) => interceptor.post(`/product/dashboard/api/colors/`, data, { params: params }),
         deleteColor: (id, params = {}) => interceptor.delete(`/product/dashboard/api/colors/${id}/`, { params: params }),

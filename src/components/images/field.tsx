@@ -108,16 +108,16 @@ const ImageField: React.FC<ImageFieldProps> = ({ label = '', value,  name, onCha
                 <div>
                     <label htmlFor="media">Images</label>
                     {valueList.length !== 0 ? (
-                        <div className="flex gap-3 flex-wrap mt-3">
+                        <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 mt-3">
                             {valueList.map((imgData) => (
                                 <div
                                     key={imgData.id}
-                                    className="h-[200px] w-[200px] rounded-md border border-base-300 flex justify-center items-center relative group"
+                                    className="aspect-w-1 aspect-h-1 box-border object-cover overflow-hidden rounded-md border border-base-300 flex justify-center items-center relative group"
                                 >
                                     <img
                                         src={imgData.image}
                                         alt=""
-                                        className="absolute z-10 rounded-md"
+                                        className="aspect-square w-full h-full object-cover rounded-md"
                                     />
                                     <div className="absolute h-[200px] w-[200px] transition-all ease-linear rounded-md group-hover:bg-base-300 opacity-50 group-hover:z-20 hidden group-hover:block">
                                         <div onClick={(e) => deleteImage(e, imgData.id)}>
@@ -128,7 +128,7 @@ const ImageField: React.FC<ImageFieldProps> = ({ label = '', value,  name, onCha
                             ))}
                             <label
                                 htmlFor="media"
-                                className="h-[50px] w-[50px] rounded-md border-dashed border border-base-300 flex justify-center items-center cursor-pointer hover:bg-base-100"
+                                className="w-24 h-24 aspect-w-1 aspect-h-1 rounded-md border-dashed border border-base-300 flex justify-center items-center cursor-pointer hover:bg-base-100"
                             >
                                 +
                             </label>

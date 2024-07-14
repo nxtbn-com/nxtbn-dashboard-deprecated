@@ -7,8 +7,9 @@ import useApi from "../../api";
 import { makeCategoryEnumFriendly } from "../../enum";
 import VariantSection from "./VariantSection";
 import { ImageField } from "../images";
-
 import { toast } from 'react-toastify';
+import Editor from "../editor/EditorJS";
+
 
 
 function AddNewProductMain() {
@@ -103,7 +104,13 @@ function AddNewProductMain() {
   };
   
 
-  
+  const handleEditorChange = (content: any) => {
+    console.log('Editor content:', content);
+    setFormData((prevFormData: any) => ({
+      ...prevFormData,
+      description: content,
+    }));
+  };
 
   return (
     <section className="px-10 py-5">
@@ -153,19 +160,10 @@ function AddNewProductMain() {
             </div>
 
             <div className="mt-5">
-              <div className="flex justify-between">
+              <div className="flex flex-col gap-3">
                 <label htmlFor="product_description">Description</label>
-                <span className="text-base-300 text-sm">
-                  1/2000
-                </span>
+                <Editor onChange={handleEditorChange}/>
               </div>
-              <textarea
-                name="description"
-                onChange={onChangeHandler}
-                placeholder="Type your product description here"
-                id="product_description"
-                className="w-full px-5 py-3 h-[224px] bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] border-[2px] border-dashed"
-              ></textarea>
             </div>
           </div>
 

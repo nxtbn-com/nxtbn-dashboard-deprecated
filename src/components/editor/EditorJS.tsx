@@ -13,11 +13,11 @@ import LinkTool from '@editorjs/link';
 
 interface EditorProps {
   onChange?: (content: OutputData) => void;
+  defaultValue?: OutputData;
 }
 
-const Editor: React.FC<EditorProps> = ({ onChange }) => {
+const EditorField: React.FC<EditorProps> = ({ onChange, defaultValue }) => {
   const editorInstance = useRef<EditorJS | null>(null);
-
   const customImageUploader = {
     uploadByFile(file: File) {
       return new Promise((resolve, reject) => {
@@ -52,8 +52,9 @@ const Editor: React.FC<EditorProps> = ({ onChange }) => {
     const initializeEditor = async () => {
       if (!editorInstance.current) {
         editorInstance.current = new EditorJS({
-            autofocus:true,
+          autofocus:true,
           holder: 'editorjs',
+          data: defaultValue,
           tools: {
             h1: {
               class: Header,
@@ -114,7 +115,6 @@ const Editor: React.FC<EditorProps> = ({ onChange }) => {
           },
           onChange: async (api, event) => {
             const content = await api.saver.save();
-            console.log('Content was changed:', content);
             if (onChange) {
               onChange(content);
             }
@@ -130,4 +130,4 @@ const Editor: React.FC<EditorProps> = ({ onChange }) => {
   return <div id="editorjs" className="p-4 border border-gray-300 rounded-md z-[60] bg-white" />;
 };
 
-export default Editor;
+export default EditorField;

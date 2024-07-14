@@ -75,13 +75,6 @@ function AddNewProductMain() {
     setVariantSection(prevVariantSection => prevVariantSection - 1);
   };
 
-  const onImageChange = (field: string, data: any) => {
-    const imageIds = data.map((image: any) => image.id);
-    setFormData((prevFormData: any) => ({
-        ...prevFormData,
-        images: imageIds
-    }));
-  };
 
   const onChangeHandler = (event: ChangeEvent<any>) => {
     const { name, value } = event.target;
@@ -167,7 +160,7 @@ function AddNewProductMain() {
           </div>
 
          
-         <ImageField  label="Images" name="images" onChange={onImageChange} />
+         <ImageField  label="Images" name="images" onChange={(name: string, data:any) => handleSingleChange(name, data.map((image: any) => image.id))} />
 
           {/* tax class */}
           {productConfig.charge_tax && (
@@ -272,7 +265,7 @@ function AddNewProductMain() {
             <div className="w-full mt-10">
               <label htmlFor="category">Category</label>
               <div className="pt-3">
-                <NestedSelect options={categories} />
+                <NestedSelect onChange={(e) => handleSingleChange('categories', e.value)} options={categories} />
               </div>
             </div>
             <div className="my-5">

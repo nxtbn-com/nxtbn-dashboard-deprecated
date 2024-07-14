@@ -17,7 +17,8 @@ import { toast } from 'react-toastify';
 const processProductResponse = (productResponse: any) => {
   const processedResponse = {
     ...productResponse,
-    images: productResponse.images.map((image: any) => image.id)
+    images: productResponse.images.map((image: any) => image.id),
+    description: JSON.parse(productResponse.description),
   };
   return processedResponse;
 };
@@ -186,10 +187,14 @@ function EditProduct() {
               />
             </div>
 
+            
             <div className="mt-5">
               <div className="flex flex-col gap-3">
                 <label htmlFor="product_description">Description</label>
-                <EditorField onChange={(content) => handleSingleChange('description', JSON.stringify(content))}/>
+                {fromData.description && <EditorField
+                  defaultValue={fromData.description}
+                  onChange={(content) => handleSingleChange('description', JSON.stringify(content))}
+                />}
               </div>
             </div>
           </div>

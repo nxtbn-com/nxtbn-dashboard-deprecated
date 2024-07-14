@@ -8,7 +8,7 @@ import { makeCategoryEnumFriendly } from "../../enum";
 import VariantSection from "./VariantSection";
 import { ImageField } from "../images";
 import { toast } from 'react-toastify';
-import Editor from "../editor/EditorJS";
+import EditorField from "../editor/EditorJS";
 
 
 
@@ -104,11 +104,10 @@ function AddNewProductMain() {
   };
   
 
-  const handleEditorChange = (content: any) => {
-    console.log('Editor content:', content);
+  const handleSingleChange = (name: any, value: any) => {
     setFormData((prevFormData: any) => ({
       ...prevFormData,
-      description: content,
+      [name]: value
     }));
   };
 
@@ -162,7 +161,7 @@ function AddNewProductMain() {
             <div className="mt-5">
               <div className="flex flex-col gap-3">
                 <label htmlFor="product_description">Description</label>
-                <Editor onChange={handleEditorChange}/>
+                <EditorField onChange={(content) => handleSingleChange('description', JSON.stringify(content))}/>
               </div>
             </div>
           </div>

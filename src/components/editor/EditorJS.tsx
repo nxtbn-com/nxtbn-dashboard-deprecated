@@ -15,7 +15,7 @@ interface EditorProps {
   onChange?: (content: OutputData) => void;
 }
 
-const Editor: React.FC<EditorProps> = ({ onChange }) => {
+const EditorField: React.FC<EditorProps> = ({ onChange }) => {
   const editorInstance = useRef<EditorJS | null>(null);
 
   const customImageUploader = {
@@ -130,4 +130,4 @@ const Editor: React.FC<EditorProps> = ({ onChange }) => {
   return <div id="editorjs" className="p-4 border border-gray-300 rounded-md z-[60] bg-white" />;
 };
 
-export default Editor;
+export default EditorField;

@@ -10,6 +10,8 @@ import Code from '@editorjs/code';
 import Embed from '@editorjs/embed';
 import Table from '@editorjs/table';
 import LinkTool from '@editorjs/link';
+import Marker from '@editorjs/marker';
+
 
 interface EditorProps {
   onChange?: (content: OutputData) => void;
@@ -96,7 +98,10 @@ const EditorField: React.FC<EditorProps> = ({ onChange, defaultValue }) => {
               },
             },
             list: List,
-            paragraph: Paragraph,
+            paragraph: {
+              class: Paragraph,
+              inlineToolbar: true,
+            },
             image: {
               class: Image,
               config: {
@@ -109,11 +114,15 @@ const EditorField: React.FC<EditorProps> = ({ onChange, defaultValue }) => {
             embed: Embed,
             table: Table,
             linkTool: LinkTool,
+            Marker: {
+              class: Marker,
+              shortcut: 'CMD+SHIFT+M',
+            },
           },
           onReady: () => {
             console.log('Editor.js is ready to work!');
           },
-          onChange: async (api, event) => {
+          onChange: async (api:any, event:any) => {
             const content = await api.saver.save();
             if (onChange) {
               onChange(content);

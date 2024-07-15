@@ -10,6 +10,8 @@ import Code from '@editorjs/code';
 import Embed from '@editorjs/embed';
 import Table from '@editorjs/table';
 import LinkTool from '@editorjs/link';
+import TextColorTool from './TextColorTool';
+import MarkerTool from './MarkerTool';
 
 interface EditorProps {
   onChange?: (content: OutputData) => void;
@@ -94,19 +96,39 @@ const Editor: React.FC<EditorProps> = ({ onChange }) => {
                 title: 'Heading 3',
               },
             },
-            list: List,
-            paragraph: Paragraph,
+            textColor: {
+              class: TextColorTool,
+              inlineToolbar:true
+            },
+            marker : {
+              class: MarkerTool,
+              inlineToolbar: true
+            },
+            list: {
+              class: List,
+              inlineToolbar: true
+            },
+            paragraph: {
+              class: Paragraph,
+              inlineToolbar: true
+            },
             image: {
               class: Image,
               config: {
                 uploader: customImageUploader,
               },
             },
-            checklist: Checklist,
+            checklist: {
+              class: Checklist,
+              inlineToolbar: true
+            },
             quote: Quote,
             code: Code,
             embed: Embed,
-            table: Table,
+            table: {
+              class: Table,
+              inlineToolbar: true
+            },
             linkTool: LinkTool,
           },
           onReady: () => {
@@ -127,7 +149,7 @@ const Editor: React.FC<EditorProps> = ({ onChange }) => {
 
   }, [onChange]);
 
-  return <div id="editorjs" className="p-4 border border-gray-300 rounded-md z-[60] bg-white" />;
+  return <div id="editorjs" className="p-4 border border-gray-300 rounded-md bg-white" />;
 };
 
 export default Editor;

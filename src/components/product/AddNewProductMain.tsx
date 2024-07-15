@@ -8,7 +8,7 @@ import { makeCategoryEnumFriendly } from "../../enum";
 import VariantSection from "./VariantSection";
 import { ImageField } from "../images";
 import { toast } from 'react-toastify';
-import Editor from "../editor/EditorJS";
+import EditorField from "../editor/EditorJS";
 
 
 
@@ -75,13 +75,6 @@ function AddNewProductMain() {
     setVariantSection(prevVariantSection => prevVariantSection - 1);
   };
 
-  const onImageChange = (field: string, data: any) => {
-    const imageIds = data.map((image: any) => image.id);
-    setFormData((prevFormData: any) => ({
-        ...prevFormData,
-        images: imageIds
-    }));
-  };
 
   const onChangeHandler = (event: ChangeEvent<any>) => {
     const { name, value } = event.target;
@@ -104,11 +97,10 @@ function AddNewProductMain() {
   };
   
 
-  const handleEditorChange = (content: any) => {
-    console.log('Editor content:', content);
+  const handleSingleChange = (name: any, value: any) => {
     setFormData((prevFormData: any) => ({
       ...prevFormData,
-      description: content,
+      [name]: value
     }));
   };
 
@@ -162,13 +154,13 @@ function AddNewProductMain() {
             <div className="mt-5">
               <div className="flex flex-col gap-3">
                 <label htmlFor="product_description">Description</label>
-                <Editor onChange={handleEditorChange}/>
+                <EditorField onChange={(content) => handleSingleChange('description', JSON.stringify(content))}/>
               </div>
             </div>
           </div>
 
          
-         <ImageField  label="Images" name="images" onChange={onImageChange} />
+         <ImageField  label="Images" name="images" onChange={(name: string, data:any) => handleSingleChange(name, data.map((image: any) => image.id))} />
 
           {/* tax class */}
           {productConfig.charge_tax && (
@@ -273,7 +265,7 @@ function AddNewProductMain() {
             <div className="w-full mt-10">
               <label htmlFor="category">Category</label>
               <div className="pt-3">
-                <NestedSelect options={categories} />
+                <NestedSelect onChange={(e) => handleSingleChange('categories', e.value)} options={categories} />
               </div>
             </div>
             <div className="my-5">

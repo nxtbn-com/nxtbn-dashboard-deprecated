@@ -13,13 +13,14 @@ import LinkTool from '@editorjs/link';
 import TextColorTool from './TextColorTool';
 import MarkerTool from './MarkerTool';
 
+
 interface EditorProps {
   onChange?: (content: OutputData) => void;
+  defaultValue?: OutputData;
 }
 
-const Editor: React.FC<EditorProps> = ({ onChange }) => {
+const EditorField: React.FC<EditorProps> = ({ onChange, defaultValue }) => {
   const editorInstance = useRef<EditorJS | null>(null);
-
   const customImageUploader = {
     uploadByFile(file: File) {
       return new Promise((resolve, reject) => {
@@ -54,8 +55,9 @@ const Editor: React.FC<EditorProps> = ({ onChange }) => {
     const initializeEditor = async () => {
       if (!editorInstance.current) {
         editorInstance.current = new EditorJS({
-            autofocus:true,
+          autofocus:true,
           holder: 'editorjs',
+          data: defaultValue,
           tools: {
             h1: {
               class: Header,
@@ -96,6 +98,7 @@ const Editor: React.FC<EditorProps> = ({ onChange }) => {
                 title: 'Heading 3',
               },
             },
+
             textColor: {
               class: TextColorTool,
               inlineToolbar:true
@@ -130,13 +133,16 @@ const Editor: React.FC<EditorProps> = ({ onChange }) => {
               inlineToolbar: true
             },
             linkTool: LinkTool,
+            Marker: {
+              class: Marker,
+              shortcut: 'CMD+SHIFT+M',
+            },
           },
           onReady: () => {
             console.log('Editor.js is ready to work!');
           },
-          onChange: async (api, event) => {
+          onChange: async (api:any, event:any) => {
             const content = await api.saver.save();
-            console.log('Content was changed:', content);
             if (onChange) {
               onChange(content);
             }
@@ -152,4 +158,4 @@ const Editor: React.FC<EditorProps> = ({ onChange }) => {
   return <div id="editorjs" className="p-4 border border-gray-300 rounded-md bg-white" />;
 };
 
-export default Editor;
+export default EditorField;

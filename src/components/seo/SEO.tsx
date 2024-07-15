@@ -1,13 +1,18 @@
 import { ChangeEvent, useState } from "react";
+import { useSelector } from "react-redux";
+import  { RootState }  from '../../redux/rootReducer';
+
 
 interface SEOTypes {
   title?: string;
-  url: string;
   onChange: (e: any) => void;
 }
 
-const SEO = ({ title="Search Engine Listing", onChange, url = "http://localhost:8000//" }: SEOTypes) => {
+const SEO = ({ title="Search Engine Listing", onChange }: SEOTypes) => {
+
   const [values, setValues] = useState<any>({meta_title: "", meta_description: "", slug: ""});
+  const me = useSelector((state: RootState) => state.auth.me);
+
   const onChangeValue = (e: ChangeEvent<any>) => {
     const { name, value } = e.target;
     setValues((prevData: any) => ({ ...prevData, [name]: value }));
@@ -25,7 +30,7 @@ const SEO = ({ title="Search Engine Listing", onChange, url = "http://localhost:
             values.meta_title && values.meta_description && values.slug ? 
               <div>
                 <div className="text-xl text-blue-800">{values.meta_title}</div>
-                <div className="text-sm text-green-600">{url+values.slug}</div>
+                <div className="text-sm text-green-600">{me.store_url + '/' + values.slug}</div>
                 <div className="text-sm text-gray-500">{values.meta_description}</div>
                 
               </div>
@@ -63,7 +68,7 @@ const SEO = ({ title="Search Engine Listing", onChange, url = "http://localhost:
 
               <div contentEditable className="flex mt-3 py-3 px-5 border-dashed border-2 rounded-xl focus-within:border-2 focus-within:border-solid focus-within:border-[#0CAF60]">
                 <div contentEditable={false} className="text-gray-400 ">
-                  {url}
+                  {me.store_url}/
                 </div>
                 <input
                   id="url"

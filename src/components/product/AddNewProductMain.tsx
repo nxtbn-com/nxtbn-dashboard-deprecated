@@ -210,7 +210,7 @@ function AddNewProductMain() {
 
           </div>
           <div className="bg-white p-5 rounded-md mt-5">
-            <SEO onChange={onChangeHandler} url="http://loc/"/>
+            <SEO onChange={onChangeHandler}/>
           </div>
 
         </div>

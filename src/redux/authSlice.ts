@@ -3,6 +3,7 @@ import Cookies from "js-cookie";
 
 interface AuthState {
   isLoggedIn: boolean;
+  me?: any;
 }
 
 const initialState: AuthState = {
@@ -17,6 +18,7 @@ const authSlice = createSlice({
       Cookies.set("accessToken", action.payload.token.access);
       Cookies.set("refreshToken", action.payload.token.refresh);
       state.isLoggedIn = true;
+      state.me = action.payload;
     },
     logout: (state) => {
       Cookies.remove("accessToken");

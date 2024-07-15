@@ -11,6 +11,7 @@ import Embed from '@editorjs/embed';
 import Table from '@editorjs/table';
 import LinkTool from '@editorjs/link';
 import Marker from '@editorjs/marker';
+import TextColorTool from './TextColorTool';
 
 
 interface EditorProps {
@@ -118,6 +119,10 @@ const EditorField: React.FC<EditorProps> = ({ onChange, defaultValue }) => {
               class: Marker,
               shortcut: 'CMD+SHIFT+M',
             },
+            Color: {
+              class: TextColorTool,
+              inlineToolbar: true
+            },
           },
           onReady: () => {
             console.log('Editor.js is ready to work!');
@@ -136,7 +141,7 @@ const EditorField: React.FC<EditorProps> = ({ onChange, defaultValue }) => {
 
   }, [onChange]);
 
-  return <div id="editorjs" className="p-4 border border-gray-300 rounded-md z-[60] bg-white" />;
+  return <div id="editorjs" className="p-4 border border-gray-300 rounded-md bg-white" />;
 };
 
 export default EditorField;

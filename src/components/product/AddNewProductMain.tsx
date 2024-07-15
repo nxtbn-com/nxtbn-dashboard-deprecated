@@ -210,7 +210,7 @@ function AddNewProductMain() {
 
           </div>
           <div className="bg-white p-5 rounded-md mt-5">
-            <SEO onChange={onChangeHandler}/>
+            <SEO seoData={fromData} onChange={onChangeHandler}/>
           </div>
 
         </div>

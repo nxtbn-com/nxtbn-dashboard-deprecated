@@ -9,6 +9,7 @@ import VariantSection from "./VariantSection";
 import { ImageField } from "../images";
 import { toast } from 'react-toastify';
 import EditorField from "../editor/EditorJS";
+import SEO from "../seo/SEO";
 
 
 
@@ -207,6 +208,9 @@ function AddNewProductMain() {
               </div>
             )}
 
+          </div>
+          <div className="bg-white p-5 rounded-md mt-5">
+            <SEO onChange={onChangeHandler} url="http://loc/"/>
           </div>
 
         </div>

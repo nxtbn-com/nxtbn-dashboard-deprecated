@@ -10,6 +10,7 @@ import { makeCategoryEnumFriendly } from "../enum";
 import VariantSection from "../components/product/VariantSection";
 import { ImageField } from "../components/images";
 import EditorField from "../components/editor/EditorJS";
+import SEO from "../components/seo/SEO";
 
 
 import { toast } from 'react-toastify';
@@ -18,7 +19,6 @@ const processProductResponse = (productResponse: any) => {
   const processedResponse = {
     ...productResponse,
     images: productResponse.images.map((image: any) => image.id),
-    description: JSON.parse(productResponse.description),
   };
   return processedResponse;
 };
@@ -192,7 +192,7 @@ function EditProduct() {
               <div className="flex flex-col gap-3">
                 <label htmlFor="product_description">Description</label>
                 {fromData.description && <EditorField
-                  defaultValue={fromData.description}
+                  defaultValue={JSON.parse(fromData.description)}
                   onChange={(content) => handleSingleChange('description', JSON.stringify(content))}
                 />}
               </div>
@@ -246,6 +246,9 @@ function EditProduct() {
               </div>
             )}
 
+          </div>
+          <div className="bg-white p-5 rounded-md mt-5">
+            <SEO seoData={fromData} onChange={onChangeHandler}/>
           </div>
 
         </div>

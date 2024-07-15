@@ -1,4 +1,6 @@
 import React, { ChangeEvent, useEffect, useState, FormEvent } from "react";
+import { useNavigate } from "react-router-dom";
+
 import { NXAlertCircle, NXPlus } from "../../icons";
 import "./select-hide.css";
 import SelectStyled from "../Select";
@@ -15,6 +17,7 @@ import SEO from "../seo/SEO";
 
 function AddNewProductMain() {
   const api = useApi();
+  const navigate = useNavigate();
 
   // fetched data
   const [categories, setCategories] = useState<any[]>([]);
@@ -28,7 +31,8 @@ function AddNewProductMain() {
   const handleProductCreate = (event: FormEvent) => {
     event.preventDefault()
     api.createProduct(fromData).then((response) => {
-      toast.success("Product Created Successfully!")
+      toast.success("Product Created Successfully!");
+      navigate(`/dashboard/products/edit/${response.data.id}`); 
     }).catch((error) => {
       toast.error("Product creation is failed!")
     })

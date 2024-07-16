@@ -24,7 +24,7 @@ function ProductList() {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
       {products.map((product: any, index: number) => (
-        <>
+       
             <Link key={index} to={`../products/edit/${product.id}`} className="bg-white flex flex-col items-center p-5 rounded-md shadow-sm">
               <img src={product.product_thumbnail} alt={product.title} className="h-[160px] object-cover"/>
               <div className="flex items-center gap-2 my-2">
@@ -42,7 +42,7 @@ function ProductList() {
                 <span className="font-bold">${Number(product.default_variant.price).toFixed(2)}</span>
               </div>
             </Link>
-        </>
+       
       ))}
     </div>
   );

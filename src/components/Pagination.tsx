@@ -1,6 +1,6 @@
 import { NXLeftArrow, NXRightArrow } from "../icons";
 
-interface PaginationProps {
+export interface PaginationProps {
   totalItems: number|any;
   totalPages: number|any
   itemsPerPage: number|any;
@@ -28,7 +28,7 @@ const Pagination = ({ totalItems, totalPages, itemsPerPage, currentPage, onPageC
           Next
         </button>
       </div>
-      <div className="hidden md:flex md:flex-1 md:items-center md:justify-between">
+      <div className="hidden md:flex md:flex-1 md:items-center md:justify-between md:gap-2">
         <div className='sm:hidden xl:block'>
           <p className="text-sm text-gray-700">
        

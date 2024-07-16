@@ -1,8 +1,9 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import OrderTable from "./OrderTable";
 import OrderPagination from "./OrderPagination";
 import OrderToolbar from "./OrderToolbar";
+import useApi from "../../api";
 
 const pageChoice = [
   {
@@ -38,6 +39,17 @@ function OrdersMain() {
 
   const currentPage = searchParams.get("page");
 
+  const api = useApi()
+  const [orders, setOrders] = useState<any>()
+
+  useEffect(()=>{
+      getOrders()
+  }, [])
+  const getOrders = (page?: number) => {
+    api.getOrders(page).then((response:any)=>setOrders(response)).catch((error)=>console.log(error))
+  }
+
+
   return (
     <div className="w-full flex flex-col p-[5%] md:p-10">
       <div className="bg-white rounded-lg">
@@ -60,10 +72,10 @@ function OrdersMain() {
 
         <OrderToolbar />
         <div className="px-1">
-          <OrderTable />
+          <OrderTable orders={orders}/>
         </div>
         
-        <OrderPagination />
+        <OrderPagination orders={orders} getOrders={getOrders}/>
       </div>
     </div>
   );

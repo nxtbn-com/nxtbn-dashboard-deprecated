@@ -30,6 +30,7 @@ const useApi = () => {
         },
         getImages: (page=1, params = {}) => interceptor.get(`/filemanager/dashboard/api/images/?page=${page}`, { params: params }),
         deleteImage: (id, params = {}) => interceptor.delete(`/filemanager/dashboard/api/image/${id}/`, { params: params }),
+        getOrders: (page=1, params = {}) => interceptor.get(`/order/dashboard/api/orders/?page=${page}`, { params: params })
     };
     
     return api;

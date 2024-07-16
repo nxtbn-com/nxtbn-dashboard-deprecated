@@ -1,8 +1,10 @@
 import { useState } from 'react';
-import { NXDownArrow, NXLeftArrow, NXRightArrow } from '../../icons';
+import { NXDownArrow } from '../../icons';
 import { SelectOptionType } from '../common';
+import Pagination from '../Pagination';
 
-function OrderPagination() {
+
+function OrderPagination({orders, getOrders}: {orders: any, getOrders: (page:any)=>void}) {
     const [selectedOption, setSelectedOption] = useState("4");
     const options: SelectOptionType[] = [
       { value: "4", label: "4" },
@@ -64,18 +66,7 @@ function OrderPagination() {
         </div>
         {/* Dropdown button end */}
       </div>
-      <div className=" flex items-center gap-2 text-base-300">
-        <NXLeftArrow className="w-5" />
-        <button className="w-10">1</button>
-        <button className="text-[#0CAF60] bg-[#E7F7EF] w-10 rounded-md aspect-square font-bold">
-          2
-        </button>
-        <button className="w-10">3</button>
-        <button className="w-10">4</button>
-        <button className="w-10">...</button>
-        <button className="w-10">20</button>
-        <NXRightArrow className="w-5" />
-      </div>
+     <Pagination totalItems={orders?.count} totalPages={orders?.total_pages} itemsPerPage={orders?.results?.length??selectedOption} currentPage={orders?.current_page} onPageChange={getOrders}/>
     </div>
   );
 }

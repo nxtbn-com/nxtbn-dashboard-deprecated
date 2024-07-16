@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { NXNarrowArrowUp, NXNarrowArrowUpDown } from "../../icons";
 import "./table.css";
+import { formatDate } from "../../utils/dateUtils";
 
 const tableHead = [
   {
@@ -23,45 +24,8 @@ const tableHead = [
   },
 ];
 
-const tableData = [
-  {
-    id: "238976",
-    orders: "Vest Hoodie",
-    date: "Apr 24, 2022",
-    customer: "Cheiko Chute",
-    payment: "Paid",
-    status: "Unfullfilled",
-    price: "$450",
-  },
-  {
-    id: "238977",
-    orders: "Vest Hoodie",
-    date: "Apr 24, 2022",
-    customer: "Cheiko Chute",
-    payment: "Paid",
-    status: "Completed",
-    price: "$450",
-  },
-  {
-    id: "238978",
-    orders: "Vest Hoodie",
-    date: "Apr 24, 2022",
-    customer: "Cheiko Chute",
-    payment: "Unpaid",
-    status: "Cancelled",
-    price: "$450",
-  },
-  {
-    id: "238979",
-    orders: "Vest Hoodie",
-    date: "Apr 24, 2022",
-    customer: "Cheiko Chute",
-    payment: "Paid",
-    status: "Shipping",
-    price: "$450",
-  },
-];
-function OrderTable() {
+
+function OrderTable({orders}:{orders: any}) {
   return (
     <div className="relative overflow-x-auto">
       <table className="min-w-[400px] w-full table-auto text-sm ml:text-base px-3">
@@ -93,7 +57,7 @@ function OrderTable() {
           </tr>
         </thead>
         <tbody>
-          {tableData.map((row, index) => (
+          {orders?.results.map((row:any, index:number) => (
             <tr className="border-b border-[#EEEFF2] font-semibold" key={index}>
               <td className="text-center py-5">
                 <input
@@ -103,21 +67,21 @@ function OrderTable() {
               </td>
               <td className="text-start py-3 px-2">
                 <Link to={row.id}>
-                  <p>{row.orders}</p>
+                  <p>{row.product}</p>
                   <p className="text-sm font-normal text-base-300 mt-1">
                     #ID{row.id}
                   </p>
                 </Link>
               </td>
-              <td className="py-3 px-2">{row.date}</td>
-              <td className="py-3 px-2">{row.customer}</td>
+              <td className="py-3 px-2">{formatDate(row.last_modified)}</td>
+              <td className="py-3 px-2">{row.user}</td>
               <td className="py-3 px-2">
-                <PaymentButton text={row.payment} />
+                <PaymentButton text={row.charge_status} />
               </td>
               <td className="py-3 px-2">
                 <StatusButton text={row.status} />
               </td>
-              <td className="py-3 px-2">{row.price}</td>
+              <td className="py-3 px-2">${row.total_price}</td>
             </tr>
           ))}
         </tbody>
@@ -132,14 +96,18 @@ const StatusButton = ({ text }: { text: string }) => {
   // Function to determine the className based on the text
   const getClassname = (status: string): string => {
     switch (status.toLowerCase()) {
+      case "pending":
+        return "text-[#FE964A] bg-[#FFF0E6]";
+      case "processing":
+        return "text-[#FE964A] bg-[#FFF0E6]";
+      case "delivered":
+        return "text-[#0CAF60] bg-[#E7F7EF]";
+      case "shipped":
+        return "text-[#8C62FF] bg-[#F4F0FF]";
       case "cancelled":
         return "text-[#FD6A6A] bg-[#FFF0F0]";
-      case "unfullfilled":
-        return "text-[#FE964A] bg-[#FFF0E6]";
-      case "completed":
-        return "text-[#0CAF60] bg-[#E7F7EF]";
-      case "shipping":
-        return "text-[#8C62FF] bg-[#F4F0FF]";
+      case "returned":
+        return "text-[#FD6A6A] bg-[#FFF0F0]";
       default:
         return "";
     }
@@ -161,7 +129,13 @@ const PaymentButton = ({ text }: { text: string }) => {
     switch (status.toLowerCase()) {
       case "unpaid":
         return "text-[#8C62FF] bg-[#F4F0FF]";
+      case "none":
+        return "text-[#8C62FF] bg-[#F4F0FF]";
+      case "partial":
+        return "text-[#8C62FF] bg-[#F4F0FF]";
       case "paid":
+        return "text-[#0CAF60] bg-[#E7F7EF]";
+      case "full":
         return "text-[#0CAF60] bg-[#E7F7EF]";
       default:
         return "";

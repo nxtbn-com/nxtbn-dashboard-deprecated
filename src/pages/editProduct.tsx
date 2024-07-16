@@ -34,14 +34,14 @@ function EditProduct() {
   const [colors, setColors] = useState<any[]>([]);
 
 
-  const [fromData, setFormData] = useState<any>({});
+  const [formData, setFormData] = useState<any>({});
   const [imageList, setImageList] = useState<any[]>([]);
   const [productConfig, setProductConfig] = useState<any>({});
   const [variantSection, setVariantSection] = useState<number>(1);
 
   const handleProductUpdate = (event: FormEvent) => {
     event.preventDefault()
-    api.updateProduct(id, fromData).then((response) => {
+    api.updateProduct(id, formData).then((response) => {
       toast.success("Product updated Successfully!")
     }).catch((error) => {
       toast.error("Product updated is failed!")
@@ -134,10 +134,10 @@ function EditProduct() {
       [name]: value
     }));
   };
-  
+
+
 
   
-
   return (
     <section className="px-10 py-5">
       {/* top action button */}
@@ -168,7 +168,7 @@ function EditProduct() {
                 type="text"
                 id="product_name"
                 name="name"
-                value={fromData.name}
+                value={formData.name}
                 onChange={onChangeHandler}
                 placeholder="Type your product name"
                 className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] border-[2px] border-dashed"
@@ -180,7 +180,7 @@ function EditProduct() {
                 type="text"
                 id="summary"
                 name="summary"
-                value={fromData.summary}
+                value={formData.summary}
                 onChange={onChangeHandler}
                 placeholder="Type product summary"
                 className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] border-[2px] border-dashed"
@@ -191,8 +191,8 @@ function EditProduct() {
             <div className="mt-5">
               <div className="flex flex-col gap-3">
                 <label htmlFor="product_description">Description</label>
-                {fromData.description && <EditorField
-                  defaultValue={JSON.parse(fromData.description)}
+                {formData.description && <EditorField
+                  defaultValue={JSON.parse(formData.description)}
                   onChange={(content) => handleSingleChange('description', JSON.stringify(content))}
                 />}
               </div>
@@ -248,7 +248,7 @@ function EditProduct() {
 
           </div>
           <div className="bg-white p-5 rounded-md mt-5">
-            <SEO seoData={fromData} onChange={onChangeHandler}/>
+            <SEO seoData={formData} onChange={onChangeHandler}/>
           </div>
 
         </div>

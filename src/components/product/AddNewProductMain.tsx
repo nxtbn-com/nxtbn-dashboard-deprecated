@@ -24,13 +24,13 @@ function AddNewProductMain() {
   const [colors, setColors] = useState<any[]>([]);
 
 
-  const [fromData, setFormData] = useState<any>({});
+  const [formData, setFormData] = useState<any>({});
   const [productConfig, setProductConfig] = useState<any>({});
   const [variantSection, setVariantSection] = useState<number>(1);
 
   const handleProductCreate = (event: FormEvent) => {
     event.preventDefault()
-    api.createProduct(fromData).then((response) => {
+    api.createProduct(formData).then((response) => {
       toast.success("Product Created Successfully!");
       navigate(`/dashboard/products/edit/${response.data.id}`); 
     }).catch((error) => {
@@ -214,7 +214,7 @@ function AddNewProductMain() {
 
           </div>
           <div className="bg-white p-5 rounded-md mt-5">
-            <SEO seoData={fromData} onChange={onChangeHandler}/>
+            <SEO seoData={formData} onChange={onChangeHandler}/>
           </div>
 
         </div>

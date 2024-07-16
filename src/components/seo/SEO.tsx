@@ -63,7 +63,7 @@ const SEO = ({ seoData, onChange }: SEOTypes) => {
             <div className="mt-5">
               <label id="url">URL</label>
 
-              <div contentEditable className="flex mt-3 py-3 px-5 border-dashed border-2 rounded-xl focus-within:border-2 focus-within:border-solid focus-within:border-[#0CAF60]">
+              <div contentEditable suppressContentEditableWarning={true} className="flex mt-3 py-3 px-5 border-dashed border-2 rounded-xl focus-within:border-2 focus-within:border-solid focus-within:border-[#0CAF60]">
                 <div contentEditable={false} className="text-gray-400 ">
                   {me?.store_url}/
                 </div>

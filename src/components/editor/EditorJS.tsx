@@ -59,43 +59,13 @@ const EditorField: React.FC<EditorProps> = ({ onChange, defaultValue }) => {
           holder: 'editorjs',
           data: defaultValue,
           tools: {
-            h1: {
+            header: {
               class: Header,
               inlineToolbar: true,
               config: {
-                placeholder: 'Enter h1 header',
-                levels: [1],
+                placeholder: 'Enter a header',
+                levels: [1, 2, 3], // Configure all header levels here
                 defaultLevel: 1,
-              },
-              toolbox: {
-                icon: 'H1',
-                title: 'Heading 1',
-              },
-            },
-            h2: {
-              class: Header,
-              inlineToolbar: true,
-              config: {
-                placeholder: 'Enter h2 header',
-                levels: [2],
-                defaultLevel: 2,
-              },
-              toolbox: {
-                icon: 'H2',
-                title: 'Heading 2',
-              },
-            },
-            h3: {
-              class: Header,
-              inlineToolbar: true,
-              config: {
-                placeholder: 'Enter h3 header',
-                levels: [3],
-                defaultLevel: 3,
-              },
-              toolbox: {
-                icon: 'H3',
-                title: 'Heading 3',
               },
             },
             list: List,

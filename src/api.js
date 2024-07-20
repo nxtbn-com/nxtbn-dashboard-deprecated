@@ -9,6 +9,7 @@ const useApi = () => {
         refreshToken: (data, params = {}) => interceptor.post(`/user/dashboard/api/token/refresh/`, data, { params: params, NxtbnPublicAPI: true }),
         adminLogout: (data, params = {}) => interceptor.post(`/user/dashboard/api/logout/`, data, { params: params }),
         getCategories: (params = {}) => interceptor.get(`/product/dashboard/api/categories/`, { params: params }),
+        getRecursiveCategories: (params = {}) => interceptor.get(`/product/dashboard/api/recursive-categories/`, {params: params}),
         pluginInstall: (data, params={}) => interceptor.post(`/plugins/dashboard/api/plugin-install-via-zip-url/`, data, {params : params}),
 
         // product

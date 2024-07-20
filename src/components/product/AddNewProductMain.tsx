@@ -55,7 +55,7 @@ function AddNewProductMain() {
   }
 
   const fetchData = () => {
-    api.getCategories().then((response) => {
+    api.getRecursiveCategories().then((response) => {
       const category = makeCategoryEnumFriendly(response as any);
       setCategories(category);
     }).catch((error) => {

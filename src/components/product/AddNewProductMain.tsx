@@ -277,17 +277,21 @@ function AddNewProductMain() {
               </div>
             </div>
             <div className="my-5">
-              <label htmlFor="product_type">Product type</label>
-              <input
-                id="product_type"
-                type="text"
-                className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-md font-nunito outline-[#0CAF60] border-[2px] border-dashed"
-              />
-            </div>
-            <div className="my-5">
               <label htmlFor="tags">Tags</label>
               <div className="pt-3">
                 <SelectStyled isMulti={true} />
+              </div>
+            </div>
+            <div className="my-5">
+              <label htmlFor="tags">Collection</label>
+              <div className="pt-3">
+                <SelectStyled isMulti={true} />
+              </div>
+            </div>
+            <div className="my-5">
+              <label htmlFor="tags">Product Type</label>
+              <div className="pt-3">
+                <SelectStyled/>
               </div>
             </div>
           </div>

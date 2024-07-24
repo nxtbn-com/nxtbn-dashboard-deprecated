@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
-import { AddNewProduct, EditProduct, Customers, Dashboard, OrderDetails, Orders, Products, Login, UserManagement, Plugin } from "./pages";
-import {RootLayout, SettingsLayout } from "./layouts";
+import { AddNewProduct, EditProduct, Customers, Dashboard, OrderDetails, Orders, Products, Login, UserManagement, Plugin, Categories, AddNewCategory } from "./pages";
+import {ProductLayout, RootLayout, SettingsLayout } from "./layouts";
 import PrivateRoute from './PrivateRoute';
 import { General, Account, Payment, LinkAccount, Password, PushNotification } from "./components/settings";
 
@@ -26,7 +26,11 @@ function App() {
                   <Route index element={<Dashboard />} />
                   <Route path="orders" element={<Orders />} />
                   <Route path="orders/:id" element={<OrderDetails />} />
-                  <Route path="products" element={<Products />} />
+                  <Route path="products/*" element={<ProductLayout />}>
+                    <Route index element={<Products/>}/>
+                    <Route path="categories" element={<Categories/>}/>
+                    <Route path="categories/add-new-category" element={<AddNewCategory/>}/>
+                  </Route>
                   <Route path="products/add-new-product" element={<AddNewProduct />} />
                   <Route path="products/edit/:id" element={<EditProduct />} />
                   <Route path="user-management" element={<UserManagement/>}/>

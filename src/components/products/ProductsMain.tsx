@@ -8,7 +8,7 @@ function ProductsMain() {
       <div className="flex justify-end gap-5 py-5">
         <Link
           to="/dashboard/products/add-new-product"
-          className="bg-primary-500 text-white flex items-center gap-3 px-5 py-2 rounded-lg"
+          className="bg-primary-500 text-white flex items-center gap-3 px-5 py-2 rounded-lg float-right"
         >
           <NXPlus />
           <span className='hidden md:block'>Add New Product</span>

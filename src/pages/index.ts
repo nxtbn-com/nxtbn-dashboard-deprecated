@@ -8,6 +8,8 @@ import EditProduct from "./editProduct";
 import AddNewProduct from "./AddNewProduct";
 import UserManagement from "./UserManagement";
 import Plugin from "./Plugin";
+import Categories from "./Categories";
+import AddNewCategory from "./AddNewCategory";
 
 export {
   Dashboard,
@@ -19,5 +21,7 @@ export {
   AddNewProduct,
   EditProduct,
   UserManagement,
-  Plugin
+  Plugin,
+  Categories,
+  AddNewCategory
 };

@@ -2,7 +2,7 @@ import { NXLeftArrow, NXRightArrow } from "../icons";
 
 interface PaginationProps {
   totalItems: number|any;
-  totalPages: number|any
+  totalPages?: number|any
   itemsPerPage: number|any;
   currentPage: number|any;
   onPageChange: (page: number) => void;

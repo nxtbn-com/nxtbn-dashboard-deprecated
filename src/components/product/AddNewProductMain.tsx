@@ -12,6 +12,7 @@ import { ImageField } from "../images";
 import { toast } from 'react-toastify';
 import EditorField from "../editor/EditorJS";
 import SEO from "../seo/SEO";
+import PageBodyWrapper from "../../components/PageBodyWrapper";
 
 
 
@@ -124,7 +125,7 @@ function AddNewProductMain() {
   };
 
   return (
-    <section className="px-10 py-5">
+    <PageBodyWrapper bgClass="">
       {/* top action button */}
       <div className="hidden md:flex md:justify-end md:gap-5 md:mb-5">
         <button className="text-[#0CAF60] border border-[#0CAF60] px-10 py-3 rounded-xl font-nunito font-[900]">
@@ -349,7 +350,7 @@ function AddNewProductMain() {
           </button>
         </div>
       </div>
-    </section>
+    </PageBodyWrapper>
   );
 }
 

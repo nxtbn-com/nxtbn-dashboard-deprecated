@@ -2,12 +2,13 @@ import React, { ReactNode } from "react";
 
 interface PageBodyWrapperProps {
   children: ReactNode;
+  bgClass?: string;
 }
 
-const PageBodyWrapper: React.FC<PageBodyWrapperProps> = ({ children }) => {
+const PageBodyWrapper: React.FC<PageBodyWrapperProps> = ({ children, bgClass = "bg-white" }) => {
   return (
     <div className="w-full flex flex-col p-[5%] md:p-10">
-      <div className="bg-white rounded-lg">
+      <div className={`${bgClass} rounded-lg`}>
         {children}
       </div>
     </div>

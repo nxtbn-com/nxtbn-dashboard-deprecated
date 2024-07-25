@@ -4,13 +4,13 @@ import {
     DialogPanel
   } from "@headlessui/react";
   
-  interface CustomModalProps {
+  interface NxtbnModalProps {
     isOpen: boolean;
     onClose: () => void;
     children: any;
   }
   
-  function CustomModal({ isOpen, onClose, children }: CustomModalProps) {
+  function NxtbnModal({ isOpen, onClose, children }: NxtbnModalProps) {
     return (
       <Dialog className="relative z-[110]" open={isOpen} onClose={onClose}>
         <DialogBackdrop
@@ -33,4 +33,4 @@ import {
   }
   
   
-  export default CustomModal
+  export default NxtbnModal

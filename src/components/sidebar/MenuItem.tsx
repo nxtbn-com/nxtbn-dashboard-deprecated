@@ -7,13 +7,10 @@ function MenuItem({ menuItem, sidebarOpen }: { menuItem: MenuItemType, sidebarOp
   const [isOpen, setIsOpen] = useState(false);
 
   const isActive = (url: string) => {
-    return location.pathname === url || location.pathname.startsWith(url);
+    return location.pathname === url;
   };
 
-  const isMainActive = isActive(menuItem.url || '') && location.pathname.split("/").length === (menuItem.url || '').split("/").length;
   const isSubActive = menuItem.subMenu && menuItem.subMenu.some(sub => isActive(sub.url));
-
-  const active = isMainActive || isSubActive;
 
   const handleClick = () => {
     if (menuItem.subMenu) {
@@ -27,7 +24,7 @@ function MenuItem({ menuItem, sidebarOpen }: { menuItem: MenuItemType, sidebarOp
         <div
           onClick={handleClick}
           className={`flex justify-between items-center gap-1 border-b border-[#EEEFF2] px-5 py-3.5 lg:text-base font-nunito tracking-wide cursor-pointer ${
-            active ? "text-primary-500 font-nunito-h1 relative" : ""
+            isActive(menuItem.url || '') || isSubActive ? "text-primary-500 font-nunito-h1 relative" : ""
           }`}
         >
           <div className="flex justify-center items-center gap-4 md:gap-3 lg:gap-4">
@@ -37,7 +34,7 @@ function MenuItem({ menuItem, sidebarOpen }: { menuItem: MenuItemType, sidebarOp
           {menuItem.count && (
             <div
               className={`aspect-square rounded-full w-6 text-center leading-6 text-white font-normal ${
-                active ? "bg-primary-500" : "bg-black"
+                isActive(menuItem.url || '') || isSubActive ? "bg-primary-500" : "bg-black"
               }`}
             >
               {menuItem.count}
@@ -48,7 +45,7 @@ function MenuItem({ menuItem, sidebarOpen }: { menuItem: MenuItemType, sidebarOp
         <Link
           to={menuItem.url || '#'}
           className={`flex justify-between items-center gap-1 border-b border-[#EEEFF2] px-5 py-3.5 lg:text-base font-nunito tracking-wide ${
-            active ? "text-primary-500 font-nunito-h1 relative" : ""
+            isActive(menuItem.url || '') ? "text-primary-500 font-nunito-h1 relative" : ""
           }`}
         >
           <div className="flex justify-center items-center gap-4 md:gap-3 lg:gap-4">
@@ -58,7 +55,7 @@ function MenuItem({ menuItem, sidebarOpen }: { menuItem: MenuItemType, sidebarOp
           {menuItem.count && (
             <div
               className={`aspect-square rounded-full w-6 text-center leading-6 text-white font-normal ${
-                active ? "bg-primary-500" : "bg-black"
+                isActive(menuItem.url || '') ? "bg-primary-500" : "bg-black"
               }`}
             >
               {menuItem.count}

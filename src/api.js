@@ -13,6 +13,7 @@ const useApi = () => {
         // product
         getCategories: (params = {}) => interceptor.get(`/product/dashboard/api/categories/`, { params: params }),
         getRecursiveCategories: (params = {}) => interceptor.get(`/product/dashboard/api/recursive-categories/`, {params: params}),
+        getCategoryByParent: (id='none', params = {}) => interceptor.get(`/product/dashboard/api/categories-by-parent/${id}/`, { params: params }),
         createProduct: (data, params = {}) => interceptor.post(`/product/dashboard/api/products/`, data, { params: params }),
         getProducts: (params = {}) => interceptor.get(`/product/dashboard/api/products/`, { params: params }),
         getProductById: (id, params = {}) => interceptor.get(`/product/dashboard/api/products/${id}/`, { params: params }),

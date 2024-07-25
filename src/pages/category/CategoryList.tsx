@@ -50,7 +50,6 @@ function CategoryTable() {
     return (
 
     <PageBodyWrapper>
-        
         <div className="relative overflow-x-auto">
         <table className="min-w-[400px] w-full table-auto text-sm ml:text-base px-3">
             <thead>

@@ -66,7 +66,7 @@ function EditProduct() {
 
   const fetchData = () => {
     Promise.all([
-      api.getCategories(),
+      api.getRecursiveCategories(),
       api.getColor(),
       api.getProductById(id)
     ])

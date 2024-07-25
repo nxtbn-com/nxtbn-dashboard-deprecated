@@ -39,7 +39,7 @@ function ProductList() {
               <h2 className="w-full text-start font-nunito font-bold">{product.name}</h2>
               <div className="flex justify-between items-center w-full">
                 <p className="text-sm">{product.summary}</p>
-                <span className="font-bold">${Number(product.default_variant.price).toFixed(2)}</span>
+                <span className="font-bold">${Number(product.default_variant.price ? product.default_variant.price : 0).toFixed(2)}</span>
               </div>
             </Link>
        

@@ -8,10 +8,11 @@ const useApi = () => {
         adminLogin: (data, params = {}) => interceptor.post(`/user/dashboard/api/login/`, data, { params: params, NxtbnPublicAPI: true }),
         refreshToken: (data, params = {}) => interceptor.post(`/user/dashboard/api/token/refresh/`, data, { params: params, NxtbnPublicAPI: true }),
         adminLogout: (data, params = {}) => interceptor.post(`/user/dashboard/api/logout/`, data, { params: params }),
-        getCategories: (params = {}) => interceptor.get(`/product/dashboard/api/categories/`, { params: params }),
         pluginInstall: (data, params={}) => interceptor.post(`/plugins/dashboard/api/plugin-install-via-zip-url/`, data, {params : params}),
 
         // product
+        getCategories: (params = {}) => interceptor.get(`/product/dashboard/api/categories/`, { params: params }),
+        getRecursiveCategories: (params = {}) => interceptor.get(`/product/dashboard/api/recursive-categories/`, {params: params}),
         createProduct: (data, params = {}) => interceptor.post(`/product/dashboard/api/products/`, data, { params: params }),
         getProducts: (params = {}) => interceptor.get(`/product/dashboard/api/products/`, { params: params }),
         getProductById: (id, params = {}) => interceptor.get(`/product/dashboard/api/products/${id}/`, { params: params }),
@@ -20,6 +21,11 @@ const useApi = () => {
         createColor: (data, params = {}) => interceptor.post(`/product/dashboard/api/colors/`, data, { params: params }),
         deleteColor: (id, params = {}) => interceptor.delete(`/product/dashboard/api/colors/${id}/`, { params: params }),
         getColorById: (id, params = {}) => interceptor.get(`/product/dashboard/api/colors/${id}/`, { params: params }),
+        createProductType: (data, params = {}) => interceptor.post(`/product/dashboard/api/product-types/`, data,  {params: params}),
+        getProductType: (params = {}) => interceptor.get(`/product/dashboard/api/product-types/`, {params: params}),
+        createProductTags: (data, params = {}) => interceptor.post(`/product/dashboard/api/product-tags/`, data,  {params: params}),
+        getProductTags: (params = {}) => interceptor.get(`/product/dashboard/api/product-tags/`, {params: params}),
+
 
         // file manager
         postImage: (data, params = {}) => {

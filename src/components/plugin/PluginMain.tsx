@@ -1,12 +1,13 @@
 import { NXPlus, NXSearch } from "../../icons";
 import PluginCard from "./PluginCard";
+import PageBodyWrapper from "../../components/PageBodyWrapper";
+
 
 function PluginMain() {
 
 
   return (
-    <div className="p-10">
-      <div className="bg-white rounded-lg">
+      <PageBodyWrapper>
         <section className="flex flex-row justify-between items-center p-6">
           <div className="relative w-full md:w-[60%]">
             <NXSearch className="absolute top-1/2 left-4 transform -translate-y-1/2" />
@@ -26,8 +27,8 @@ function PluginMain() {
         <section>
             <PluginCard />
         </section>
-      </div>
-    </div>
+     
+    </PageBodyWrapper>
   );
 }
 

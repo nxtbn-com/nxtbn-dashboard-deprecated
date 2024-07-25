@@ -3,6 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import OrderTable from "./OrderTable";
 import OrderPagination from "./OrderPagination";
 import OrderToolbar from "./OrderToolbar";
+import PageBodyWrapper from "../../components/PageBodyWrapper";
 
 const pageChoice = [
   {
@@ -39,8 +40,7 @@ function OrdersMain() {
   const currentPage = searchParams.get("page");
 
   return (
-    <div className="w-full flex flex-col p-[5%] md:p-10">
-      <div className="bg-white rounded-lg">
+    <PageBodyWrapper>
         <div className="text-base-300 flex gap-5 border-b border-[#EEEFF2] py-5 px-10 pb-3 w-[100%] overflow-x-auto">
           {pageChoice.map((page) => (
             <button
@@ -64,8 +64,7 @@ function OrdersMain() {
         </div>
         
         <OrderPagination />
-      </div>
-    </div>
+      </PageBodyWrapper>
   );
 }
 

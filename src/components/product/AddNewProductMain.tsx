@@ -12,6 +12,7 @@ import { ImageField } from "../images";
 import { toast } from 'react-toastify';
 import EditorField from "../editor/EditorJS";
 import SEO from "../seo/SEO";
+import PageBodyWrapper from "../../components/PageBodyWrapper";
 
 
 
@@ -55,7 +56,7 @@ function AddNewProductMain() {
   }
 
   const fetchData = () => {
-    api.getCategories().then((response) => {
+    api.getRecursiveCategories().then((response) => {
       const category = makeCategoryEnumFriendly(response as any);
       setCategories(category);
     }).catch((error) => {
@@ -67,6 +68,20 @@ function AddNewProductMain() {
     }).catch((error) => {
       console.error("Error fetching colors:", error);
     });
+
+    api.getProductType().then((response) => {
+      // setColors(response as any);
+    }).catch((error) => {
+      console.error("Error fetching colors:", error);
+    });
+
+    api.getProductTags().then((response) => {
+      // setColors(response as any);
+    }).catch((error) => {
+      console.error("Error fetching colors:", error);
+    });
+
+
   };
 
 
@@ -110,7 +125,7 @@ function AddNewProductMain() {
   };
 
   return (
-    <section className="px-10 py-5">
+    <PageBodyWrapper bgClass="">
       {/* top action button */}
       <div className="hidden md:flex md:justify-end md:gap-5 md:mb-5">
         <button className="text-[#0CAF60] border border-[#0CAF60] px-10 py-3 rounded-xl font-nunito font-[900]">
@@ -277,17 +292,21 @@ function AddNewProductMain() {
               </div>
             </div>
             <div className="my-5">
-              <label htmlFor="product_type">Product type</label>
-              <input
-                id="product_type"
-                type="text"
-                className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-md font-nunito outline-[#0CAF60] border-[2px] border-dashed"
-              />
-            </div>
-            <div className="my-5">
               <label htmlFor="tags">Tags</label>
               <div className="pt-3">
                 <SelectStyled isMulti={true} />
+              </div>
+            </div>
+            <div className="my-5">
+              <label htmlFor="tags">Collection</label>
+              <div className="pt-3">
+                <SelectStyled isMulti={true} />
+              </div>
+            </div>
+            <div className="my-5">
+              <label htmlFor="tags">Product Type</label>
+              <div className="pt-3">
+                <SelectStyled/>
               </div>
             </div>
           </div>
@@ -331,7 +350,7 @@ function AddNewProductMain() {
           </button>
         </div>
       </div>
-    </section>
+    </PageBodyWrapper>
   );
 }
 

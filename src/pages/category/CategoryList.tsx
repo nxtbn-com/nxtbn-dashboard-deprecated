@@ -1,6 +1,9 @@
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { NXNarrowArrowUp, NXNarrowArrowUpDown, NXRightArrow } from "../../icons";
 import PageBodyWrapper from "../../components/PageBodyWrapper";
+import useApi from "../../api";
+
 
 const tableHead = [
   {
@@ -15,48 +18,25 @@ const tableHead = [
   {
     name: "",
   },
+  {
+    name: "",
+  },
 ];
 
-const tableData = [
-  {
-    id: "238976",
-    orders: "Vest Hoodie",
-    date: "Apr 24, 2022",
-    customer: "Cheiko Chute",
-    payment: "Paid",
-    status: "Unfullfilled",
-    price: "$450",
-  },
-  {
-    id: "238977",
-    orders: "Vest Hoodie",
-    date: "Apr 24, 2022",
-    customer: "Cheiko Chute",
-    payment: "Paid",
-    status: "Completed",
-    price: "$450",
-  },
-  {
-    id: "238978",
-    orders: "Vest Hoodie",
-    date: "Apr 24, 2022",
-    customer: "Cheiko Chute",
-    payment: "Unpaid",
-    status: "Cancelled",
-    price: "$450",
-  },
-  {
-    id: "238979",
-    orders: "Vest Hoodie",
-    date: "Apr 24, 2022",
-    customer: "Cheiko Chute",
-    payment: "Paid",
-    status: "Shipping",
-    price: "$450",
-  },
-];
+
 function CategoryTable() {
-  return (
+    const api = useApi()
+    const [categories, setCategories] = useState([])
+
+    useEffect(() => {
+        api.getCategoryByParent('none').then((response: any) => {
+            setCategories(response)
+          }).catch((error) => {
+            //
+          })
+    }, [])
+
+    return (
 
     <PageBodyWrapper>
         <div className="relative overflow-x-auto">
@@ -89,7 +69,7 @@ function CategoryTable() {
             </tr>
             </thead>
             <tbody>
-            {tableData.map((row, index) => (
+            {categories.map((row:any, index) => (
                 <tr className="border-b border-[#EEEFF2] font-semibold" key={index}>
                 <td className="text-center py-5">
                     <input
@@ -98,17 +78,23 @@ function CategoryTable() {
                     />
                 </td>
                 <td className="text-start py-3 px-2">
-                    <Link to={row.id}>
-                    <p>{row.orders}</p>
                     <p className="text-sm font-normal text-base-300 mt-1">
                         #ID{row.id}
                     </p>
-                    </Link>
+                   
                 </td>
-                <td className="py-3 px-2">{row.date}</td>
-                <td className="py-3 px-2">{row.customer}</td>
                 <td className="py-3 px-2">
-                    <a><NXRightArrow /></a>
+                {row.name}
+                </td>
+                <td className="py-3 px-2">
+                    <p>{row.parent}</p>
+                </td>
+                <td className="py-3 px-2">
+                    <a>...</a>
+                </td>
+                <td className="py-3 px-2">
+                    {row.has_sub ? <a><NXRightArrow /></a> : ''}
+                    
                 </td>
             
                 </tr>

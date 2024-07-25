@@ -67,6 +67,20 @@ function AddNewProductMain() {
     }).catch((error) => {
       console.error("Error fetching colors:", error);
     });
+
+    api.getProductType().then((response) => {
+      // setColors(response as any);
+    }).catch((error) => {
+      console.error("Error fetching colors:", error);
+    });
+
+    api.getProductTags().then((response) => {
+      // setColors(response as any);
+    }).catch((error) => {
+      console.error("Error fetching colors:", error);
+    });
+
+
   };
 
 

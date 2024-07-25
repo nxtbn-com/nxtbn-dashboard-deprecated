@@ -27,18 +27,30 @@ const tableHead = [
 function CategoryTable() {
     const api = useApi()
     const [categories, setCategories] = useState([])
+    const [parent, setParent] = useState('none');
+
+    const onNextCategoryArrowClick = (e: any, id:any) => {
+        e.preventDefault();
+        setParent(id);
+        getCategory(id)
+    };
+
+    const getCategory = (id:any) => {
+        api.getCategoryByParent(id).then((response: any) => {
+            setCategories(response)
+        }).catch((error) => {
+            //
+        })
+    }
 
     useEffect(() => {
-        api.getCategoryByParent('none').then((response: any) => {
-            setCategories(response)
-          }).catch((error) => {
-            //
-          })
+        getCategory(parent)
     }, [])
 
     return (
 
     <PageBodyWrapper>
+        
         <div className="relative overflow-x-auto">
         <table className="min-w-[400px] w-full table-auto text-sm ml:text-base px-3">
             <thead>
@@ -93,7 +105,7 @@ function CategoryTable() {
                     <a>...</a>
                 </td>
                 <td className="py-3 px-2">
-                    {row.has_sub ? <a><NXRightArrow /></a> : ''}
+                    {row.has_sub ? <a className="cursor-pointer text-blue" onClick={(e) => onNextCategoryArrowClick(e, row.id)}><NXRightArrow /></a> : ''}
                     
                 </td>
             

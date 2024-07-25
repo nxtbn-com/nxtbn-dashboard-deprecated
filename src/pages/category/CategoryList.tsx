@@ -74,14 +74,13 @@ function CategoryTable() {
                     )}
                 </div>
                 <div>
-                {!history.length && (
                     <button
                     className="text-white bg-[#0CAF60] px-10 py-3 rounded-xl font-nunito font-[900]"
                     // onClick={openModal}
                     >
                     Add Category
                     </button>
-                    )}
+                    
                 </div>
                 
             </div>
@@ -134,7 +133,7 @@ function CategoryTable() {
                                         {row.name}
                                     </td>
                                     <td className="py-3 px-2">
-                                        <p>{row.parent}</p>
+                                        <p>{row.parent ? `< ${row.parent.name}` : '--'}</p>
                                     </td>
                                     <td className="py-3 px-2">
                                         <a>...</a>

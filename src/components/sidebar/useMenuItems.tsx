@@ -5,7 +5,8 @@ export type MenuItemType = {
   name: string;
   url: string;
   icon: JSX.Element;
-  count?: number
+  count?: number,
+  subMenu?: any[];
 };
 
 const useMenuItems = () => {
@@ -25,7 +26,17 @@ const useMenuItems = () => {
       name: "Products",
       url: "/dashboard/products",
       icon: <NXProductBag />,
-      count: 12
+      count: 12,
+      subMenu: [
+        {
+          name: "Categories",
+          url: "/dashboard/products/categories"
+        },
+        {
+          name: "Gift Card",
+          url: "/dashboard/products/gift-card"
+        }
+      ],
     },
     {
       name: "Analytics",

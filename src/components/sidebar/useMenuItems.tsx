@@ -3,7 +3,7 @@ import { NXAnalytics, NXCoupon, NXCustomer, NXDashboard, NXEcommerce, NXEmv, NXP
 
 export type MenuItemType = {
   name: string;
-  url: string;
+  url?: string;
   icon: JSX.Element;
   count?: number,
   subMenu?: any[];
@@ -23,11 +23,14 @@ const useMenuItems = () => {
       count: 8,
     },
     {
-      name: "Products",
-      url: "/dashboard/products",
+      name: "Catalog",
       icon: <NXProductBag />,
       count: 12,
       subMenu: [
+        {
+          name: "Products",
+          url: "/dashboard/products"
+        },
         {
           name: "Categories",
           url: "/dashboard/products/categories"

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { NXNarrowArrowUp, NXNarrowArrowUpDown, NXRightArrow, NXLeftArrow, NXPlus } from "../../icons";
+import { NXNarrowArrowUp, NXNarrowArrowUpDown, NXDelete } from "../../icons";
 import PageBodyWrapper from "../../components/PageBodyWrapper";
 import ColorModal from "./modal";
 import useApi from "../../api";
@@ -126,7 +126,9 @@ function Color() {
                                         <p style={{background: row.code}}>{row.code}</p>
                                     </td>
                                     <td className="py-3 px-2">
-                                        <a>...</a>
+                                        <button>
+                                            <NXDelete />
+                                        </button>
                                     </td>
                                 </tr>
                             ))}

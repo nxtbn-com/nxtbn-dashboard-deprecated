@@ -27,29 +27,25 @@ function CategoryTable() {
     const api = useApi();
     const [categories, setCategories] = useState<any[]>([]);
     const [parent, setParent] = useState('none');
-    const [parentData, setParentData] = useState({});
-    const [previousParent, setPreviousParent] = useState({})
-    // const [prevParent, setPrevParent] = useState('none');
+    
+
     const [openModal, setOpenModal] = useState(false)
-    const [history, setHistory] = useState<string[]>([]); // Stack to keep track of category history
+    const [history, setHistory] = useState<any[]>([]); 
 
     const onNextCategoryArrowClick = (e: any, index: any) => {
         e.preventDefault();
-        // setPrevParent(parent); // Save current parent to history before changing
-        setParent(categories[index].id);
+        setParent(categories[index]);
         getCategory(categories[index].id);
-        setHistory((prevHistory) => [...prevHistory, parent]); // Push the current parent to history
-        setPreviousParent(categories[index])
+        setHistory((prevHistory) => [...prevHistory, parent]); 
     };
 
     const onPreviosCategoryArrowClick = (e: any) => {
         e.preventDefault();
         if (history.length > 0) {
-            const lastParent = history[history.length - 1]; // Get the last item from history
-            setHistory((prevHistory) => prevHistory.slice(0, -1)); // Remove the last item from history
-            // setPrevParent(parent); // Save current parent to prevParent
+            const lastParent = history[history.length - 1]; 
+            setHistory((prevHistory) => prevHistory.slice(0, -1)); 
             setParent(lastParent);
-            getCategory(lastParent);
+            getCategory(lastParent.id);
         }
     };
 
@@ -63,7 +59,7 @@ function CategoryTable() {
 
     const onModalOpen = (parentData?: any, editId?: number) => {
         setOpenModal(!openModal);
-        setParentData(parentData)
+        // setParentData(parentData)
     }
 
 
@@ -87,7 +83,7 @@ function CategoryTable() {
                 <div>
                     <button
                     className="text-white bg-[#0CAF60] px-10 py-3 rounded-xl font-nunito font-[900]"
-                    onClick={() => onModalOpen(previousParent)}
+                    onClick={onModalOpen}
                     >
                     Add Category
                     </button>
@@ -128,7 +124,7 @@ function CategoryTable() {
                         </thead>
                         <tbody>
                             {categories.map((row: any, index) => (
-                                <tr className="border-b border-[#EEEFF2] font-semibold" key={index}>
+                                <tr className="border-b border-[#EEEFF2] font-semibold" key={index + 1}>
                                     <td className="text-center py-5">
                                         <input
                                             className="form-checkbox rounded-full bg-gray-200 checked:bg-red-600"
@@ -161,7 +157,7 @@ function CategoryTable() {
                 </div>
             </PageBodyWrapper>
 
-            <CategoryModal parentData={parentData} isOpen={openModal} onClose={()=> setOpenModal(!openModal)} onAddCategory={() => {}} />
+            <CategoryModal parentData={parent} isOpen={openModal} onClose={()=> setOpenModal(!openModal)} onAddCategory={() => {}} />
         </>
     );
 }

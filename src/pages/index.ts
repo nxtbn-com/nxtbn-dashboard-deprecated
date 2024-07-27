@@ -9,6 +9,7 @@ import AddNewProduct from "./AddNewProduct";
 import UserManagement from "./UserManagement";
 import Plugin from "./Plugin";
 import CategoryTable from "./category/CategoryList";
+import Color from "./color/colorList";
 
 export {
   Dashboard,
@@ -21,5 +22,6 @@ export {
   AddNewProduct,
   EditProduct,
   UserManagement,
-  Plugin
+  Plugin,
+  Color,
 };

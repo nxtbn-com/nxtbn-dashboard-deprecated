@@ -10,7 +10,8 @@ import {
   CategoryTable,
   Login,
   UserManagement,
-  Plugin
+  Plugin,
+  Color,
  } from "./pages";
 
 import {RootLayout, SettingsLayout } from "./layouts";
@@ -42,7 +43,7 @@ function App() {
 
                   <Route path="products" element={<Products />} />
                     <Route path="products/categories" element={<CategoryTable />} />
-                    {/* <Route path="products/gift-card" element={<Orders />} /> */}
+                    <Route path="products/color" element={<Color />} />
                   <Route path="products/add-new-product" element={<AddNewProduct />} />
                   <Route path="products/edit/:id" element={<EditProduct />} />
 

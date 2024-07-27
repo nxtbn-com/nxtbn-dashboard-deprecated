@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { NXNarrowArrowUp, NXNarrowArrowUpDown, NXDelete } from "../../icons";
+import { NXNarrowArrowUp, NXNarrowArrowUpDown, NXDelete, NXEditPen } from "../../icons";
 import PageBodyWrapper from "../../components/PageBodyWrapper";
 import ColorModal from "./modal";
 import useApi from "../../api";
@@ -134,8 +134,11 @@ function Color() {
                                         <p style={{background: row.code}}>{row.code}</p>
                                     </td>
                                     <td className="py-3 px-2">
-                                        <button onClick={(e) => handleDelete(row.id)}>
+                                        <button className="p-1" onClick={(e) => handleDelete(row.id)}>
                                             <NXDelete />
+                                        </button>
+                                        <button className="p-1" onClick={(e) => handleDelete(row.id)}>
+                                            <NXEditPen />
                                         </button>
                                     </td>
                                 </tr>

@@ -53,6 +53,7 @@ import NXLock from "./NXLock";
 import NXDollarCircle2 from "./NXDollarCircle2";
 import NXTablerLink from "./NXTablerLink";
 import NXPen from "./NXPen";
+import NXEditPen from "./NXEditPen";
 
 
 export {
@@ -110,5 +111,6 @@ export {
   NXLock,
   NXDollarCircle2,
   NXTablerLink,
-  NXPen
+  NXPen,
+  NXEditPen,
 };

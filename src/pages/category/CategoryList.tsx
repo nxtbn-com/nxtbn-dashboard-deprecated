@@ -92,7 +92,7 @@ function CategoryTable() {
                 </div>
                 <div>
                     <button
-                    className="text-white bg-[#0CAF60] px-10 py-3 rounded-xl font-nunito font-[900]"
+                    className="text-white bg-primary-600 px-10 py-3 rounded-xl font-nunito font-[900]"
                     onClick={(e) => onModalOpen()}
                     >
                     Add Category

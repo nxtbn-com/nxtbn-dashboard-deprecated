@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import CustomModal from "../Modal";
+import NxtbnModal from "../Modal";
 import { NXCross } from "../../icons";
 import useApi from "../../api";
 import Pagination from '../Pagination';
@@ -82,7 +82,7 @@ const ImageChooseModal: React.FC<ImageChooseModalProps> = ({ onClose, onSelected
     return (
         <>
 
-            <CustomModal isOpen={isOpen} onClose={onClose}>
+            <NxtbnModal isOpen={isOpen} onClose={onClose}>
               <div className="p-4 h-1/2">
                 <div className="flex justify-between border-b pb-4">
                   <strong className="text-sm">Select images</strong>
@@ -166,7 +166,7 @@ const ImageChooseModal: React.FC<ImageChooseModalProps> = ({ onClose, onSelected
                   </div>
                 </div>
               </div>
-            </CustomModal>
+            </NxtbnModal>
         </>
     );
 };

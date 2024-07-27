@@ -2,49 +2,37 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { NXNarrowArrowUp, NXNarrowArrowUpDown, NXRightArrow, NXLeftArrow, NXPlus } from "../../icons";
 import PageBodyWrapper from "../../components/PageBodyWrapper";
+import CategoryModal from "./modalForm";
 import useApi from "../../api";
 
-const tableHead = [
-  {
-    name: "id",
-  },
-  {
-    name: "name",
-  },
-  {
-    name: "parent",
-  },
-  {
-    name: "",
-  },
-  {
-    name: "",
-  },
-];
+
 
 function CategoryTable() {
     const api = useApi();
-    const [categories, setCategories] = useState([]);
+    const [categories, setCategories] = useState<any[]>([]);
     const [parent, setParent] = useState('none');
-    const [prevParent, setPrevParent] = useState('none');
-    const [history, setHistory] = useState<string[]>([]); // Stack to keep track of category history
+    const [iterableAsParent, setIterableAsParent] = useState<any>();
+    
 
-    const onNextCategoryArrowClick = (e: any, id: any) => {
+    const [openModal, setOpenModal] = useState(false)
+    const [history, setHistory] = useState<any[]>([]); 
+
+    const onNextCategoryArrowClick = (e: any, index: any) => {
         e.preventDefault();
-        setPrevParent(parent); // Save current parent to history before changing
-        setParent(id);
-        getCategory(id);
-        setHistory((prevHistory) => [...prevHistory, parent]); // Push the current parent to history
+        setIterableAsParent('');
+        setParent(categories[index]);
+        getCategory(categories[index].id);
+        setHistory((prevHistory) => [...prevHistory, parent]); 
     };
 
     const onPreviosCategoryArrowClick = (e: any) => {
         e.preventDefault();
+        setIterableAsParent('');
         if (history.length > 0) {
-            const lastParent = history[history.length - 1]; // Get the last item from history
-            setHistory((prevHistory) => prevHistory.slice(0, -1)); // Remove the last item from history
-            setPrevParent(parent); // Save current parent to prevParent
+            const lastParent = history[history.length - 1]; 
+            setHistory((prevHistory) => prevHistory.slice(0, -1)); 
             setParent(lastParent);
-            getCategory(lastParent);
+            getCategory(lastParent.id);
         }
     };
 
@@ -55,6 +43,23 @@ function CategoryTable() {
             //
         });
     };
+
+    const onModalOpen = (itrbl?: any, editId?: number) => {
+        setOpenModal(!openModal);
+        if (itrbl) {
+            setIterableAsParent(itrbl);
+        }
+    };
+
+    const onModalClose = () => {
+        setIterableAsParent('');
+        setOpenModal(!openModal);
+    };
+
+    const onModalSubmit = (parentId:any) => {
+        getCategory(parentId);
+    }
+
 
     useEffect(() => {
         getCategory(parent);
@@ -74,14 +79,13 @@ function CategoryTable() {
                     )}
                 </div>
                 <div>
-                {!history.length && (
                     <button
-                    className="text-white bg-[#0CAF60] px-10 py-3 rounded-xl font-nunito font-[900]"
-                    // onClick={openModal}
+                    className="text-white bg-primary-600 px-10 py-3 rounded-xl font-nunito font-[900]"
+                    onClick={(e) => onModalOpen()}
                     >
                     Add Category
                     </button>
-                    )}
+                    
                 </div>
                 
             </div>
@@ -99,26 +103,40 @@ function CategoryTable() {
                                         id=""
                                     />
                                 </th>
-                                {tableHead.map((th, index) => (
-                                    <th
-                                        className={`py-5 px-2 font-normal text-base-300`}
-                                        key={th.name}
-                                    >
-                                        <span className={`flex items-center gap-3`}>
-                                            {th.name}
-                                            {!true ? (
-                                                <NXNarrowArrowUp className="text-primary-500" />
-                                            ) : (
-                                                <NXNarrowArrowUpDown />
-                                            )}
-                                        </span>
-                                    </th>
-                                ))}
+                                <th
+                                    className={`py-5 px-2 font-normal text-base-300`}>
+                                    <span className={`flex items-center gap-3`}>
+                                        id
+                                        {!true ? (
+                                            <NXNarrowArrowUp className="text-primary-500" />
+                                        ) : (
+                                            <NXNarrowArrowUpDown />
+                                        )}
+                                    </span>
+                                </th>
+                                <th
+                                    className={`py-5 px-2 font-normal text-base-300`}>
+                                    <span className={`flex items-center gap-3`}>
+                                        Name
+                                        {!true ? (
+                                            <NXNarrowArrowUp className="text-primary-500" />
+                                        ) : (
+                                            <NXNarrowArrowUpDown />
+                                        )}
+                                    </span>
+                                </th>
+                                <th className={`py-5 px-2 font-normal text-base-300`}>
+                                    <span className={`flex items-center gap-3`}>Parent</span>
+                                </th>
+                                <th className={`py-5 px-2 font-normal text-base-300`}>
+                                </th>
+                                <th className={`py-5 px-2 font-normal text-base-300`}>
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
                             {categories.map((row: any, index) => (
-                                <tr className="border-b border-[#EEEFF2] font-semibold" key={index}>
+                                <tr className="border-b border-[#EEEFF2] font-semibold" key={index + 1}>
                                     <td className="text-center py-5">
                                         <input
                                             className="form-checkbox rounded-full bg-gray-200 checked:bg-red-600"
@@ -134,14 +152,14 @@ function CategoryTable() {
                                         {row.name}
                                     </td>
                                     <td className="py-3 px-2">
-                                        <p>{row.parent}</p>
+                                        <p>{row.parent ? `< ${row.parent.name}` : '--'}</p>
                                     </td>
                                     <td className="py-3 px-2">
                                         <a>...</a>
                                     </td>
                                     <td className="py-3 px-2">
-                                        {row.has_sub ? <a className="cursor-pointer text-blue" onClick={(e) => onNextCategoryArrowClick(e, row.id)}><NXRightArrow className="h-12" /></a> : 
-                                          <a className="cursor-pointer text-blue"><NXPlus className="h-12" /></a>
+                                        {row.has_sub ? <a className="cursor-pointer text-blue" onClick={(e) => onNextCategoryArrowClick(e, index)}><NXRightArrow className="h-12" /></a> : 
+                                          <a onClick={() => onModalOpen(row)} className="cursor-pointer text-blue"><NXPlus className="h-12" /></a>
                                         }
                                     </td>
                                 </tr>
@@ -150,6 +168,8 @@ function CategoryTable() {
                     </table>
                 </div>
             </PageBodyWrapper>
+
+            {openModal && <CategoryModal parentData={iterableAsParent || parent} isOpen={openModal} onClose={onModalClose} onSubmit={(parentId) => onModalSubmit(parentId)} /> }
         </>
     );
 }

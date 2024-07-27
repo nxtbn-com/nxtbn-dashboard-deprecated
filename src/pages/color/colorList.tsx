@@ -30,8 +30,16 @@ function Color() {
         setOpenModal(!openModal);
     };
 
-    const onModalSubmit = (parentId:any) => {
+    const onModalSubmit = () => {
+        getColors();
+    };
 
+    const handleDelete = (id:number) => {
+        api.deleteColor(id).then((response) => {
+            getColors();
+        }, (error) => {
+            //
+        })
     }
 
 
@@ -126,7 +134,7 @@ function Color() {
                                         <p style={{background: row.code}}>{row.code}</p>
                                     </td>
                                     <td className="py-3 px-2">
-                                        <button>
+                                        <button onClick={(e) => handleDelete(row.id)}>
                                             <NXDelete />
                                         </button>
                                     </td>
@@ -137,7 +145,7 @@ function Color() {
                 </div>
             </PageBodyWrapper>
 
-            {openModal && <ColorModal  isOpen={openModal} onClose={onModalClose} onSubmit={(parentId) => onModalSubmit(parentId)} /> }
+            {openModal && <ColorModal  isOpen={openModal} onClose={onModalClose} onSubmit={onModalSubmit} /> }
         </>
     );
 }

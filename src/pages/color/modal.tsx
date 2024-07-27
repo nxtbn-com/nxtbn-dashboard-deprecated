@@ -5,7 +5,7 @@ import useApi from "../../api";
 interface ColorModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSubmit: (parentId?: number) => void;
+  onSubmit: () => void;
   isEdit?: boolean;
 }
 
@@ -17,12 +17,13 @@ function ColorModal({ isOpen, onClose, onSubmit, isEdit }: ColorModalProps) {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     api.createColor(formData).then((response: any) => {
-    //   onSubmit(parentData.id);
+      onSubmit();
+    onClose();
     }, (error) => {
 
     });
 
-    onClose();
+    
   };
 
   const handleChange = (e: any) => {

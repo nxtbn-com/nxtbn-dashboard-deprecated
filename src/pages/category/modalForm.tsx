@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import NxtbnModal from '../../components/Modal';
+import useApi from "../../api";
 
 interface CategoryModalProps {
   isOpen: boolean;
@@ -10,14 +11,36 @@ interface CategoryModalProps {
 }
 
 function CategoryModal({ isOpen, onClose, onAddCategory, isEdit, parentData }: CategoryModalProps) {
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
+  const [formData, setFormData] = useState({})
+
+  const api = useApi();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onAddCategory(name, description);
+    api.createCategory(formData).then((response: any) => {
+
+    }, (error) => {
+
+    });
+
     onClose();
   };
+
+  const handleChange = (e: any) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+
+
+  useEffect(() => {
+
+    if (parentData.id) {
+      setFormData({parent: parentData.id})
+    }
+    
+  }, [parentData]);
 
   return (
     <NxtbnModal isOpen={isOpen} onClose={onClose}>
@@ -30,8 +53,8 @@ function CategoryModal({ isOpen, onClose, onAddCategory, isEdit, parentData }: C
           <input
             type="text"
             id="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            name='name'
+            onChange={handleChange}
             className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             required
           />
@@ -42,8 +65,8 @@ function CategoryModal({ isOpen, onClose, onAddCategory, isEdit, parentData }: C
           </label>
           <textarea
             id="description"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
+            name='description'
+            onChange={handleChange}
             className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             rows={4}
             required
@@ -59,7 +82,7 @@ function CategoryModal({ isOpen, onClose, onAddCategory, isEdit, parentData }: C
           </button>
           <button
             type="submit"
-            className="inline-flex justify-center rounded-md border border-transparent px-4 py-2 bg-primary-600 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm"
+            className="inline-flex justify-center rounded-md border border-transparent px-4 py-2 bg-primary-600 text-base font-medium text-white shadow-sm hover:bg-primary-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm"
           >
             Add
           </button>

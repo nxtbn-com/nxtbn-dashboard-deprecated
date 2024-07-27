@@ -5,23 +5,7 @@ import PageBodyWrapper from "../../components/PageBodyWrapper";
 import CategoryModal from "./modalForm";
 import useApi from "../../api";
 
-const tableHead = [
-  {
-    name: "id",
-  },
-  {
-    name: "name",
-  },
-  {
-    name: "parent",
-  },
-  {
-    name: "",
-  },
-  {
-    name: "",
-  },
-];
+
 
 function CategoryTable() {
     const api = useApi();
@@ -181,7 +165,7 @@ function CategoryTable() {
                 </div>
             </PageBodyWrapper>
 
-            <CategoryModal parentData={iterableAsParent || parent} isOpen={openModal} onClose={onModalClose} onAddCategory={() => {}} />
+            {openModal && <CategoryModal parentData={iterableAsParent || parent} isOpen={openModal} onClose={onModalClose} onAddCategory={() => {}} /> }
         </>
     );
 }

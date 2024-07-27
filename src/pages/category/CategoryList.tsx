@@ -27,6 +27,7 @@ function CategoryTable() {
     const api = useApi();
     const [categories, setCategories] = useState<any[]>([]);
     const [parent, setParent] = useState('none');
+    const [iterableAsParent, setIterableAsParent] = useState<any>();
     
 
     const [openModal, setOpenModal] = useState(false)
@@ -34,6 +35,7 @@ function CategoryTable() {
 
     const onNextCategoryArrowClick = (e: any, index: any) => {
         e.preventDefault();
+        setIterableAsParent('');
         setParent(categories[index]);
         getCategory(categories[index].id);
         setHistory((prevHistory) => [...prevHistory, parent]); 
@@ -41,6 +43,7 @@ function CategoryTable() {
 
     const onPreviosCategoryArrowClick = (e: any) => {
         e.preventDefault();
+        setIterableAsParent('');
         if (history.length > 0) {
             const lastParent = history[history.length - 1]; 
             setHistory((prevHistory) => prevHistory.slice(0, -1)); 
@@ -57,9 +60,16 @@ function CategoryTable() {
         });
     };
 
-    const onModalOpen = (parentData?: any, editId?: number) => {
+    const onModalOpen = (itrbl?: any, editId?: number) => {
         setOpenModal(!openModal);
-        // setParentData(parentData)
+        if (itrbl) {
+            setIterableAsParent(itrbl);
+        }
+    };
+
+    const onModalClose = () => {
+        setIterableAsParent('');
+        setOpenModal(!openModal);
     }
 
 
@@ -83,7 +93,7 @@ function CategoryTable() {
                 <div>
                     <button
                     className="text-white bg-[#0CAF60] px-10 py-3 rounded-xl font-nunito font-[900]"
-                    onClick={onModalOpen}
+                    onClick={(e) => onModalOpen()}
                     >
                     Add Category
                     </button>
@@ -105,21 +115,35 @@ function CategoryTable() {
                                         id=""
                                     />
                                 </th>
-                                {tableHead.map((th, index) => (
-                                    <th
-                                        className={`py-5 px-2 font-normal text-base-300`}
-                                        key={th.name}
-                                    >
-                                        <span className={`flex items-center gap-3`}>
-                                            {th.name}
-                                            {!true ? (
-                                                <NXNarrowArrowUp className="text-primary-500" />
-                                            ) : (
-                                                <NXNarrowArrowUpDown />
-                                            )}
-                                        </span>
-                                    </th>
-                                ))}
+                                <th
+                                    className={`py-5 px-2 font-normal text-base-300`}>
+                                    <span className={`flex items-center gap-3`}>
+                                        id
+                                        {!true ? (
+                                            <NXNarrowArrowUp className="text-primary-500" />
+                                        ) : (
+                                            <NXNarrowArrowUpDown />
+                                        )}
+                                    </span>
+                                </th>
+                                <th
+                                    className={`py-5 px-2 font-normal text-base-300`}>
+                                    <span className={`flex items-center gap-3`}>
+                                        Name
+                                        {!true ? (
+                                            <NXNarrowArrowUp className="text-primary-500" />
+                                        ) : (
+                                            <NXNarrowArrowUpDown />
+                                        )}
+                                    </span>
+                                </th>
+                                <th className={`py-5 px-2 font-normal text-base-300`}>
+                                    <span className={`flex items-center gap-3`}>Parent</span>
+                                </th>
+                                <th className={`py-5 px-2 font-normal text-base-300`}>
+                                </th>
+                                <th className={`py-5 px-2 font-normal text-base-300`}>
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -157,7 +181,7 @@ function CategoryTable() {
                 </div>
             </PageBodyWrapper>
 
-            <CategoryModal parentData={parent} isOpen={openModal} onClose={()=> setOpenModal(!openModal)} onAddCategory={() => {}} />
+            <CategoryModal parentData={iterableAsParent || parent} isOpen={openModal} onClose={onModalClose} onAddCategory={() => {}} />
         </>
     );
 }

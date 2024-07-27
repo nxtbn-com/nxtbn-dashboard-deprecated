@@ -36,8 +36,8 @@ const useMenuItems = () => {
           url: "/dashboard/products/categories"
         },
         {
-          name: "Gift Card",
-          url: "/dashboard/products/gift-card"
+          name: "Color",
+          url: "/dashboard/products/color"
         }
       ],
     },

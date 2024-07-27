@@ -1,28 +1,40 @@
 import React, { useEffect, useState } from 'react';
 import NxtbnModal from '../../components/Modal';
 import useApi from "../../api";
+import { use } from 'echarts';
 
 interface ColorModalProps {
   isOpen: boolean;
   onClose: () => void;
   onSubmit: () => void;
-  isEdit?: boolean;
+  edit?: number;
 }
 
-function ColorModal({ isOpen, onClose, onSubmit, isEdit }: ColorModalProps) {
-  const [formData, setFormData] = useState({})
+function ColorModal({ isOpen, onClose, onSubmit, edit }: ColorModalProps) {
+  const [formData, setFormData] = useState<any>({});
 
   const api = useApi();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    api.createColor(formData).then((response: any) => {
-      onSubmit();
-    onClose();
-    }, (error) => {
-
-    });
-
+    if (edit) {
+        api.updateColor(edit, formData).then((response: any) => {
+            onSubmit();
+          onClose();
+          }, (error) => {
+      
+          });
+      
+    } else {
+        api.createColor(formData).then((response: any) => {
+            onSubmit();
+          onClose();
+          }, (error) => {
+      
+          });
+      
+    }
+    
     
   };
 
@@ -33,12 +45,25 @@ function ColorModal({ isOpen, onClose, onSubmit, isEdit }: ColorModalProps) {
     });
   };
 
+  useEffect(() => {
+    if (edit) {
+        api.getColorById(edit).then((response:any) => {
+            setFormData(response);
+        }, (error) => {
+            //
+        })
+    }
+   
+  }, [edit]);
+
 
 
   return (
     <NxtbnModal isOpen={isOpen} onClose={onClose}>
       <form onSubmit={handleSubmit} className="p-6">
-        <h2 className="text-lg font-medium text-gray-900">Add Color</h2>
+        <h2 className="text-lg font-medium text-gray-900">
+            {edit ? `Edit Color: ${formData.name || formData.id}` : 'Add Color'}
+        </h2>
         <div className="mt-4">
           <label htmlFor="name" className="block text-sm font-medium text-gray-700">
             Name
@@ -47,6 +72,7 @@ function ColorModal({ isOpen, onClose, onSubmit, isEdit }: ColorModalProps) {
             type="text"
             id="name"
             name='name'
+            value={formData.name}
             onChange={handleChange}
             className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             required
@@ -60,6 +86,7 @@ function ColorModal({ isOpen, onClose, onSubmit, isEdit }: ColorModalProps) {
             type="color"
             id="color"
             name='code'
+            value={formData.code}
             onChange={handleChange}
             className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             required

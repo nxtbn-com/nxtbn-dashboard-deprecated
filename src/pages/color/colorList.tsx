@@ -10,6 +10,7 @@ import useApi from "../../api";
 function Color() {
 
     const [colors, setColors] = useState<any[]>([]);
+    const [edit, setEdit] = useState<any>();
     const [openModal, setOpenModal] = useState(false)
 
     const api = useApi();
@@ -24,10 +25,14 @@ function Color() {
 
     const onModalOpen = (editId?: number) => {
         setOpenModal(!openModal);
+        if (editId) {
+            setEdit(editId);
+        }
     };
 
     const onModalClose = () => {
         setOpenModal(!openModal);
+        setEdit('');
     };
 
     const onModalSubmit = () => {
@@ -137,7 +142,7 @@ function Color() {
                                         <button className="p-1" onClick={(e) => handleDelete(row.id)}>
                                             <NXDelete />
                                         </button>
-                                        <button className="p-1" onClick={(e) => handleDelete(row.id)}>
+                                        <button className="p-1" onClick={(e) => onModalOpen(row.id)}>
                                             <NXEditPen />
                                         </button>
                                     </td>
@@ -148,7 +153,7 @@ function Color() {
                 </div>
             </PageBodyWrapper>
 
-            {openModal && <ColorModal  isOpen={openModal} onClose={onModalClose} onSubmit={onModalSubmit} /> }
+            {openModal && <ColorModal  isOpen={openModal} edit={edit} onClose={onModalClose} onSubmit={onModalSubmit} /> }
         </>
     );
 }

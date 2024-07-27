@@ -54,6 +54,10 @@ function CategoryTable() {
     const onModalClose = () => {
         setIterableAsParent('');
         setOpenModal(!openModal);
+    };
+
+    const onModalSubmit = (parentId:any) => {
+        getCategory(parentId);
     }
 
 
@@ -165,7 +169,7 @@ function CategoryTable() {
                 </div>
             </PageBodyWrapper>
 
-            {openModal && <CategoryModal parentData={iterableAsParent || parent} isOpen={openModal} onClose={onModalClose} onAddCategory={() => {}} /> }
+            {openModal && <CategoryModal parentData={iterableAsParent || parent} isOpen={openModal} onClose={onModalClose} onSubmit={(parentId) => onModalSubmit(parentId)} /> }
         </>
     );
 }

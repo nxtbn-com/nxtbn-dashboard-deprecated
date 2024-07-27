@@ -5,12 +5,12 @@ import useApi from "../../api";
 interface CategoryModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onAddCategory: (name: string, description: string) => void;
+  onSubmit: (parentId?: number) => void;
   isEdit?: boolean;
   parentData?: any
 }
 
-function CategoryModal({ isOpen, onClose, onAddCategory, isEdit, parentData }: CategoryModalProps) {
+function CategoryModal({ isOpen, onClose, onSubmit, isEdit, parentData }: CategoryModalProps) {
   const [formData, setFormData] = useState({})
 
   const api = useApi();
@@ -18,7 +18,7 @@ function CategoryModal({ isOpen, onClose, onAddCategory, isEdit, parentData }: C
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     api.createCategory(formData).then((response: any) => {
-
+      onSubmit(parentData.id);
     }, (error) => {
 
     });

@@ -22,7 +22,7 @@ function CategoryModal({ isOpen, onClose, onAddCategory, isEdit, parentData }: C
   return (
     <NxtbnModal isOpen={isOpen} onClose={onClose}>
       <form onSubmit={handleSubmit} className="p-6">
-        <h2 className="text-lg font-medium text-gray-900"> {parentData ? `Add Subcategory for ${parentData.name}` : `Add Category`}</h2>
+        <h2 className="text-lg font-medium text-gray-900"> {parentData.id ? `Add Subcategory for ${parentData.name}` : `Add Category`}</h2>
         <div className="mt-4">
           <label htmlFor="name" className="block text-sm font-medium text-gray-700">
             Name

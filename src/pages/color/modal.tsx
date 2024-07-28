@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import NxtbnModal from '../../components/Modal';
 import useApi from "../../api";
-import { NXForm, InputField } from "../../components/common";
+import { NXForm, InputField, InputColor } from "../../components/common";
 
 
 interface ColorModalProps {
@@ -87,25 +87,13 @@ function ColorModal({ isOpen, onClose, onSubmit, edit }: ColorModalProps) {
             Color
           </label>
           <div className="flex items-center space-x-4">
-            <input
-              type="color"
+            <InputColor
               id="color"
               name='code'
               value={formData.code}
+              errorData={errorData}
               onChange={handleChange}
-              className="w-12 h-12 border-none rounded-md shadow-sm cursor-pointer"
             />
-            <input
-              type="text"
-              value={formData.code}
-              onChange={handleChange}
-              name="code"
-              className="flex-grow px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
-            />
-            <div 
-              className="w-12 h-12 rounded-md shadow-sm" 
-              style={{ backgroundColor: formData.code }}
-            ></div>
           </div>
         </div>
         <div className="mt-6 flex justify-end">

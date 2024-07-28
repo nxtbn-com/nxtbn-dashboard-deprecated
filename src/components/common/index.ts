@@ -1,10 +1,11 @@
-// Importing the Select component from the "Select" file
 import Select from "./Select";
+import useDeleteConfirmation from "../common/deleteConfirmation";
+import NXForm from './NXForm';
+import InputField from './InputField';
+import InputColor from './InputColor';
 
-// Importing the OptionType type from the "Select" file
 import { SelectOptionType } from "./Select";
 
 export type { SelectOptionType };
 
-// Exporting the Select component and OptionType type for use in other files
-export { Select };
+export { Select, useDeleteConfirmation, NXForm, InputField, InputColor };

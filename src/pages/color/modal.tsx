@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
+
 import NxtbnModal from '../../components/Modal';
 import useApi from "../../api";
-import { use } from 'echarts';
+import { NXForm, InputField, InputColor } from "../../components/common";
+import { handleRetriveError } from "../../utils";
+
 
 interface ColorModalProps {
   isOpen: boolean;
@@ -12,6 +16,7 @@ interface ColorModalProps {
 
 function ColorModal({ isOpen, onClose, onSubmit, edit }: ColorModalProps) {
   const [formData, setFormData] = useState<any>({});
+  const [errorData, setErrorData] = useState<any>({});
 
   const api = useApi();
 
@@ -20,19 +25,21 @@ function ColorModal({ isOpen, onClose, onSubmit, edit }: ColorModalProps) {
     if (edit) {
         api.updateColor(edit, formData).then((response: any) => {
             onSubmit();
-          onClose();
+            onClose();
+            toast.success("Color Updated Successfully!");
           }, (error) => {
-      
+            toast.error("Color update is failed!")
           });
       
     } else {
         api.createColor(formData).then((response: any) => {
             onSubmit();
-          onClose();
-          }, (error) => {
-      
-          });
-      
+            toast.success("Color Created Successfully!");
+            onClose();
+        }, (error) => {
+            setErrorData(error.response.data);
+            toast.error("Color creation is failed!")
+        });
     }
     
     
@@ -48,10 +55,8 @@ function ColorModal({ isOpen, onClose, onSubmit, edit }: ColorModalProps) {
   useEffect(() => {
     if (edit) {
         api.getColorById(edit).then((response:any) => {
-            setFormData(response);
-        }, (error) => {
-            //
-        })
+          setFormData(response);
+        }, handleRetriveError);
     }
    
   }, [edit]);
@@ -60,22 +65,24 @@ function ColorModal({ isOpen, onClose, onSubmit, edit }: ColorModalProps) {
 
   return (
     <NxtbnModal isOpen={isOpen} onClose={onClose}>
-      <form onSubmit={handleSubmit} className="p-6">
-        <h2 className="text-lg font-medium text-gray-900">
-            {edit ? `Edit Color: ${formData.name || formData.id}` : 'Add Color'}
-        </h2>
+      <NXForm
+        onSubmit={handleSubmit}
+        className="p-6"
+        title={edit ? `Edit Color: ${formData.name || formData.id}` : 'Add Color'}
+        nonFieldError={{}}
+      >
         <div className="mt-4">
           <label htmlFor="name" className="block text-sm font-medium text-gray-700">
             Name
           </label>
-          <input
+          <InputField
             type="text"
             id="name"
             name='name'
+            errorData={errorData}
             value={formData.name}
             onChange={handleChange}
             className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-            required
           />
         </div>
         <div className="mt-4">
@@ -83,25 +90,13 @@ function ColorModal({ isOpen, onClose, onSubmit, edit }: ColorModalProps) {
             Color
           </label>
           <div className="flex items-center space-x-4">
-            <input
-              type="color"
+            <InputColor
               id="color"
               name='code'
               value={formData.code}
+              errorData={errorData}
               onChange={handleChange}
-              className="w-12 h-12 border-none rounded-md shadow-sm cursor-pointer"
             />
-            <input
-              type="text"
-              value={formData.code}
-              onChange={handleChange}
-              name="code"
-              className="flex-grow px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
-            />
-            <div 
-              className="w-12 h-12 rounded-md shadow-sm" 
-              style={{ backgroundColor: formData.code }}
-            ></div>
           </div>
         </div>
         <div className="mt-6 flex justify-end">
@@ -119,7 +114,7 @@ function ColorModal({ isOpen, onClose, onSubmit, edit }: ColorModalProps) {
             Add
           </button>
         </div>
-      </form>
+      </NXForm>
     </NxtbnModal>
   );
 }

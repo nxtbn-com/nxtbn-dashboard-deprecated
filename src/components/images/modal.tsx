@@ -3,6 +3,7 @@ import NxtbnModal from "../Modal";
 import { NXCross } from "../../icons";
 import useApi from "../../api";
 import Pagination from '../Pagination';
+import { handleRetriveError } from "../../utils";
 
 interface ImageChooseModalProps {
     onClose: () => void;
@@ -69,7 +70,7 @@ const ImageChooseModal: React.FC<ImageChooseModalProps> = ({ onClose, onSelected
       const getImageList =  (page?:number): void => {
         api.getImages(page).then((response:any)=> {
           setImageList(response)
-        }).catch((error) => console.error("Error fetching uploaded images:", error))
+        }, handleRetriveError);
       };
 
       useEffect(() => {

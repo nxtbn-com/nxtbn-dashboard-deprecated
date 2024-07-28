@@ -1,9 +1,12 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useDeleteConfirmation } from "../../components/common";
+
+
 import { NXNarrowArrowUp, NXNarrowArrowUpDown, NXDelete, NXEditPen } from "../../icons";
 import PageBodyWrapper from "../../components/PageBodyWrapper";
 import ColorModal from "./modal";
 import useApi from "../../api";
+import { handleRetriveError } from "../../utils";
 
 
 
@@ -14,13 +17,12 @@ function Color() {
     const [openModal, setOpenModal] = useState(false)
 
     const api = useApi();
+    const { handleDelete } = useDeleteConfirmation();
 
     const getColors = () => {
         api.getColor().then((response: any) => {
             setColors(response);
-        }).catch((error) => {
-            //
-        });
+        }, handleRetriveError);
     };
 
     const onModalOpen = (editId?: number) => {
@@ -38,14 +40,6 @@ function Color() {
     const onModalSubmit = () => {
         getColors();
     };
-
-    const handleDelete = (id:number) => {
-        api.deleteColor(id).then((response) => {
-            getColors();
-        }, (error) => {
-            //
-        })
-    }
 
 
     useEffect(() => {
@@ -139,7 +133,7 @@ function Color() {
                                         <p style={{background: row.code}}>{row.code}</p>
                                     </td>
                                     <td className="py-3 px-2">
-                                        <button className="p-1" onClick={(e) => handleDelete(row.id)}>
+                                        <button className="p-1" onClick={() => handleDelete(row.id, 'color', api.deleteColor, getColors)}>
                                             <NXDelete />
                                         </button>
                                         <button className="p-1" onClick={(e) => onModalOpen(row.id)}>

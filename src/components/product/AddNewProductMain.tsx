@@ -24,6 +24,8 @@ function AddNewProductMain() {
   // fetched data
   const [categories, setCategories] = useState<any[]>([]);
   const [colors, setColors] = useState<any[]>([]);
+  const [categoryType, setCategoryType] = useState<any[]>([]);
+  const [productTags, setProductTags] = useState<any[]>([]);
 
 
   const [fromData, setFormData] = useState<any>({});
@@ -67,11 +69,11 @@ function AddNewProductMain() {
     }, handleRetriveError);
 
     api.getProductType().then((response) => {
-      // setColors(response as any);
+      setCategoryType(response as any);
     }, handleRetriveError);
 
     api.getProductTags().then((response) => {
-      // setColors(response as any);
+      setProductTags(response as any);
     }, handleRetriveError);
 
   };

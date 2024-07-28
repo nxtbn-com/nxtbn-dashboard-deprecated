@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import NxtbnModal from '../../components/Modal';
 import useApi from "../../api";
-import { use } from 'echarts';
+import { NXForm } from "../../components/common";
+
 
 interface ColorModalProps {
   isOpen: boolean;
@@ -60,10 +61,11 @@ function ColorModal({ isOpen, onClose, onSubmit, edit }: ColorModalProps) {
 
   return (
     <NxtbnModal isOpen={isOpen} onClose={onClose}>
-      <form onSubmit={handleSubmit} className="p-6">
-        <h2 className="text-lg font-medium text-gray-900">
-            {edit ? `Edit Color: ${formData.name || formData.id}` : 'Add Color'}
-        </h2>
+      <NXForm
+        onSubmit={handleSubmit}
+        className="p-6"
+        title={edit ? `Edit Color: ${formData.name || formData.id}` : 'Add Color'}
+      >
         <div className="mt-4">
           <label htmlFor="name" className="block text-sm font-medium text-gray-700">
             Name
@@ -119,7 +121,7 @@ function ColorModal({ isOpen, onClose, onSubmit, edit }: ColorModalProps) {
             Add
           </button>
         </div>
-      </form>
+      </NXForm>
     </NxtbnModal>
   );
 }

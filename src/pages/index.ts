@@ -10,6 +10,7 @@ import UserManagement from "./UserManagement";
 import Plugin from "./Plugin";
 import CategoryTable from "./category/CategoryList";
 import Color from "./color/colorList";
+import ProductTypeTable from "./productType/productTypeList";
 
 export {
   Dashboard,
@@ -24,4 +25,5 @@ export {
   UserManagement,
   Plugin,
   Color,
+  ProductTypeTable,
 };

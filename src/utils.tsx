@@ -1,3 +1,6 @@
+import { toast } from 'react-toastify';
+
+
 const deleteAllCookies = (): void => {
     const cookies: string[] = document.cookie.split(";");
 
@@ -10,4 +13,8 @@ const deleteAllCookies = (): void => {
     });
 };
 
-export { deleteAllCookies };
+const handleRetriveError = (error: any): void => {
+    toast.error("Data fetch failed!");
+}
+
+export { deleteAllCookies, handleRetriveError };

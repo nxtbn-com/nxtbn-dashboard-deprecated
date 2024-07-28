@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
+
 import NxtbnModal from '../../components/Modal';
 import useApi from "../../api";
 import { NXForm, InputField, InputColor } from "../../components/common";
+import { handleRetriveError } from "../../utils";
 
 
 interface ColorModalProps {
@@ -22,19 +25,21 @@ function ColorModal({ isOpen, onClose, onSubmit, edit }: ColorModalProps) {
     if (edit) {
         api.updateColor(edit, formData).then((response: any) => {
             onSubmit();
-          onClose();
+            onClose();
+            toast.success("Color Updated Successfully!");
           }, (error) => {
-      
+            toast.error("Color update is failed!")
           });
       
     } else {
         api.createColor(formData).then((response: any) => {
             onSubmit();
-          onClose();
-          }, (error) => {
+            toast.success("Color Created Successfully!");
+            onClose();
+        }, (error) => {
             setErrorData(error.response.data);
-          });
-      
+            toast.error("Color creation is failed!")
+        });
     }
     
     
@@ -50,10 +55,8 @@ function ColorModal({ isOpen, onClose, onSubmit, edit }: ColorModalProps) {
   useEffect(() => {
     if (edit) {
         api.getColorById(edit).then((response:any) => {
-            setFormData(response);
-        }, (error) => {
-            //
-        })
+          setFormData(response);
+        }, handleRetriveError);
     }
    
   }, [edit]);

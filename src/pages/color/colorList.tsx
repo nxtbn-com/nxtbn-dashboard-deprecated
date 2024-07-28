@@ -6,6 +6,7 @@ import { NXNarrowArrowUp, NXNarrowArrowUpDown, NXDelete, NXEditPen } from "../..
 import PageBodyWrapper from "../../components/PageBodyWrapper";
 import ColorModal from "./modal";
 import useApi from "../../api";
+import { handleRetriveError } from "../../utils";
 
 
 
@@ -21,9 +22,7 @@ function Color() {
     const getColors = () => {
         api.getColor().then((response: any) => {
             setColors(response);
-        }).catch((error) => {
-            //
-        });
+        }, handleRetriveError);
     };
 
     const onModalOpen = (editId?: number) => {

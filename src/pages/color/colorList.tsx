@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import Swal from 'sweetalert2'
+import { useDeleteConfirmation } from "../../components/common";
+
 
 import { NXNarrowArrowUp, NXNarrowArrowUpDown, NXDelete, NXEditPen } from "../../icons";
 import PageBodyWrapper from "../../components/PageBodyWrapper";
@@ -15,6 +16,7 @@ function Color() {
     const [openModal, setOpenModal] = useState(false)
 
     const api = useApi();
+    const { handleDelete } = useDeleteConfirmation();
 
     const getColors = () => {
         api.getColor().then((response: any) => {
@@ -39,34 +41,6 @@ function Color() {
     const onModalSubmit = () => {
         getColors();
     };
-
-    const handleDelete = (id:number) => {
-        Swal.fire({
-            title: "Are you sure?",
-            text: "You won't be able to revert this!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, delete it!"
-          }).then((result) => {
-            if (result.isConfirmed) {
-                api.deleteColor(id).then((response) => {
-                    Swal.fire({
-                        title: "Deleted!",
-                        text: "Color has been deleted.",
-                        icon: "success"
-                    });
-                    getColors();
-
-                }, (error) => {
-                    //
-                })
-            }
-        });
-
-
-    }
 
 
     useEffect(() => {
@@ -160,7 +134,7 @@ function Color() {
                                         <p style={{background: row.code}}>{row.code}</p>
                                     </td>
                                     <td className="py-3 px-2">
-                                        <button className="p-1" onClick={(e) => handleDelete(row.id)}>
+                                        <button className="p-1" onClick={() => handleDelete(row.id, 'color', api.deleteColor, getColors)}>
                                             <NXDelete />
                                         </button>
                                         <button className="p-1" onClick={(e) => onModalOpen(row.id)}>

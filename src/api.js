@@ -29,6 +29,8 @@ const useApi = () => {
 
         createProductType: (data, params = {}) => interceptor.post(`/product/dashboard/api/product-types/`, data,  {params: params}),
         getProductType: (params = {}) => interceptor.get(`/product/dashboard/api/product-types/`, {params: params}),
+        deleteProductType: (id, params = {}) => interceptor.delete(`/product/dashboard/api/product-types/${id}/`, {params: params}),
+        updateProductType: (id, data, params = {}) => interceptor.put(`/product/dashboard/api/product-types/${id}/`, data, {params: params}),
 
         createProductTags: (data, params = {}) => interceptor.post(`/product/dashboard/api/product-tags/`, data,  {params: params}),
         getProductTags: (params = {}) => interceptor.get(`/product/dashboard/api/product-tags/`, {params: params}),

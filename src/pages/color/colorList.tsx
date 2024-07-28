@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import Swal from 'sweetalert2'
+
 import { NXNarrowArrowUp, NXNarrowArrowUpDown, NXDelete, NXEditPen } from "../../icons";
 import PageBodyWrapper from "../../components/PageBodyWrapper";
 import ColorModal from "./modal";
@@ -40,11 +41,31 @@ function Color() {
     };
 
     const handleDelete = (id:number) => {
-        api.deleteColor(id).then((response) => {
-            getColors();
-        }, (error) => {
-            //
-        })
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+          }).then((result) => {
+            if (result.isConfirmed) {
+                api.deleteColor(id).then((response) => {
+                    Swal.fire({
+                        title: "Deleted!",
+                        text: "Color has been deleted.",
+                        icon: "success"
+                    });
+                    getColors();
+
+                }, (error) => {
+                    //
+                })
+            }
+        });
+
+
     }
 
 

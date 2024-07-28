@@ -4,6 +4,7 @@ import { NXNarrowArrowUp, NXNarrowArrowUpDown, NXRightArrow, NXLeftArrow, NXPlus
 import PageBodyWrapper from "../../components/PageBodyWrapper";
 import CategoryModal from "./modalForm";
 import useApi from "../../api";
+import { handleRetriveError } from "../../utils";
 
 
 
@@ -39,9 +40,7 @@ function CategoryTable() {
     const getCategory = (id: any) => {
         api.getCategoryByParent(id).then((response: any) => {
             setCategories(response);
-        }).catch((error) => {
-            //
-        });
+        }, handleRetriveError);
     };
 
     const onModalOpen = (itrbl?: any, editId?: number) => {

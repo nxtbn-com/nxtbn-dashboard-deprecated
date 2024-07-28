@@ -13,6 +13,7 @@ import { toast } from 'react-toastify';
 import EditorField from "../editor/EditorJS";
 import SEO from "../seo/SEO";
 import PageBodyWrapper from "../../components/PageBodyWrapper";
+import { handleRetriveError } from "../../utils";
 
 
 
@@ -59,28 +60,19 @@ function AddNewProductMain() {
     api.getRecursiveCategories().then((response) => {
       const category = makeCategoryEnumFriendly(response as any);
       setCategories(category);
-    }).catch((error) => {
-      console.error("Error fetching categories:", error);
-    });
+    }, handleRetriveError);
 
     api.getColor().then((response) => {
       setColors(response as any);
-    }).catch((error) => {
-      console.error("Error fetching colors:", error);
-    });
+    }, handleRetriveError);
 
     api.getProductType().then((response) => {
       // setColors(response as any);
-    }).catch((error) => {
-      console.error("Error fetching colors:", error);
-    });
+    }, handleRetriveError);
 
     api.getProductTags().then((response) => {
       // setColors(response as any);
-    }).catch((error) => {
-      console.error("Error fetching colors:", error);
-    });
-
+    }, handleRetriveError);
 
   };
 

@@ -70,7 +70,7 @@ const ImageChooseModal: React.FC<ImageChooseModalProps> = ({ onClose, onSelected
       const onSaveImage =  (e: any) => {
         e.preventDefault();
         if (!isMull && selectImage.length > 1) {
-          toast.error("You can't select multiple images");
+          toast.error("Only one image can be selected");
         } else {
           onSelectedSave(selectImage);
           onClose();

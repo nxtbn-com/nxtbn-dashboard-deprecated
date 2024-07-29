@@ -97,10 +97,10 @@ function CollectionModal({ isOpen, onClose, onSubmit, edit }: CollectionModalPro
             <div className="flex justify-between">
                 <div className="flex flex-col gap-1">
                     <strong className="text-[14px]">Active</strong>
-                    <span className="text-[12px] text-base-300">If a collection or in-active</span>
+                    <span className="text-[12px] text-base-300">If a collection active or in-active</span>
                 </div>
                 <label className="inline-flex items-center me-5 cursor-pointer">
-                    <input  onChange={handleChange} name="has_variant" type="checkbox" checked={formData.is_active}  className="sr-only peer" />
+                    <input  onChange={(e) => handleSingleChange(e.target.name, e.target.checked)} name="is_active" type="checkbox" checked={formData.is_active}  className="sr-only peer" />
                     <div className="relative w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-green-300  peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-600"></div>
                 </label>
             </div>

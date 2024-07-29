@@ -9,6 +9,7 @@ interface ImageChooseModalProps {
     onClose: () => void;
     onSelectedSave: (data: any) => void;
     isOpen: boolean;
+    isMull?: boolean
 }
 
 interface PaginationStep {
@@ -40,7 +41,7 @@ interface ImageListType {
   results: Result[];
 };
 
-const ImageChooseModal: React.FC<ImageChooseModalProps> = ({ onClose, onSelectedSave, isOpen }) => {
+const ImageChooseModal: React.FC<ImageChooseModalProps> = ({ onClose, onSelectedSave, isOpen, isMull }) => {
     const [selectImage, setSelectImage] = useState<any[]>([]);
     const [imageList, setImageList] = useState<ImageListType>();
 

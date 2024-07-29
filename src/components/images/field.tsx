@@ -173,7 +173,7 @@ const ImageField: React.FC<ImageFieldProps> = ({ label='', value,  name, onChang
                     />
                 </div>
             </div>
-            <ImageChooseModal onSelectedSave={onSelectedSave} isOpen={isModalOpen} onClose={handleCloseModal} />
+            <ImageChooseModal isMull={isMull} onSelectedSave={onSelectedSave} isOpen={isModalOpen} onClose={handleCloseModal} />
        </>
     );
 };

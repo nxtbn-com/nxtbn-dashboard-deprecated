@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { toast } from 'react-toastify';
+
 import NxtbnModal from "../Modal";
 import { NXCross } from "../../icons";
 import useApi from "../../api";
@@ -48,10 +50,13 @@ const ImageChooseModal: React.FC<ImageChooseModalProps> = ({ onClose, onSelected
     const api = useApi();   
 
     const onSelectImage = (e: any, img: any) => {
-        if (e.target.checked) {
+      if (e.target.checked) {
           setSelectImage([...selectImage, { id: img.id, image: img.image }]);
-        }
-      };
+      } else {
+          setSelectImage(selectImage.filter(selectedImg => selectedImg.id !== img.id));
+      }
+    };
+  
     
       const deleteSelectedImage = (e: any, selectedImg: any) => {
         e.preventDefault();
@@ -64,8 +69,12 @@ const ImageChooseModal: React.FC<ImageChooseModalProps> = ({ onClose, onSelected
     
       const onSaveImage =  (e: any) => {
         e.preventDefault();
-        onSelectedSave(selectImage)
-        onClose();
+        if (!isMull && selectImage.length > 1) {
+          toast.error("You can't select multiple images");
+        } else {
+          onSelectedSave(selectImage);
+          onClose();
+        }
       };
 
       const getImageList =  (page?:number): void => {

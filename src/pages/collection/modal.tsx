@@ -120,7 +120,7 @@ function CollectionModal({ isOpen, onClose, onSubmit, edit }: CollectionModalPro
           />
         </div>
 
-        <ImageField  label="Images" name="image" onChange={(name: string, data:any) => handleSingleChange(name, data[0].id)} />
+        <ImageField value={formData.images_details}  label="Images" name="image" onChange={(name: string, data:any) => handleSingleChange(name, data[0].id)} />
 
         <div className="mt-6 flex justify-end">
           <button

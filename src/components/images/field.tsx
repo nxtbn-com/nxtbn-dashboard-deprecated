@@ -4,9 +4,14 @@ import { NXDelete } from "../../icons";
 import { AxiosResponse } from "axios";
 import useApi from "../../api";
 
+interface ImageData {
+    id: number;
+    image: string;
+}
+
 interface ImageFieldProps {
     label?: string;
-    value?: any;
+    value?: ImageData[] | ImageData;
     name: string;
     onChange: any;
     isMull?: boolean;
@@ -97,11 +102,13 @@ const ImageField: React.FC<ImageFieldProps> = ({ label='', value,  name, onChang
 
     const handleCloseModal = () => setModalOpen(false);
 
-    useEffect(() => { // for edit only to display pre uploaded images
+    useEffect(() => {
+        // For edit only to display pre-uploaded images
         if (value) {
-            setValueList(value);
+            setValueList(Array.isArray(value) ? value : [value]);
         }
     }, [value]);
+    
 
     return (
        <>

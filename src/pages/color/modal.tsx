@@ -111,7 +111,7 @@ function ColorModal({ isOpen, onClose, onSubmit, edit }: ColorModalProps) {
             type="submit"
             className="inline-flex justify-center rounded-md border border-transparent px-4 py-2 bg-primary-600 text-base font-medium text-white shadow-sm hover:bg-primary-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm"
           >
-            Add
+            {edit ? 'Update' : 'Create'}
           </button>
         </div>
       </NXForm>

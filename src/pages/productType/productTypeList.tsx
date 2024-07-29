@@ -12,7 +12,7 @@ import { handleRetriveError } from "../../utils";
 
 function ProductTypeTable() {
 
-    const [ProductTypeTables, setProductTypeTables] = useState<any[]>([]);
+    const [productType, setproductType] = useState<any[]>([]);
     const [edit, setEdit] = useState<any>();
     const [openModal, setOpenModal] = useState(false)
 
@@ -21,7 +21,7 @@ function ProductTypeTable() {
 
     const getProductType = () => {
         api.getProductType().then((response: any) => {
-            setProductTypeTables(response);
+            setproductType(response);
         }, handleRetriveError);
     };
 
@@ -100,12 +100,7 @@ function ProductTypeTable() {
                                 <th
                                     className={`py-5 px-2 font-normal text-base-300`}>
                                     <span className={`flex items-center gap-3`}>
-                                        ProductTypeTable
-                                        {!true ? (
-                                            <NXNarrowArrowUp className="text-primary-500" />
-                                        ) : (
-                                            <NXNarrowArrowUpDown />
-                                        )}
+                                        Taxable
                                     </span>
                                 </th>
                                 <th className={`py-5 px-2 font-normal text-base-300`}>
@@ -113,7 +108,7 @@ function ProductTypeTable() {
                             </tr>
                         </thead>
                         <tbody>
-                            {ProductTypeTables.map((row: any, index) => (
+                            {productType.map((row: any, index) => (
                                 <tr className="border-b border-[#EEEFF2] font-semibold" key={index + 1}>
                                     <td className="text-center py-5">
                                         <input
@@ -130,7 +125,7 @@ function ProductTypeTable() {
                                         {row.name}
                                     </td>
                                     <td className="py-3 px-2 text-center">
-                                        <p style={{background: row.code}}>{row.code}</p>
+                                       <p>{row.taxable}</p>
                                     </td>
                                     <td className="py-3 px-2">
                                         <button className="p-1" onClick={() => handleDelete(row.id, 'Product Type', api.deleteProductType, getProductType)}>

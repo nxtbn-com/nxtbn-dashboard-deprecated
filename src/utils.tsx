@@ -1,4 +1,5 @@
 import { toast } from 'react-toastify';
+import { NXCross, NXCheck } from "./icons";
 
 
 const deleteAllCookies = (): void => {
@@ -15,6 +16,11 @@ const deleteAllCookies = (): void => {
 
 const handleRetriveError = (error: any): void => {
     toast.error("Data fetch failed!");
-}
+};
 
-export { deleteAllCookies, handleRetriveError };
+const boolIndicator = (status: boolean) => (
+    status ? <NXCheck className="text-green-500 w-6 h-6" /> : <NXCross className="text-red-500 w-6 h-6" />
+);
+
+
+export { deleteAllCookies, handleRetriveError, boolIndicator };

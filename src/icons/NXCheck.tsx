@@ -1,4 +1,4 @@
-function NXCheck({ className }: { className?: string }) {
+const NXCheck = ({ className }: { className?: string }) => {
   return (
     <svg
       className={className}
@@ -9,7 +9,6 @@ function NXCheck({ className }: { className?: string }) {
       xmlns="http://www.w3.org/2000/svg"
       stroke="currentColor"
     >
-      {/* <circle cx="12" cy="12" r="12" /> */}
       <path
         d="M7.91663 11.9999L10.8333 14.9166L16.6666 9.08325"
         strokeWidth="1.5"

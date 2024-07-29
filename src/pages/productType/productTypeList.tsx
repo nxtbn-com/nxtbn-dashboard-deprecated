@@ -6,7 +6,7 @@ import { NXNarrowArrowUp, NXNarrowArrowUpDown, NXDelete, NXEditPen } from "../..
 import PageBodyWrapper from "../../components/PageBodyWrapper";
 import ProductTypeModal from "./modal";
 import useApi from "../../api";
-import { handleRetriveError } from "../../utils";
+import { handleRetriveError, boolIndicator } from "../../utils";
 
 
 
@@ -125,7 +125,7 @@ function ProductTypeTable() {
                                         {row.name}
                                     </td>
                                     <td className="py-3 px-2 text-center">
-                                       <p>{row.taxable}</p>
+                                       {boolIndicator(row.taxable)}
                                     </td>
                                     <td className="py-3 px-2">
                                         <button className="p-1" onClick={() => handleDelete(row.id, 'Product Type', api.deleteProductType, getProductType)}>

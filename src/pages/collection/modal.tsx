@@ -6,6 +6,7 @@ import useApi from "../../api";
 import { NXForm, InputField, InputColor } from "../../components/common";
 import { handleRetriveError } from "../../utils";
 
+import { ImageField } from "../../components/images";
 
 interface CollectionModalProps {
   isOpen: boolean;
@@ -51,6 +52,13 @@ function CollectionModal({ isOpen, onClose, onSubmit, edit }: CollectionModalPro
       [e.target.name]: e.target.value
     });
   };
+
+  const handleSingleChange = (name: string, value: any) => {
+    setFormData({
+      ...formData,
+      [name]: value
+    });
+  }
 
   useEffect(() => {
     if (edit) {
@@ -111,6 +119,8 @@ function CollectionModal({ isOpen, onClose, onSubmit, edit }: CollectionModalPro
             className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           />
         </div>
+
+        <ImageField  label="Images" name="images" onChange={(name: string, data:any) => handleSingleChange(name, data.map((image: any) => image.id))} />
 
         <div className="mt-6 flex justify-end">
           <button

@@ -156,7 +156,7 @@ const ImageField: React.FC<ImageFieldProps> = ({ label = '', value,  name, onCha
                                     >
                                         Upload new
                                     </label>
-                                    <button className="text-sm hover:underline" onClick={handleOpenModal}>Select existing</button>
+                                    <a className="text-sm hover:underline" onClick={handleOpenModal}>Select existing</a>
                                 </div>
                                 <div className="text-sm font-thin pt-2 pb-5">
                                     Accept images, videos, or 3D models

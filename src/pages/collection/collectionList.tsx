@@ -21,7 +21,7 @@ function CollectionTable() {
 
     const getCollection = () => {
         api.getCollections().then((response: any) => {
-            setCollectionTables(response);
+            setCollectionTables(response.results);
         }, handleRetriveError);
     };
 

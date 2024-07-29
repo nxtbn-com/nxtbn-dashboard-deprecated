@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { toast } from 'react-toastify';
+
 import NxtbnModal from "../Modal";
 import { NXCross } from "../../icons";
 import useApi from "../../api";
@@ -9,6 +11,7 @@ interface ImageChooseModalProps {
     onClose: () => void;
     onSelectedSave: (data: any) => void;
     isOpen: boolean;
+    isMull?: boolean
 }
 
 interface PaginationStep {
@@ -40,17 +43,20 @@ interface ImageListType {
   results: Result[];
 };
 
-const ImageChooseModal: React.FC<ImageChooseModalProps> = ({ onClose, onSelectedSave, isOpen }) => {
+const ImageChooseModal: React.FC<ImageChooseModalProps> = ({ onClose, onSelectedSave, isOpen, isMull }) => {
     const [selectImage, setSelectImage] = useState<any[]>([]);
     const [imageList, setImageList] = useState<ImageListType>();
 
     const api = useApi();   
 
     const onSelectImage = (e: any, img: any) => {
-        if (e.target.checked) {
+      if (e.target.checked) {
           setSelectImage([...selectImage, { id: img.id, image: img.image }]);
-        }
-      };
+      } else {
+          setSelectImage(selectImage.filter(selectedImg => selectedImg.id !== img.id));
+      }
+    };
+  
     
       const deleteSelectedImage = (e: any, selectedImg: any) => {
         e.preventDefault();
@@ -63,8 +69,17 @@ const ImageChooseModal: React.FC<ImageChooseModalProps> = ({ onClose, onSelected
     
       const onSaveImage =  (e: any) => {
         e.preventDefault();
-        onSelectedSave(selectImage)
-        onClose();
+        if (selectImage.length === 0) { // close if no image is selected
+          onClose();
+          return;
+        }
+
+        if (!isMull && selectImage.length > 1) {
+          toast.error("Only one image can be selected");
+        } else {
+          onSelectedSave(selectImage);
+          onClose();
+        }
       };
 
       const getImageList =  (page?:number): void => {

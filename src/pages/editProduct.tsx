@@ -199,7 +199,7 @@ function EditProduct() {
             </div>
           </div>
 
-         <ImageField value={imageList}  label="Images" name="images" onChange={onImageChange} />
+         <ImageField isMull={true} value={imageList}  label="Images" name="images" onChange={onImageChange} />
 
           {/* tax class */}
           {productConfig.charge_tax && (

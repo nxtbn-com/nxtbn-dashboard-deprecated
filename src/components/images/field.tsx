@@ -4,11 +4,17 @@ import { NXDelete } from "../../icons";
 import { AxiosResponse } from "axios";
 import useApi from "../../api";
 
+interface ImageData {
+    id: number;
+    image: string;
+}
+
 interface ImageFieldProps {
     label?: string;
-    value?: any;
+    value?: ImageData[] | ImageData;
     name: string;
     onChange: any;
+    isMull?: boolean;
 }
 
 interface ImageData {
@@ -16,7 +22,7 @@ interface ImageData {
     image: string;
 }
 
-const ImageField: React.FC<ImageFieldProps> = ({ label = '', value,  name, onChange }) => {
+const ImageField: React.FC<ImageFieldProps> = ({ label='', value,  name, onChange, isMull=false }) => {
     const [isModalOpen, setModalOpen] = useState(false);
     const [valueList, setValueList] = useState<ImageData[]>([]);
     const [isImageDropped, setIsImageDropped] = useState(false);
@@ -96,11 +102,13 @@ const ImageField: React.FC<ImageFieldProps> = ({ label = '', value,  name, onCha
 
     const handleCloseModal = () => setModalOpen(false);
 
-    useEffect(() => { // for edit only to display pre uploaded images
+    useEffect(() => {
+        // For edit only to display pre-uploaded images
         if (value) {
-            setValueList(value);
+            setValueList(Array.isArray(value) ? value : [value]);
         }
     }, [value]);
+    
 
     return (
        <>
@@ -156,7 +164,7 @@ const ImageField: React.FC<ImageFieldProps> = ({ label = '', value,  name, onCha
                                     >
                                         Upload new
                                     </label>
-                                    <button className="text-sm hover:underline" onClick={handleOpenModal}>Select existing</button>
+                                    <a className="text-sm hover:underline" onClick={handleOpenModal}>Select existing</a>
                                 </div>
                                 <div className="text-sm font-thin pt-2 pb-5">
                                     Accept images, videos, or 3D models
@@ -172,7 +180,7 @@ const ImageField: React.FC<ImageFieldProps> = ({ label = '', value,  name, onCha
                     />
                 </div>
             </div>
-            <ImageChooseModal onSelectedSave={onSelectedSave} isOpen={isModalOpen} onClose={handleCloseModal} />
+            <ImageChooseModal isMull={isMull} onSelectedSave={onSelectedSave} isOpen={isModalOpen} onClose={handleCloseModal} />
        </>
     );
 };

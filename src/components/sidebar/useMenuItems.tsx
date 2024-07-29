@@ -42,7 +42,11 @@ const useMenuItems = () => {
         {
           name: "Product Type",
           url: "/dashboard/products/product-type"
-        }
+        },
+        {
+          name: "Collection",
+          url: "/dashboard/products/collection"
+        },
       ],
     },
     {

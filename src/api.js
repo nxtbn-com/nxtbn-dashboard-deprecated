@@ -36,6 +36,12 @@ const useApi = () => {
         createProductTags: (data, params = {}) => interceptor.post(`/product/dashboard/api/product-tags/`, data,  {params: params}),
         getProductTags: (params = {}) => interceptor.get(`/product/dashboard/api/product-tags/`, {params: params}),
 
+        getCollections: (params = {}) => interceptor.get(`/product/dashboard/api/collections/`, {params: params}),
+        createCollection: (data, params = {}) => interceptor.post(`/product/dashboard/api/collections/`, data, {params: params}),
+        deleteCollection: (id, params = {}) => interceptor.delete(`/product/dashboard/api/collections/${id}/`, {params: params}),
+        getCollectionById: (id, params = {}) => interceptor.get(`/product/dashboard/api/collections/${id}/`, {params: params}),
+        updateCollection: (id, data, params = {}) => interceptor.put(`/product/dashboard/api/collections/${id}/`, data, {params: params}),
+
 
         // file manager
         postImage: (data, params = {}) => {

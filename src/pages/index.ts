@@ -11,6 +11,7 @@ import Plugin from "./Plugin";
 import CategoryTable from "./category/CategoryList";
 import Color from "./color/colorList";
 import ProductTypeTable from "./productType/productTypeList";
+import CollectionTable from "./collection/collectionList";
 
 export {
   Dashboard,
@@ -26,4 +27,5 @@ export {
   Plugin,
   Color,
   ProductTypeTable,
+  CollectionTable,
 };

@@ -13,6 +13,7 @@ import {
   Plugin,
   Color,
   ProductTypeTable,
+  CollectionTable,
  } from "./pages";
 
 import {RootLayout, SettingsLayout } from "./layouts";
@@ -46,6 +47,7 @@ function App() {
                     <Route path="products/categories" element={<CategoryTable />} />
                     <Route path="products/color" element={<Color />} />
                     <Route path="products/product-type" element={<ProductTypeTable />} />
+                    <Route path="products/collection" element={<CollectionTable />} />
 
 
                   <Route path="products/add-new-product" element={<AddNewProduct />} />

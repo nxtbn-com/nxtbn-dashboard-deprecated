@@ -52,6 +52,13 @@ function ProductTypeModal({ isOpen, onClose, onSubmit, edit }: ProductTypeModalP
     });
   };
 
+  const handleCheckboxChange = (e: any) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.checked
+    });
+  };
+
   useEffect(() => {
     if (edit) {
         api.getColorById(edit).then((response:any) => {
@@ -93,7 +100,7 @@ function ProductTypeModal({ isOpen, onClose, onSubmit, edit }: ProductTypeModalP
                   <span className="text-[12px] text-base-300">Indicates whether this product type is subject to taxation</span>
                 </div>
                 <label className="inline-flex items-center me-5 cursor-pointer">
-                  <input  onChange={handleChange} name="taxable" type="checkbox" value="" className="sr-only peer" />
+                  <input  onChange={handleCheckboxChange} name="taxable" type="checkbox"  className="sr-only peer" />
                   <div className="relative w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-green-300  peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-600"></div>
                 </label>
               </div>
@@ -103,7 +110,7 @@ function ProductTypeModal({ isOpen, onClose, onSubmit, edit }: ProductTypeModalP
                   <span className="text-[12px] text-base-300">Select if this product type represents tangible, shippable items</span>
                 </div>
                 <label className="inline-flex items-center me-5 cursor-pointer">
-                  <input  onChange={handleChange} name="physical_product" type="checkbox" value="" className="sr-only peer" />
+                  <input  onChange={handleCheckboxChange} name="physical_product" type="checkbox"  className="sr-only peer" />
                   <div className="relative w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-green-300  peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-600"></div>
                 </label>
               </div>
@@ -113,7 +120,7 @@ function ProductTypeModal({ isOpen, onClose, onSubmit, edit }: ProductTypeModalP
                   <span className="text-[12px] text-base-300">Enable inventory management for this product type</span>
                 </div>
                 <label className="inline-flex items-center me-5 cursor-pointer">
-                  <input  onChange={handleChange} name="track_stock" type="checkbox" value="" className="sr-only peer" />
+                  <input  onChange={handleCheckboxChange} name="track_stock" type="checkbox"  className="sr-only peer" />
                   <div className="relative w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-green-300  peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-600"></div>
                 </label>
               </div>
@@ -123,7 +130,7 @@ function ProductTypeModal({ isOpen, onClose, onSubmit, edit }: ProductTypeModalP
                   <span className="text-[12px] text-base-300">Allow multiple variations of this product type (e.g., sizes, colors)</span>
                 </div>
                 <label className="inline-flex items-center me-5 cursor-pointer">
-                  <input  onChange={handleChange} name="has_variant" type="checkbox" value="" className="sr-only peer" />
+                  <input  onChange={handleCheckboxChange} name="has_variant" type="checkbox" className="sr-only peer" />
                   <div className="relative w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-green-300  peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-600"></div>
                 </label>
               </div>

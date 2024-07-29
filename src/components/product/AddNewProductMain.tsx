@@ -174,7 +174,7 @@ function AddNewProductMain() {
           </div>
 
          
-         <ImageField  label="Images" name="images" onChange={(name: string, data:any) => handleSingleChange(name, data.map((image: any) => image.id))} />
+         <ImageField isMull={true}  label="Images" name="images" onChange={(name: string, data:any) => handleSingleChange(name, data.map((image: any) => image.id))} />
 
           {/* tax class */}
           {productConfig.charge_tax && (

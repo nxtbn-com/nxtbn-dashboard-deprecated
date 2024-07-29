@@ -9,6 +9,7 @@ interface ImageFieldProps {
     value?: any;
     name: string;
     onChange: any;
+    isMull?: boolean;
 }
 
 interface ImageData {
@@ -16,7 +17,7 @@ interface ImageData {
     image: string;
 }
 
-const ImageField: React.FC<ImageFieldProps> = ({ label = '', value,  name, onChange }) => {
+const ImageField: React.FC<ImageFieldProps> = ({ label='', value,  name, onChange, isMull=false }) => {
     const [isModalOpen, setModalOpen] = useState(false);
     const [valueList, setValueList] = useState<ImageData[]>([]);
     const [isImageDropped, setIsImageDropped] = useState(false);

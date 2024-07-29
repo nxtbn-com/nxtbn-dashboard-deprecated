@@ -103,6 +103,24 @@ function ProductTypeTable() {
                                         Taxable
                                     </span>
                                 </th>
+                                <th
+                                    className={`py-5 px-2 font-normal text-base-300`}>
+                                    <span className={`flex items-center gap-3`}>
+                                        Has Variant
+                                    </span>
+                                </th>
+                                <th
+                                    className={`py-5 px-2 font-normal text-base-300`}>
+                                    <span className={`flex items-center gap-3`}>
+                                        Physical Product
+                                    </span>
+                                </th>
+                                <th
+                                    className={`py-5 px-2 font-normal text-base-300`}>
+                                    <span className={`flex items-center gap-3`}>
+                                        Track Stocks
+                                    </span>
+                                </th>
                                 <th className={`py-5 px-2 font-normal text-base-300`}>
                                 </th>
                             </tr>
@@ -126,6 +144,15 @@ function ProductTypeTable() {
                                     </td>
                                     <td className="py-3 px-2 text-center">
                                        {boolIndicator(row.taxable)}
+                                    </td>
+                                    <td className="py-3 px-2 text-center">
+                                       {boolIndicator(row.has_variant)}
+                                    </td>
+                                    <td className="py-3 px-2 text-center">
+                                       {boolIndicator(row.physical_product)}
+                                    </td>
+                                    <td className="py-3 px-2 text-center">
+                                       {boolIndicator(row.track_stock)}
                                     </td>
                                     <td className="py-3 px-2">
                                         <button className="p-1" onClick={() => handleDelete(row.id, 'Product Type', api.deleteProductType, getProductType)}>

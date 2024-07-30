@@ -18,7 +18,7 @@ function CategoryTable() {
     const [openModal, setOpenModal] = useState(false)
     const [history, setHistory] = useState<any[]>([]); 
 
-    const onNextCategoryArrowClick = (e: any, index: any) => {
+    const onGetCategoryDeep = (e: any, index: any) => {
         e.preventDefault();
         setIterableAsParent('');
         setParent(categories[index]);
@@ -61,7 +61,9 @@ function CategoryTable() {
 
 
     useEffect(() => {
-        getCategory(parent);
+        if (parent === 'none') {
+            getCategory(parent);
+        }
     }, [parent]);
 
     return (
@@ -157,7 +159,7 @@ function CategoryTable() {
                                         <a>...</a>
                                     </td>
                                     <td className="py-3 px-2">
-                                        {row.has_sub ? <a className="cursor-pointer text-blue" onClick={(e) => onNextCategoryArrowClick(e, index)}><NXRightArrow className="h-12" /></a> : 
+                                        {row.has_sub ? <a className="cursor-pointer text-blue" onClick={(e) => onGetCategoryDeep(e, index)}><NXRightArrow className="h-12" /></a> : 
                                           <a onClick={() => onModalOpen(row)} className="cursor-pointer text-blue"><NXPlus className="h-12" /></a>
                                         }
                                     </td>

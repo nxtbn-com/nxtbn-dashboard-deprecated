@@ -6,7 +6,7 @@ import "./select-hide.css";
 import SelectStyled from "../Select";
 import NestedSelect from "../nestedSelect";
 import useApi from "../../api";
-import { makeCategoryEnumFriendly } from "../../enum";
+import { makeCategoryEnumFriendly, makeEnumFriendly } from "../../enum";
 import VariantSection from "./VariantSection";
 import { ImageField } from "../images";
 import { toast } from 'react-toastify';
@@ -24,8 +24,9 @@ function AddNewProductMain() {
   // fetched data
   const [categories, setCategories] = useState<any[]>([]);
   const [colors, setColors] = useState<any[]>([]);
-  const [categoryType, setCategoryType] = useState<any[]>([]);
+  const [ProductType, setProductType] = useState<any[]>([]);
   const [productTags, setProductTags] = useState<any[]>([]);
+  const [collection, setCollection] = useState<any[]>([]);
 
 
   const [fromData, setFormData] = useState<any>({});
@@ -69,11 +70,15 @@ function AddNewProductMain() {
     }, handleRetriveError);
 
     api.getProductType().then((response) => {
-      setCategoryType(response as any);
+      setProductType(response as any);
     }, handleRetriveError);
 
     api.getProductTags().then((response) => {
       setProductTags(response as any);
+    }, handleRetriveError);
+
+    api.getCollections().then((response) => {
+      setCollection(response as any);
     }, handleRetriveError);
 
   };
@@ -294,13 +299,18 @@ function AddNewProductMain() {
             <div className="my-5">
               <label htmlFor="tags">Collection</label>
               <div className="pt-3">
-                <SelectStyled isMulti={true} />
+                <SelectStyled
+                isMulti={true}
+                options={makeEnumFriendly(collection)}
+                />
               </div>
             </div>
             <div className="my-5">
               <label htmlFor="tags">Product Type</label>
               <div className="pt-3">
-                <SelectStyled/>
+                <SelectStyled
+                  options={makeEnumFriendly(ProductType)}
+                />
               </div>
             </div>
           </div>

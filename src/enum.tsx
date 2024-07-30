@@ -39,7 +39,7 @@ function makeCategoryEnumFriendly(data: CategoryinputOption[]): CategoryOption[]
     });
 };
 
-function makeColorEnum(data: any[]): Option[] {
+function makeEnumFriendly(data: any[]): Option[] {
   return data.map(item => ({
       value: item.id,
       label: item.name
@@ -47,6 +47,6 @@ function makeColorEnum(data: any[]): Option[] {
 }
 
 
-export { makeCategoryEnumFriendly, makeColorEnum };
+export { makeCategoryEnumFriendly, makeEnumFriendly };
 
 export default enumChoice;

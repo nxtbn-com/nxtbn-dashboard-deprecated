@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { NXAlertCircle, NXDelete } from "../../icons";
 import SelectStyled from "../Select";
-import { makeColorEnum } from "../../enum";
+import { makeEnumFriendly } from "../../enum";
 
 interface VariantSectionProps {
   productConfig: any;
@@ -166,7 +166,7 @@ const VariantSection: React.FC<VariantSectionProps> = ({
         
         <div className="w-full flex flex-col gap-3 ">
           <label htmlFor="color-name">Color Name</label>
-          <SelectStyled options={makeColorEnum(colors)} onChange={colorNameSelect} customStyles={style}/>
+          <SelectStyled options={makeEnumFriendly(colors)} onChange={colorNameSelect} customStyles={style}/>
         </div>
         <div className="w-full flex flex-col justify-start gap-3">
           <label htmlFor="color">Color</label>

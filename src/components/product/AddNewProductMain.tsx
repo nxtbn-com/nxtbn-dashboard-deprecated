@@ -302,6 +302,7 @@ function AddNewProductMain() {
                 <SelectStyled
                 isMulti={true}
                 options={makeEnumFriendly(collection)}
+                onChange={(e) => handleSingleChange('collections', e.value)}
                 />
               </div>
             </div>
@@ -310,6 +311,7 @@ function AddNewProductMain() {
               <div className="pt-3">
                 <SelectStyled
                   options={makeEnumFriendly(ProductType)}
+                  onChange={(e) => handleSingleChange('product_type', e.value)}
                 />
               </div>
             </div>

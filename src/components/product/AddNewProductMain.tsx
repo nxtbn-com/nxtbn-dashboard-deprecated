@@ -15,6 +15,8 @@ import SEO from "../seo/SEO";
 import PageBodyWrapper from "../../components/PageBodyWrapper";
 import { handleRetriveError } from "../../utils";
 
+import { NXForm, InputField } from "../../components/common";
+
 
 
 function AddNewProductMain() {
@@ -28,6 +30,9 @@ function AddNewProductMain() {
   const [productTags, setProductTags] = useState<any[]>([]);
   const [collection, setCollection] = useState<any[]>([]);
 
+  const [errorData, setErrorData] = useState<any>({});
+
+
 
   const [fromData, setFormData] = useState<any>({});
   const [productConfig, setProductConfig] = useState<any>({});
@@ -38,8 +43,8 @@ function AddNewProductMain() {
     api.createProduct(fromData).then((response) => {
       toast.success("Product Created Successfully!");
       navigate(`/dashboard/products/edit/${response.data.id}`); 
-    }).catch((error) => {
-      toast.error("Product creation is failed!")
+    }, (error) => {
+      setErrorData(error.response.data);
     })
   };
 
@@ -89,7 +94,6 @@ function AddNewProductMain() {
   }, []);
 
   const deleteVariant = (event: any) => {
-    alert('delete')
     event.preventDefault();
     setVariantSection(prevVariantSection => prevVariantSection - 1);
   };
@@ -149,22 +153,24 @@ function AddNewProductMain() {
             </div>
             <div className="my-5">
               <label htmlFor="product_name">Product Name</label>
-              <input
+              <InputField
                 type="text"
                 id="product_name"
                 name="name"
                 onChange={onChangeHandler}
                 placeholder="Type your product name"
                 className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] border-[2px] border-dashed"
+                errorData={errorData}
               />
             </div>
             <div className="my-5">
               <label htmlFor="summary">summary</label>
-              <input
+              <InputField
                 type="text"
                 id="summary"
                 name="summary"
                 onChange={onChangeHandler}
+                errorData={errorData}
                 placeholder="Type product summary"
                 className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] border-[2px] border-dashed"
               />
@@ -173,7 +179,7 @@ function AddNewProductMain() {
             <div className="mt-5">
               <div className="flex flex-col gap-3">
                 <label htmlFor="product_description">Description</label>
-                <EditorField onChange={(content) => handleSingleChange('description', JSON.stringify(content))}/>
+                <EditorField name="description" errorData={errorData} onChange={(content) => handleSingleChange('description', JSON.stringify(content))}/>
               </div>
             </div>
           </div>
@@ -212,6 +218,8 @@ function AddNewProductMain() {
                 serial={index + 1}
                 colors={colors}
                 deleteVariant={deleteVariant}
+                errorData={errorData}
+                name='variants_payload'
               />
            ))}
 
@@ -287,22 +295,23 @@ function AddNewProductMain() {
             <div className="w-full mt-10">
               <label htmlFor="category">Category</label>
               <div className="pt-3">
-                <NestedSelect onChange={(e) => handleSingleChange('categories', e.value)} options={categories} />
+                <NestedSelect  onChange={(e) => handleSingleChange('categories', e.value)} options={categories} />
               </div>
             </div>
             <div className="my-5">
               <label htmlFor="tags">Tags</label>
               <div className="pt-3">
-                <SelectStyled isMulti={true} />
+                <SelectStyled errorData={errorData} name='tags' isMulti={true} />
               </div>
             </div>
             <div className="my-5">
               <label htmlFor="tags">Collection</label>
               <div className="pt-3">
                 <SelectStyled
-                isMulti={true}
-                options={makeEnumFriendly(collection)}
-                onChange={(e) => handleSingleChange('collections', e.value)}
+                  isMulti={true}
+                  options={makeEnumFriendly(collection)}
+                  onChange={(e) => handleSingleChange('collections', e.value)}
+                  errorData={errorData}
                 />
               </div>
             </div>
@@ -310,8 +319,10 @@ function AddNewProductMain() {
               <label htmlFor="tags">Product Type</label>
               <div className="pt-3">
                 <SelectStyled
+                  name='product_type'
                   options={makeEnumFriendly(ProductType)}
                   onChange={(e) => handleSingleChange('product_type', e.value)}
+                  errorData={errorData}
                 />
               </div>
             </div>

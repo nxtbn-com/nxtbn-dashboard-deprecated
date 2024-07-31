@@ -3,12 +3,16 @@ import { NXAlertCircle, NXDelete } from "../../icons";
 import SelectStyled from "../Select";
 import { makeEnumFriendly } from "../../enum";
 
+import { InputField } from "../../components/common";
+
 interface VariantSectionProps {
   productConfig: any;
   serial: number;
   colors: any[];
   deleteVariant: any;
   onChange: any;
+  errorData?: any;
+  name?: string;
 }
 
 const VariantSection: React.FC<VariantSectionProps> = ({
@@ -16,10 +20,15 @@ const VariantSection: React.FC<VariantSectionProps> = ({
   serial,
   colors,
   deleteVariant,
+  errorData,
   onChange,
+  name,
 }) => {
   const [metaSection, setMetaSection] = useState<number>(0);
   const [variantDate, setVariantDate] = useState<any>({});
+
+  // check if variantly completely missing
+  const isVariantMissingError = errorData.variants_payload && Array.isArray(errorData.variants_payload) && typeof errorData.variants_payload[0] === 'string';
 
   const addNewMetasection = (event: any) => {
     event.preventDefault();
@@ -54,16 +63,19 @@ const VariantSection: React.FC<VariantSectionProps> = ({
   
 
   return (
-    <div className="p-5 border-[1px] border-solid rounded-md border-base-200 relative">
+    <div className={`p-5 border-[1px] border-solid rounded-md relative ${isVariantMissingError ? 'border-red-500' : 'border-base-200'}`}>
 
       {productConfig.has_variant && (
-        <button onClick={deleteVariant}  className="absolute top-3 right-3 bg-red-500 px-2 py-2 rounded"> <NXDelete className="text-white" /> </button>
+        <button onClick={deleteVariant}  className={`absolute top-3 right-3 bg-red-500 px-2 py-2 rounded`}> <NXDelete className="text-white" /> </button>
       )}
       
       <div className="flex items-center gap-3">
         <h1 className="font-nunito font-[900] text-2xl">{productConfig.has_variant ? `Variant - ${serial}` : `Info`}</h1>
         <NXAlertCircle className="text-base-300" />
       </div>
+
+      {isVariantMissingError ? <p className="text-red-500">* Product Information Required</p>  : ''}
+      
 
       {productConfig.has_variant && (
       <div className="flex items-center gap-5 mt-5">
@@ -83,7 +95,8 @@ const VariantSection: React.FC<VariantSectionProps> = ({
       <div className="flex items-center gap-5 mt-5">
         <div className="w-full">
           <label htmlFor="price">Price</label>
-          <input
+          <InputField
+            errorData={errorData.variants_payload ? errorData.variants_payload[serial - 1] : {}}
             onChange={onChangeHandler}
             name="price"
             id="price"
@@ -94,7 +107,8 @@ const VariantSection: React.FC<VariantSectionProps> = ({
         </div>
         <div className="w-full">
           <label htmlFor="sku-price">SKU</label>
-          <input
+          <InputField
+            errorData={errorData.variants_payload ? errorData.variants_payload[serial - 1] : {}}
             onChange={onChangeHandler}
             id="sku-price"
             name="sku"
@@ -107,7 +121,8 @@ const VariantSection: React.FC<VariantSectionProps> = ({
       <div className="flex items-center gap-5 mt-5">
         <div className="w-full">
           <label htmlFor="cost_per_item">Cost per item</label>
-          <input
+          <InputField
+            errorData={errorData.variants_payload ? errorData.variants_payload[serial - 1] : {}}
             onChange={onChangeHandler}
             id="cost_per_item"
             name="cost_per_unit"
@@ -118,7 +133,8 @@ const VariantSection: React.FC<VariantSectionProps> = ({
         </div>
         <div className="w-full">
           <label htmlFor="profit">Profit</label>
-          <input
+          <InputField
+            errorData={errorData.variants_payload ? errorData.variants_payload[serial - 1] : {}}
             onChange={onChangeHandler}
             id="profit"
             name="profit"
@@ -131,7 +147,8 @@ const VariantSection: React.FC<VariantSectionProps> = ({
         {productConfig.track_stock && (
           <div className="w-full">
             <label htmlFor="Stock">Stock</label>
-            <input
+            <InputField
+              errorData={errorData.variants_payload ? errorData.variants_payload[serial - 1] : {}}
               onChange={onChangeHandler}
               id="Stock"
               name="Stock"
@@ -213,8 +230,7 @@ const VariantSection: React.FC<VariantSectionProps> = ({
             />
           </div>
         </div>
-      ))}
-      
+      ))}      
 
       <button onClick={addNewMetasection} className="font-nunito font-[800] flex items-center gap-1 mt-6">
         + Add Metadata

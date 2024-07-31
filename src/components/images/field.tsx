@@ -127,7 +127,7 @@ const ImageField: React.FC<ImageFieldProps> = ({ label='', value,  name, onChang
                                         alt=""
                                         className="aspect-square w-full h-full object-cover rounded-md"
                                     />
-                                    <div className="absolute h-[200px] w-[200px] transition-all ease-linear rounded-md group-hover:bg-base-300 opacity-50 group-hover:z-20 hidden group-hover:block">
+                                    <div className="absolute h-full w-full transition-all ease-linear rounded-md group-hover:bg-base-300 opacity-50 group-hover:z-20 hidden group-hover:block">
                                         <div onClick={(e) => deleteImage(e, imgData.id)}>
                                             <NXDelete className="h-[30px] w-[30px] rounded-md border border-red-600 bg-white p-1 absolute left-2 bottom-3 cursor-pointer" />
                                         </div>
@@ -136,7 +136,7 @@ const ImageField: React.FC<ImageFieldProps> = ({ label='', value,  name, onChang
                             ))}
                             <label
                                 htmlFor="media"
-                                className="w-24 h-24 aspect-w-1 aspect-h-1 rounded-md border-dashed border border-base-300 flex justify-center items-center cursor-pointer hover:bg-base-100"
+                                className="w-full h-full aspect-w-1 aspect-h-1 rounded-md border-dashed border border-base-300 flex justify-center items-center cursor-pointer hover:bg-base-100"
                             >
                                 +
                             </label>

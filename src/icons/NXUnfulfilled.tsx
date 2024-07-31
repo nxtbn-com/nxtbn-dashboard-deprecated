@@ -26,13 +26,13 @@ function NXUnfulfilled({ className }: { className?: string }) {
       />
       <path
         d="M23.3333 19.9999C23.3333 20.7999 22.98 21.5133 22.4267 21.9999C21.9533 22.4133 21.34 22.6666 20.6667 22.6666C19.1933 22.6666 18 21.4733 18 19.9999C18 19.1599 18.3867 18.4066 19 17.9199C19.46 17.5533 20.04 17.3333 20.6667 17.3333C22.14 17.3333 23.3333 18.5266 23.3333 19.9999Z"
-        stroke-miterlimit="10"
+        strokeMiterlimit="10"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       <path
         d="M20.8333 19.1665V20.1665L20 20.6665"
-        stroke-miterlimit="10"
+        strokeMiterlimit="10"
         strokeLinecap="round"
         strokeLinejoin="round"
       />

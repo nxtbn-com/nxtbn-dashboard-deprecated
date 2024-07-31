@@ -113,7 +113,7 @@ function Color() {
                             </tr>
                         </thead>
                         <tbody>
-                            {colors.map((row: any, index) => (
+                            {colors?.map((row: any, index) => (
                                 <tr className="border-b border-[#EEEFF2] font-semibold" key={index + 1}>
                                     <td className="text-center py-5">
                                         <input

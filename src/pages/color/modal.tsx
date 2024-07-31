@@ -15,7 +15,7 @@ interface ColorModalProps {
 }
 
 function ColorModal({ isOpen, onClose, onSubmit, edit }: ColorModalProps) {
-  const [formData, setFormData] = useState<any>({});
+  const [formData, setFormData] = useState<any>({ name: '', code: '#000000' });
   const [errorData, setErrorData] = useState<any>({});
 
   const api = useApi();
@@ -80,7 +80,7 @@ function ColorModal({ isOpen, onClose, onSubmit, edit }: ColorModalProps) {
             id="name"
             name='name'
             errorData={errorData}
-            value={formData.name}
+            value={formData.name || ''}
             onChange={handleChange}
             className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           />
@@ -93,7 +93,7 @@ function ColorModal({ isOpen, onClose, onSubmit, edit }: ColorModalProps) {
             <InputColor
               id="color"
               name='code'
-              value={formData.code}
+              value={formData.code || ''}
               errorData={errorData}
               onChange={handleChange}
             />

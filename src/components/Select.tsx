@@ -20,6 +20,7 @@ interface SelectStyledProps {
   valueMax?: number;
   isMulti?: boolean;
   customStyles?: any;
+  errorData?: any;
 }
 
 const defaultOptions: Option[] = [
@@ -39,10 +40,14 @@ const SelectStyled: React.FC<SelectStyledProps> = ({
   valueMax = 3,
   isMulti,
   customStyles,
+  errorData,
+  name,
   ...rest
 }) => {
   const [isValid, setIsValid] = useState(true);
   const [values, setValues] = useState<Option[]>([]);
+
+  const errorMessages = name && errorData && errorData[name] ? errorData[name] : [];
 
   const onChangeWithLimit = useCallback(
     (value: any, actionMeta: any) => {
@@ -85,6 +90,13 @@ const SelectStyled: React.FC<SelectStyledProps> = ({
         styles={customStyles}
         {...rest}
       />
+      {errorMessages.length > 0 && (
+        <div className="text-red-600 text-sm mt-1">
+          {errorMessages.map((error:any, index:number) => (
+            <div key={index}>{error}</div>
+          ))}
+        </div>
+      )}
     </>
   );
 };

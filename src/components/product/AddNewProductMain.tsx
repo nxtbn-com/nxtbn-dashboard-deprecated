@@ -219,6 +219,8 @@ function AddNewProductMain() {
                 serial={index + 1}
                 colors={colors}
                 deleteVariant={deleteVariant}
+                errorData={errorData}
+                name='variants_payload'
               />
            ))}
 
@@ -294,22 +296,23 @@ function AddNewProductMain() {
             <div className="w-full mt-10">
               <label htmlFor="category">Category</label>
               <div className="pt-3">
-                <NestedSelect onChange={(e) => handleSingleChange('categories', e.value)} options={categories} />
+                <NestedSelect  onChange={(e) => handleSingleChange('categories', e.value)} options={categories} />
               </div>
             </div>
             <div className="my-5">
               <label htmlFor="tags">Tags</label>
               <div className="pt-3">
-                <SelectStyled isMulti={true} />
+                <SelectStyled errorData={errorData} name='tags' isMulti={true} />
               </div>
             </div>
             <div className="my-5">
               <label htmlFor="tags">Collection</label>
               <div className="pt-3">
                 <SelectStyled
-                isMulti={true}
-                options={makeEnumFriendly(collection)}
-                onChange={(e) => handleSingleChange('collections', e.value)}
+                  isMulti={true}
+                  options={makeEnumFriendly(collection)}
+                  onChange={(e) => handleSingleChange('collections', e.value)}
+                  errorData={errorData}
                 />
               </div>
             </div>
@@ -317,8 +320,10 @@ function AddNewProductMain() {
               <label htmlFor="tags">Product Type</label>
               <div className="pt-3">
                 <SelectStyled
+                  name='product_type'
                   options={makeEnumFriendly(ProductType)}
                   onChange={(e) => handleSingleChange('product_type', e.value)}
+                  errorData={errorData}
                 />
               </div>
             </div>

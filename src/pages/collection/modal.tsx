@@ -87,7 +87,7 @@ function CollectionModal({ isOpen, onClose, onSubmit, edit }: CollectionModalPro
             id="name"
             name='name'
             errorData={errorData}
-            value={formData.name}
+            value={formData.name || ''}
             onChange={handleChange}
             className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           />
@@ -99,7 +99,7 @@ function CollectionModal({ isOpen, onClose, onSubmit, edit }: CollectionModalPro
                     <span className="text-[12px] text-base-300">If a collection active or in-active</span>
                 </div>
                 <label className="inline-flex items-center me-5 cursor-pointer">
-                    <input  onChange={(e) => handleSingleChange(e.target.name, e.target.checked)} name="is_active" type="checkbox" checked={formData.is_active}  className="sr-only peer" />
+                    <input  onChange={(e) => handleSingleChange(e.target.name, e.target.checked)} name="is_active" type="checkbox" checked={formData.is_active || false}  className="sr-only peer" />
                     <div className="relative w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-green-300  peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-600"></div>
                 </label>
             </div>
@@ -113,7 +113,7 @@ function CollectionModal({ isOpen, onClose, onSubmit, edit }: CollectionModalPro
             id="name"
             name='description'
             errorData={errorData}
-            value={formData.description}
+            value={formData.description || ''}
             onChange={handleChange}
             className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           />

@@ -94,7 +94,6 @@ function AddNewProductMain() {
   }, []);
 
   const deleteVariant = (event: any) => {
-    alert('delete')
     event.preventDefault();
     setVariantSection(prevVariantSection => prevVariantSection - 1);
   };
@@ -180,7 +179,7 @@ function AddNewProductMain() {
             <div className="mt-5">
               <div className="flex flex-col gap-3">
                 <label htmlFor="product_description">Description</label>
-                <EditorField onChange={(content) => handleSingleChange('description', JSON.stringify(content))}/>
+                <EditorField name="description" errorData={errorData} onChange={(content) => handleSingleChange('description', JSON.stringify(content))}/>
               </div>
             </div>
           </div>

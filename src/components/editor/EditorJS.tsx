@@ -17,10 +17,15 @@ import TextColorTool from './TextColorTool';
 interface EditorProps {
   onChange?: (content: OutputData) => void;
   defaultValue?: OutputData;
+  errorData?: any;
+  name?: string;
 }
 
-const EditorField: React.FC<EditorProps> = ({ onChange, defaultValue }) => {
+const EditorField: React.FC<EditorProps> = ({ onChange, defaultValue, errorData, name }) => {
   const editorInstance = useRef<EditorJS | null>(null);
+
+  const errorMessages = name && errorData && errorData[name] ? errorData[name] : [];
+
   const customImageUploader = {
     uploadByFile(file: File) {
       return new Promise((resolve, reject) => {
@@ -141,7 +146,18 @@ const EditorField: React.FC<EditorProps> = ({ onChange, defaultValue }) => {
 
   }, [onChange]);
 
-  return <div id="editorjs" className="p-4 border border-gray-300 rounded-md bg-white" />;
+  return  (
+    <>
+      <div id="editorjs" className={`border rounded-md bg-white ${errorMessages.length > 0 ? 'border-red-500' : 'border-gray-300'}`} />
+      {errorMessages.length > 0 && (
+        <div className="text-red-600 text-sm mt-1">
+          {errorMessages.map((error:any, index:number) => (
+            <div key={index}>{error}</div>
+          ))}
+        </div>
+      )}
+    </>
+  )
 };
 
 export default EditorField;

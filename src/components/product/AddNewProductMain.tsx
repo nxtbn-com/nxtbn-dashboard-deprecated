@@ -40,9 +40,9 @@ function AddNewProductMain() {
 
   const handleProductCreate = (event: FormEvent) => {
     event.preventDefault()
-    api.createProduct(fromData).then((response) => {
+    api.createProduct(fromData).then((response:any) => {
       toast.success("Product Created Successfully!");
-      navigate(`/dashboard/products/edit/${response.data.id}`); 
+      navigate(`/dashboard/products/edit/${response.id}`); 
     }, (error) => {
       setErrorData(error.response.data);
     })

@@ -148,7 +148,7 @@ const EditorField: React.FC<EditorProps> = ({ onChange, defaultValue, errorData,
 
   return  (
     <>
-      <div id="editorjs" className={`border rounded-md bg-white ${errorMessages.length > 0 ? 'border-red-500' : 'border-gray-300'}`} />
+      <div id="editorjs" className={`p-2 border rounded-md bg-white ${errorMessages.length > 0 ? 'border-red-500' : 'border-gray-300'}`} />
       {errorMessages.length > 0 && (
         <div className="text-red-600 text-sm mt-1">
           {errorMessages.map((error:any, index:number) => (

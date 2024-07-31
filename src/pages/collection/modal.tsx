@@ -43,7 +43,6 @@ function CollectionModal({ isOpen, onClose, onSubmit, edit }: CollectionModalPro
         });
     }
     
-    
   };
 
   const handleChange = (e: any) => {

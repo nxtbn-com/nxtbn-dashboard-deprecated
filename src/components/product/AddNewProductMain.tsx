@@ -15,6 +15,8 @@ import SEO from "../seo/SEO";
 import PageBodyWrapper from "../../components/PageBodyWrapper";
 import { handleRetriveError } from "../../utils";
 
+import { NXForm, InputField } from "../../components/common";
+
 
 
 function AddNewProductMain() {
@@ -28,6 +30,9 @@ function AddNewProductMain() {
   const [productTags, setProductTags] = useState<any[]>([]);
   const [collection, setCollection] = useState<any[]>([]);
 
+  const [errorData, setErrorData] = useState<any>({});
+
+
 
   const [fromData, setFormData] = useState<any>({});
   const [productConfig, setProductConfig] = useState<any>({});
@@ -38,8 +43,8 @@ function AddNewProductMain() {
     api.createProduct(fromData).then((response) => {
       toast.success("Product Created Successfully!");
       navigate(`/dashboard/products/edit/${response.data.id}`); 
-    }).catch((error) => {
-      toast.error("Product creation is failed!")
+    }, (error) => {
+      setErrorData(error.response.data);
     })
   };
 
@@ -149,22 +154,24 @@ function AddNewProductMain() {
             </div>
             <div className="my-5">
               <label htmlFor="product_name">Product Name</label>
-              <input
+              <InputField
                 type="text"
                 id="product_name"
                 name="name"
                 onChange={onChangeHandler}
                 placeholder="Type your product name"
                 className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] border-[2px] border-dashed"
+                errorData={errorData}
               />
             </div>
             <div className="my-5">
               <label htmlFor="summary">summary</label>
-              <input
+              <InputField
                 type="text"
                 id="summary"
                 name="summary"
                 onChange={onChangeHandler}
+                errorData={errorData}
                 placeholder="Type product summary"
                 className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] border-[2px] border-dashed"
               />

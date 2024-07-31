@@ -28,7 +28,7 @@ const VariantSection: React.FC<VariantSectionProps> = ({
   const [variantDate, setVariantDate] = useState<any>({});
 
   // check if variantly completely missing
-  const isVariantMissingError = errorData.variants_payload && Array.isArray(errorData.variants_payload) && typeof errorData.variants_payload[0] === 'string';
+  const isVariantMissingError = errorData?.variants_payload && Array.isArray(errorData?.variants_payload) && typeof errorData?.variants_payload[0] === 'string';
 
   const addNewMetasection = (event: any) => {
     event.preventDefault();
@@ -96,7 +96,7 @@ const VariantSection: React.FC<VariantSectionProps> = ({
         <div className="w-full">
           <label htmlFor="price">Price</label>
           <InputField
-            errorData={errorData.variants_payload ? errorData.variants_payload[serial - 1] : {}}
+            errorData={errorData?.variants_payload ? errorData?.variants_payload[serial - 1] : {}}
             onChange={onChangeHandler}
             name="price"
             id="price"
@@ -108,7 +108,7 @@ const VariantSection: React.FC<VariantSectionProps> = ({
         <div className="w-full">
           <label htmlFor="sku-price">SKU</label>
           <InputField
-            errorData={errorData.variants_payload ? errorData.variants_payload[serial - 1] : {}}
+            errorData={errorData?.variants_payload ? errorData?.variants_payload[serial - 1] : {}}
             onChange={onChangeHandler}
             id="sku-price"
             name="sku"
@@ -122,7 +122,7 @@ const VariantSection: React.FC<VariantSectionProps> = ({
         <div className="w-full">
           <label htmlFor="cost_per_item">Cost per item</label>
           <InputField
-            errorData={errorData.variants_payload ? errorData.variants_payload[serial - 1] : {}}
+            errorData={errorData?.variants_payload ? errorData?.variants_payload[serial - 1] : {}}
             onChange={onChangeHandler}
             id="cost_per_item"
             name="cost_per_unit"
@@ -134,7 +134,7 @@ const VariantSection: React.FC<VariantSectionProps> = ({
         <div className="w-full">
           <label htmlFor="profit">Profit</label>
           <InputField
-            errorData={errorData.variants_payload ? errorData.variants_payload[serial - 1] : {}}
+            errorData={errorData?.variants_payload ? errorData?.variants_payload[serial - 1] : {}}
             onChange={onChangeHandler}
             id="profit"
             name="profit"
@@ -148,7 +148,7 @@ const VariantSection: React.FC<VariantSectionProps> = ({
           <div className="w-full">
             <label htmlFor="Stock">Stock</label>
             <InputField
-              errorData={errorData.variants_payload ? errorData.variants_payload[serial - 1] : {}}
+              errorData={errorData?.variants_payload ? errorData?.variants_payload[serial - 1] : {}}
               onChange={onChangeHandler}
               id="Stock"
               name="Stock"

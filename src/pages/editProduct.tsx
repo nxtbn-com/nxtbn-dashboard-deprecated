@@ -232,6 +232,7 @@ function EditProduct() {
                 serial={index + 1}
                 colors={colors}
                 deleteVariant={deleteVariant}
+                name='variants_payload'
               />
            ))}
 

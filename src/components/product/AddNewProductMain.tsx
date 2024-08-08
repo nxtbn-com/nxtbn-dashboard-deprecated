@@ -133,6 +133,8 @@ function AddNewProductMain() {
       ...prevFormData,
       [name]: value
     }));
+
+    setProductConfig(ProductType.find((item: any) => item.id === value));
   };
 
   return (
@@ -343,19 +345,19 @@ function AddNewProductMain() {
             </div>
 
             <div className="flex items-center gap-3 my-5">
-              <input checked={productConfig.charge_tax} onChange={handleProductConfig} type="checkbox" name="charge_tax" />
+              <input disabled={true} checked={productConfig.charge_tax} onChange={handleProductConfig} type="checkbox" name="charge_tax" />
               <label className="font-nunito">Charge tax</label>
             </div>
             <div className="flex items-center gap-3 my-5">
-            <input checked={productConfig.physical_product} onChange={handleProductConfig} type="checkbox" name="physical_product" />
+            <input disabled={true} checked={productConfig.physical_product} onChange={handleProductConfig} type="checkbox" name="physical_product" />
               <label className="font-nunito">Physical Product</label>
             </div>
             <div className="flex items-center gap-3 my-5">
-            <input checked={productConfig.track_stock} onChange={handleProductConfig} type="checkbox" name="track_stock" />
+            <input disabled={true} checked={productConfig.track_stock} onChange={handleProductConfig} type="checkbox" name="track_stock" />
               <label className="font-nunito">Track Stock</label>
             </div>
             <div className="flex items-center gap-3 my-5">
-            <input checked={productConfig.has_variant} onChange={handleProductConfig} type="checkbox" name="has_variant" />
+            <input disabled={true} checked={productConfig.has_variant} onChange={handleProductConfig} type="checkbox" name="has_variant" />
               <label className="font-nunito">Has Variant</label>
             </div>
           </div>

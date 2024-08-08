@@ -6,11 +6,13 @@ import "../components/product/select-hide.css";
 import SelectStyled from "../components/Select";
 import NestedSelect from "../components/nestedSelect";
 import useApi from "../api";
-import { makeCategoryEnumFriendly } from "../enum";
+import { makeCategoryEnumFriendly, makeEnumFriendly } from "../enum";
 import VariantSection from "../components/product/VariantSection";
 import { ImageField } from "../components/images";
 import EditorField from "../components/editor/EditorJS";
 import SEO from "../components/seo/SEO";
+
+
 
 
 import { toast } from 'react-toastify';
@@ -32,12 +34,15 @@ function EditProduct() {
   // fetched data
   const [categories, setCategories] = useState<any[]>([]);
   const [colors, setColors] = useState<any[]>([]);
+  const [ProductType, setProductType] = useState<any[]>([]);
 
 
   const [fromData, setFormData] = useState<any>({});
   const [imageList, setImageList] = useState<any[]>([]);
   const [productConfig, setProductConfig] = useState<any>({});
   const [variantSection, setVariantSection] = useState<number>(1);
+  const [errorData, setErrorData] = useState<any>({});
+
 
   const handleProductUpdate = (event: FormEvent) => {
     event.preventDefault()
@@ -312,12 +317,15 @@ function EditProduct() {
               </div>
             </div>
             <div className="my-5">
-              <label htmlFor="product_type">Product type</label>
-              <input
-                id="product_type"
-                type="text"
-                className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-md font-nunito outline-[#0CAF60] border-[2px] border-dashed"
-              />
+              <label htmlFor="tags">Product Type</label>
+              <div className="pt-3">
+                <SelectStyled
+                  name='product_type'
+                  options={makeEnumFriendly(ProductType)}
+                  // disabled={true}
+                  errorData={errorData}
+                />
+              </div>
             </div>
             <div className="my-5">
               <label htmlFor="tags">Tags</label>

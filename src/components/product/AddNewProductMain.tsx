@@ -305,7 +305,7 @@ function AddNewProductMain() {
             <div className="w-full mt-10">
               <label htmlFor="category">Category</label>
               <div className="pt-3">
-                <NestedSelect  onChange={(e) => handleSingleChange('categories', e.value)} options={categories} />
+                <NestedSelect  onChange={(e) => handleSingleChange('category', e.value)} options={categories} />
               </div>
             </div>
             <div className="my-5">

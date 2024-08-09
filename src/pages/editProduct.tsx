@@ -6,7 +6,7 @@ import "../components/product/select-hide.css";
 import SelectStyled from "../components/Select";
 import NestedSelect from "../components/nestedSelect";
 import useApi from "../api";
-import { makeCategoryEnumFriendly, makeEnumFriendly } from "../enum";
+import { makeCategoryEnumFriendly, makeEnumFriendly, getEnumList, getEnumItem } from "../enum";
 import VariantSection from "../components/product/VariantSection";
 import { ImageField } from "../components/images";
 import EditorField from "../components/editor/EditorJS";
@@ -73,16 +73,19 @@ function EditProduct() {
     Promise.all([
       api.getRecursiveCategories(),
       api.getColor(),
-      api.getProductById(id)
+      api.getProductById(id),
+      api.getProductType(),
     ])
     .then(([
       categoriesResponse,
       colorsResponse,
-      productResponse
+      productResponse,
+      productTypeResponse,
     ]) => {
       const categories = makeCategoryEnumFriendly(categoriesResponse as any);
       setCategories(categories);
       setColors(colorsResponse as any);
+      setProductType(productTypeResponse as any);
 
       const productData = productResponse as any;
       const processedProductResponse = processProductResponse(productData);
@@ -319,12 +322,15 @@ function EditProduct() {
             <div className="my-5">
               <label htmlFor="tags">Product Type</label>
               <div className="pt-3">
-                <SelectStyled
+                {ProductType.length && fromData.product_type &&
+                (<SelectStyled
                   name='product_type'
                   options={makeEnumFriendly(ProductType)}
-                  // disabled={true}
+                  // defaultValue={{value: '3', label: 'dfsdf'}}
+                  defaultValue={getEnumItem(ProductType, fromData.product_type)}
                   errorData={errorData}
-                />
+                />)
+                }
               </div>
             </div>
             <div className="my-5">

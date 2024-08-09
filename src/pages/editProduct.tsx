@@ -177,7 +177,7 @@ function EditProduct() {
                 type="text"
                 id="product_name"
                 name="name"
-                value={fromData.name}
+                defaultValue={fromData.name}
                 onChange={onChangeHandler}
                 placeholder="Type your product name"
                 className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] border-[2px] border-dashed"
@@ -189,7 +189,7 @@ function EditProduct() {
                 type="text"
                 id="summary"
                 name="summary"
-                value={fromData.summary}
+                defaultValue={fromData.summary}
                 onChange={onChangeHandler}
                 placeholder="Type product summary"
                 className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] border-[2px] border-dashed"

@@ -127,6 +127,16 @@ function AddNewProductMain() {
     }));
   };
 
+  const onProductTypeChange = (name: any, value: any) => {
+    console.log(name, value);
+    setFormData((prevFormData: any) => ({
+      ...prevFormData,
+      [name]: value
+    }));
+
+    setProductConfig(ProductType.find((item: any) => item.id === value));
+  };
+
   return (
     <PageBodyWrapper bgClass="">
       {/* top action button */}
@@ -295,7 +305,7 @@ function AddNewProductMain() {
             <div className="w-full mt-10">
               <label htmlFor="category">Category</label>
               <div className="pt-3">
-                <NestedSelect  onChange={(e) => handleSingleChange('categories', e.value)} options={categories} />
+                <NestedSelect  onChange={(e) => handleSingleChange('category', e.value)} options={categories} />
               </div>
             </div>
             <div className="my-5">
@@ -321,7 +331,7 @@ function AddNewProductMain() {
                 <SelectStyled
                   name='product_type'
                   options={makeEnumFriendly(ProductType)}
-                  onChange={(e) => handleSingleChange('product_type', e.value)}
+                  onChange={(e) => onProductTypeChange('product_type', e.value)}
                   errorData={errorData}
                 />
               </div>
@@ -335,19 +345,19 @@ function AddNewProductMain() {
             </div>
 
             <div className="flex items-center gap-3 my-5">
-              <input onChange={handleProductConfig} type="checkbox" name="charge_tax" />
+              <input disabled={true} checked={productConfig.charge_tax} onChange={handleProductConfig} type="checkbox" name="charge_tax" />
               <label className="font-nunito">Charge tax</label>
             </div>
             <div className="flex items-center gap-3 my-5">
-            <input onChange={handleProductConfig} type="checkbox" name="physical_product" />
+            <input disabled={true} checked={productConfig.physical_product} onChange={handleProductConfig} type="checkbox" name="physical_product" />
               <label className="font-nunito">Physical Product</label>
             </div>
             <div className="flex items-center gap-3 my-5">
-            <input onChange={handleProductConfig} type="checkbox" name="track_stock" />
+            <input disabled={true} checked={productConfig.track_stock} onChange={handleProductConfig} type="checkbox" name="track_stock" />
               <label className="font-nunito">Track Stock</label>
             </div>
             <div className="flex items-center gap-3 my-5">
-            <input onChange={handleProductConfig} type="checkbox" name="has_variant" />
+            <input disabled={true} checked={productConfig.has_variant} onChange={handleProductConfig} type="checkbox" name="has_variant" />
               <label className="font-nunito">Has Variant</label>
             </div>
           </div>

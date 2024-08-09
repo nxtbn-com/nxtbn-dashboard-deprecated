@@ -6,11 +6,13 @@ import "../components/product/select-hide.css";
 import SelectStyled from "../components/Select";
 import NestedSelect from "../components/nestedSelect";
 import useApi from "../api";
-import { makeCategoryEnumFriendly } from "../enum";
+import { makeCategoryEnumFriendly, makeEnumFriendly, getEnumList, getEnumItem } from "../enum";
 import VariantSection from "../components/product/VariantSection";
 import { ImageField } from "../components/images";
 import EditorField from "../components/editor/EditorJS";
 import SEO from "../components/seo/SEO";
+
+
 
 
 import { toast } from 'react-toastify';
@@ -32,12 +34,15 @@ function EditProduct() {
   // fetched data
   const [categories, setCategories] = useState<any[]>([]);
   const [colors, setColors] = useState<any[]>([]);
+  const [ProductType, setProductType] = useState<any[]>([]);
 
 
   const [fromData, setFormData] = useState<any>({});
   const [imageList, setImageList] = useState<any[]>([]);
   const [productConfig, setProductConfig] = useState<any>({});
   const [variantSection, setVariantSection] = useState<number>(1);
+  const [errorData, setErrorData] = useState<any>({});
+
 
   const handleProductUpdate = (event: FormEvent) => {
     event.preventDefault()
@@ -68,20 +73,25 @@ function EditProduct() {
     Promise.all([
       api.getRecursiveCategories(),
       api.getColor(),
-      api.getProductById(id)
+      api.getProductById(id),
+      api.getProductType(),
     ])
     .then(([
       categoriesResponse,
       colorsResponse,
-      productResponse
+      productResponse,
+      productTypeResponse,
     ]) => {
       const categories = makeCategoryEnumFriendly(categoriesResponse as any);
       setCategories(categories);
       setColors(colorsResponse as any);
+      setProductType(productTypeResponse as any);
 
       const productData = productResponse as any;
       const processedProductResponse = processProductResponse(productData);
       setFormData(processedProductResponse);
+      console.log(processedProductResponse, 'processedProductResponse')
+      setProductConfig(processedProductResponse.product_type_details)
 
       const imagesArray = productData.images.map((image: any) => ({ id: image.id, image: image.image }));
       setImageList(imagesArray);
@@ -312,12 +322,18 @@ function EditProduct() {
               </div>
             </div>
             <div className="my-5">
-              <label htmlFor="product_type">Product type</label>
-              <input
-                id="product_type"
-                type="text"
-                className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-md font-nunito outline-[#0CAF60] border-[2px] border-dashed"
-              />
+              <label htmlFor="tags">Product Type</label>
+              <div className="pt-3">
+                {ProductType.length && fromData.product_type &&
+                (<SelectStyled
+                  name='product_type'
+                  options={makeEnumFriendly(ProductType)}
+                  isDisabled={true}
+                  defaultValue={getEnumItem(ProductType, fromData.product_type)}
+                  errorData={errorData}
+                />)
+                }
+              </div>
             </div>
             <div className="my-5">
               <label htmlFor="tags">Tags</label>
@@ -334,19 +350,19 @@ function EditProduct() {
             </div>
 
             <div className="flex items-center gap-3 my-5">
-              <input onChange={handleProductConfig} type="checkbox" name="charge_tax" />
+              <input disabled={true} checked={productConfig.charge_tax}  onChange={handleProductConfig} type="checkbox" name="charge_tax" />
               <label className="font-nunito">Charge tax</label>
             </div>
             <div className="flex items-center gap-3 my-5">
-            <input onChange={handleProductConfig} type="checkbox" name="physical_product" />
+            <input disabled={true} checked={productConfig.physical_product}  onChange={handleProductConfig} type="checkbox" name="physical_product" />
               <label className="font-nunito">Physical Product</label>
             </div>
             <div className="flex items-center gap-3 my-5">
-            <input onChange={handleProductConfig} type="checkbox" name="track_stock" />
+            <input disabled={true} checked={productConfig.track_stock}  onChange={handleProductConfig} type="checkbox" name="track_stock" />
               <label className="font-nunito">Track Stock</label>
             </div>
             <div className="flex items-center gap-3 my-5">
-            <input onChange={handleProductConfig} type="checkbox" name="has_variant" />
+            <input disabled={true} checked={productConfig.has_variant}  onChange={handleProductConfig} type="checkbox" name="has_variant" />
               <label className="font-nunito">Has Variant</label>
             </div>
           </div>

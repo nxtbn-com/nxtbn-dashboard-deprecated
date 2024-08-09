@@ -90,7 +90,6 @@ function EditProduct() {
       const productData = productResponse as any;
       const processedProductResponse = processProductResponse(productData);
       setFormData(processedProductResponse);
-      console.log(processedProductResponse, 'processedProductResponse')
       setProductConfig(processedProductResponse.product_type_details)
 
       const imagesArray = productData.images.map((image: any) => ({ id: image.id, image: image.image }));
@@ -234,7 +233,7 @@ function EditProduct() {
           {/* tax class end */}
 
           <div className="bg-white p-5 rounded-md mt-5">
-            {Array.from({ length: variantSection }, (_, index) => (
+            {fromData.variants && fromData.variants.map((variant: any, index: number) => (
               <VariantSection
                 key={index}
                 productConfig={productConfig}
@@ -243,8 +242,9 @@ function EditProduct() {
                 colors={colors}
                 deleteVariant={deleteVariant}
                 name='variants_payload'
+                variant={variant}
               />
-           ))}
+            ))}
 
             {productConfig.has_variant && (
               <div className="flex justify-center mt-3">

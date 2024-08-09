@@ -13,6 +13,7 @@ interface VariantSectionProps {
   onChange: any;
   errorData?: any;
   name?: string;
+  variant?: any;
 }
 
 const VariantSection: React.FC<VariantSectionProps> = ({
@@ -23,6 +24,7 @@ const VariantSection: React.FC<VariantSectionProps> = ({
   errorData,
   onChange,
   name,
+  variant,
 }) => {
   const [metaSection, setMetaSection] = useState<number>(0);
   const [variantDate, setVariantDate] = useState<any>({});
@@ -87,6 +89,7 @@ const VariantSection: React.FC<VariantSectionProps> = ({
             name="name"
             type="text"
             placeholder="Variant Name"
+            defaultValue={variant?.name}
             className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] placeholder:text-black border-[2px] border-dashed"
           />
         </div>
@@ -101,6 +104,7 @@ const VariantSection: React.FC<VariantSectionProps> = ({
             name="price"
             id="price"
             type="text"
+            value={variant?.price}
             placeholder="$0.00"
             className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] placeholder:text-black border-[2px] border-dashed"
           />
@@ -113,6 +117,7 @@ const VariantSection: React.FC<VariantSectionProps> = ({
             id="sku-price"
             name="sku"
             type="text"
+            defaultValue={variant?.sku}
             placeholder="SKU01"
             className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] placeholder:text-black border-[2px] border-dashed"
           />
@@ -127,6 +132,7 @@ const VariantSection: React.FC<VariantSectionProps> = ({
             id="cost_per_item"
             name="cost_per_unit"
             type="text"
+            defaultValue={variant?.cost_per_unit}
             placeholder="$0.00"
             className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] placeholder:text-black border-[2px] border-dashed"
           />
@@ -139,6 +145,7 @@ const VariantSection: React.FC<VariantSectionProps> = ({
             id="profit"
             name="profit"
             type="text"
+            defaultValue={variant?.profit}
             placeholder="--"
             className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] placeholder:text-black border-[2px] border-dashed"
           />
@@ -152,6 +159,7 @@ const VariantSection: React.FC<VariantSectionProps> = ({
               onChange={onChangeHandler}
               id="Stock"
               name="Stock"
+              defaultValue={variant?.Stock}
               type="number"
               placeholder="--"
               className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] placeholder:text-black border-[2px] border-dashed"

@@ -21,6 +21,7 @@ interface SelectStyledProps {
   isMulti?: boolean;
   customStyles?: any;
   errorData?: any;
+  isDisabled?: boolean;
 }
 
 const defaultOptions: Option[] = [
@@ -42,6 +43,7 @@ const SelectStyled: React.FC<SelectStyledProps> = ({
   customStyles,
   errorData,
   name,
+  isDisabled,
   ...rest
 }) => {
   const [isValid, setIsValid] = useState(true);
@@ -88,6 +90,7 @@ const SelectStyled: React.FC<SelectStyledProps> = ({
         required
         isMulti={isMulti}
         styles={customStyles}
+        isDisabled={isDisabled}  
         {...rest}
       />
       {errorMessages.length > 0 && (

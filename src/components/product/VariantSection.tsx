@@ -42,7 +42,7 @@ const VariantSection: React.FC<VariantSectionProps> = ({
 
   const colorNameSelect = (value: any, actionMeta: any) => {
     setSelectedColor(value.value)
-    onSingleChange('color', value.value)
+    onSingleChange('color_code', value.value)
   }
 
   const onChangeHandler = (e: any) => {
@@ -208,7 +208,7 @@ const VariantSection: React.FC<VariantSectionProps> = ({
           <input
             id="color"
             type="color"
-            name='color'
+            name='color_code'
             value={selectedColor}
             onChange={onChangeHandler}
             style={{height:50, width:"100%", borderRadius: 10}}

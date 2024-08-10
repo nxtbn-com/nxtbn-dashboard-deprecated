@@ -21,6 +21,17 @@ const enumChoice = {
     sex: [
         { value: "MALE", label: "Male"},
         { value: "FEMALE", label: "Female"}
+    ],
+    stockStatus: [
+      { value: "IN_STOCK", label: "In stock"},
+      { value: "OUT_OF_STOCK", label: "Out of stock"}
+    ],
+    weightUnits: [
+      { value: "KG", label: "Kilogram"},
+      { value: "GRAM", label: "Gram"},
+      { value: "OZ", label: "Ounce"},
+      { value: "LB", label: "Pound"},
+      { value: "TON", label: "Ton"}
     ]
 }
   
@@ -46,6 +57,13 @@ function makeEnumFriendly(data: any[]): Option[] {
   }));
 };
 
+function makeColorEnumFriendly(data: any[]): Option[] {
+  return data.map(item => ({
+      value: item.code,
+      label: item.name
+  }));
+};
+
 const getEnumItem = <T extends { id: string | number, name: string }>(arr: T[], val: string | number): { value: string, label: string } | undefined => {
   const foundItem = arr?.find(({ id }) => id === val);
   if (foundItem) {
@@ -58,6 +76,12 @@ const getEnumItem = <T extends { id: string | number, name: string }>(arr: T[], 
   return undefined;
 };
 
+const transformSingleEnum = (data: any) => {
+  return {
+    value: data.id,
+    label: data.name
+  };
+}
 
 
 const getEnumList = <T extends { value: string | number }>(baseArr: T[], arr: (string | number)[]): T[] => {
@@ -69,6 +93,6 @@ const getEnumList = <T extends { value: string | number }>(baseArr: T[], arr: (s
 
 
 
-export { makeCategoryEnumFriendly, makeEnumFriendly, getEnumItem, getEnumList };
+export { makeCategoryEnumFriendly, makeEnumFriendly, getEnumItem, getEnumList, transformSingleEnum, makeColorEnumFriendly };
 
 export default enumChoice;

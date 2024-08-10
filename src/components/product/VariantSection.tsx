@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { NXAlertCircle, NXDelete } from "../../icons";
 import SelectStyled from "../Select";
-import { makeEnumFriendly } from "../../enum";
+import enumChoice, { makeColorEnumFriendly } from "../../enum";
 
 import { InputField } from "../../components/common";
 
@@ -13,6 +13,7 @@ interface VariantSectionProps {
   onChange: any;
   errorData?: any;
   name?: string;
+  variant?: any;
 }
 
 const VariantSection: React.FC<VariantSectionProps> = ({
@@ -23,6 +24,7 @@ const VariantSection: React.FC<VariantSectionProps> = ({
   errorData,
   onChange,
   name,
+  variant,
 }) => {
   const [metaSection, setMetaSection] = useState<number>(0);
   const [variantDate, setVariantDate] = useState<any>({});
@@ -36,20 +38,22 @@ const VariantSection: React.FC<VariantSectionProps> = ({
   };
 
 
-  const [selectedColor, setSelectedColor] = useState<any>({colorName: '', colorCode: '#ffffff'})
+  const [selectedColor, setSelectedColor] = useState<any>(null)
 
   const colorNameSelect = (value: any, actionMeta: any) => {
-    setSelectedColor({colorName: value.label, colorCode: colors.filter((color)=>color.name === value.label)[0].code})
+    setSelectedColor(value.value)
+    onSingleChange('color_code', value.value)
   }
-
-  const colorCodeChange = (e:any) => {
-    setSelectedColor({colorCode: e.target.value})
-  };
 
   const onChangeHandler = (e: any) => {
     setVariantDate({...variantDate, [e.target.name]: e.target.value})
     onChange({...variantDate, [e.target.name]: e.target.value}, serial - 1)
-  }
+  };
+
+  const onSingleChange = (name: string, value:any) => {
+    setVariantDate({...variantDate, [name]: value})
+    onChange({...variantDate, [name]: value}, serial - 1)
+  };
 
 
   const style = {
@@ -87,6 +91,7 @@ const VariantSection: React.FC<VariantSectionProps> = ({
             name="name"
             type="text"
             placeholder="Variant Name"
+            defaultValue={variant?.name}
             className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] placeholder:text-black border-[2px] border-dashed"
           />
         </div>
@@ -101,6 +106,7 @@ const VariantSection: React.FC<VariantSectionProps> = ({
             name="price"
             id="price"
             type="text"
+            value={variant?.price}
             placeholder="$0.00"
             className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] placeholder:text-black border-[2px] border-dashed"
           />
@@ -113,6 +119,7 @@ const VariantSection: React.FC<VariantSectionProps> = ({
             id="sku-price"
             name="sku"
             type="text"
+            defaultValue={variant?.sku}
             placeholder="SKU01"
             className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] placeholder:text-black border-[2px] border-dashed"
           />
@@ -127,6 +134,7 @@ const VariantSection: React.FC<VariantSectionProps> = ({
             id="cost_per_item"
             name="cost_per_unit"
             type="text"
+            defaultValue={variant?.cost_per_unit}
             placeholder="$0.00"
             className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] placeholder:text-black border-[2px] border-dashed"
           />
@@ -139,6 +147,7 @@ const VariantSection: React.FC<VariantSectionProps> = ({
             id="profit"
             name="profit"
             type="text"
+            defaultValue={variant?.profit}
             placeholder="--"
             className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] placeholder:text-black border-[2px] border-dashed"
           />
@@ -152,6 +161,7 @@ const VariantSection: React.FC<VariantSectionProps> = ({
               onChange={onChangeHandler}
               id="Stock"
               name="Stock"
+              defaultValue={variant?.Stock}
               type="number"
               placeholder="--"
               className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] placeholder:text-black border-[2px] border-dashed"
@@ -165,14 +175,18 @@ const VariantSection: React.FC<VariantSectionProps> = ({
           <>
           <div className="w-full flex flex-col gap-3">
             <label htmlFor="profit">Weight</label>
-            <SelectStyled customStyles={style}/>
+            <SelectStyled
+              customStyles={style}
+              options={enumChoice.weightUnits}
+              onChange={(value: any, actionMeta: any) => onSingleChange('weight_unit', value.value)}
+            />
           </div>
           <div className="w-full">
             <label htmlFor="profit">Value</label>
             <input
               onChange={onChangeHandler}
               id="Value"
-              name="margin"
+              name="weight_value"
               type="number"
               placeholder="--"
               className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] placeholder:text-black border-[2px] border-dashed"
@@ -183,15 +197,20 @@ const VariantSection: React.FC<VariantSectionProps> = ({
         
         <div className="w-full flex flex-col gap-3 ">
           <label htmlFor="color-name">Color Name</label>
-          <SelectStyled options={makeEnumFriendly(colors)} onChange={colorNameSelect} customStyles={style}/>
+          <SelectStyled
+            customStyles={style}
+            options={makeColorEnumFriendly(colors)}
+            onChange={colorNameSelect}
+          />
         </div>
         <div className="w-full flex flex-col justify-start gap-3">
           <label htmlFor="color">Color</label>
           <input
             id="color"
             type="color"
-            value={selectedColor.colorCode}
-            onChange={colorCodeChange}
+            name='color_code'
+            value={selectedColor}
+            onChange={onChangeHandler}
             style={{height:50, width:"100%", borderRadius: 10}}
           />
         </div>

@@ -58,6 +58,12 @@ const getEnumItem = <T extends { id: string | number, name: string }>(arr: T[], 
   return undefined;
 };
 
+const transformSingleEnum = (data: any) => {
+  return {
+    value: data.id,
+    label: data.name
+  };
+}
 
 
 const getEnumList = <T extends { value: string | number }>(baseArr: T[], arr: (string | number)[]): T[] => {
@@ -69,6 +75,6 @@ const getEnumList = <T extends { value: string | number }>(baseArr: T[], arr: (s
 
 
 
-export { makeCategoryEnumFriendly, makeEnumFriendly, getEnumItem, getEnumList };
+export { makeCategoryEnumFriendly, makeEnumFriendly, getEnumItem, getEnumList, transformSingleEnum };
 
 export default enumChoice;

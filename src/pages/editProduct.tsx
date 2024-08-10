@@ -6,7 +6,7 @@ import "../components/product/select-hide.css";
 import SelectStyled from "../components/Select";
 import NestedSelect from "../components/nestedSelect";
 import useApi from "../api";
-import { makeCategoryEnumFriendly, makeEnumFriendly, getEnumList, getEnumItem } from "../enum";
+import { makeCategoryEnumFriendly, makeEnumFriendly, getEnumList, getEnumItem, transformSingleEnum } from "../enum";
 import VariantSection from "../components/product/VariantSection";
 import { ImageField } from "../components/images";
 import EditorField from "../components/editor/EditorJS";
@@ -145,7 +145,6 @@ function EditProduct() {
   };
   
 
-  
 
   return (
     <section className="px-10 py-5">
@@ -318,7 +317,13 @@ function EditProduct() {
             <div className="w-full mt-10">
               <label htmlFor="category">Category</label>
               <div className="pt-3">
-                <NestedSelect options={categories} />
+                {fromData.category_details && (
+                  <NestedSelect
+                    options={categories}
+                    defaultValue={transformSingleEnum(fromData.category_details)}
+                    />
+                )}
+                
               </div>
             </div>
             <div className="my-5">

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { NXAlertCircle, NXDelete } from "../../icons";
 import SelectStyled from "../Select";
-import { makeEnumFriendly } from "../../enum";
+import enumChoice, { makeEnumFriendly } from "../../enum";
 
 import { InputField } from "../../components/common";
 
@@ -51,7 +51,12 @@ const VariantSection: React.FC<VariantSectionProps> = ({
   const onChangeHandler = (e: any) => {
     setVariantDate({...variantDate, [e.target.name]: e.target.value})
     onChange({...variantDate, [e.target.name]: e.target.value}, serial - 1)
-  }
+  };
+
+  const onSingleChange = (name: string, value:any) => {
+    setVariantDate({...variantDate, [name]: value})
+    onChange({...variantDate, [name]: value}, serial - 1)
+  };
 
 
   const style = {
@@ -173,14 +178,18 @@ const VariantSection: React.FC<VariantSectionProps> = ({
           <>
           <div className="w-full flex flex-col gap-3">
             <label htmlFor="profit">Weight</label>
-            <SelectStyled customStyles={style}/>
+            <SelectStyled
+              customStyles={style}
+              options={enumChoice.weightUnits}
+              onChange={(value: any, actionMeta: any) => onSingleChange('weight_unit', value.value)}
+            />
           </div>
           <div className="w-full">
             <label htmlFor="profit">Value</label>
             <input
               onChange={onChangeHandler}
               id="Value"
-              name="margin"
+              name="weight_value"
               type="number"
               placeholder="--"
               className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] placeholder:text-black border-[2px] border-dashed"
@@ -191,7 +200,11 @@ const VariantSection: React.FC<VariantSectionProps> = ({
         
         <div className="w-full flex flex-col gap-3 ">
           <label htmlFor="color-name">Color Name</label>
-          <SelectStyled options={makeEnumFriendly(colors)} onChange={colorNameSelect} customStyles={style}/>
+          <SelectStyled
+            customStyles={style}
+            options={makeEnumFriendly(colors)}
+            onChange={colorNameSelect}
+          />
         </div>
         <div className="w-full flex flex-col justify-start gap-3">
           <label htmlFor="color">Color</label>

@@ -21,6 +21,17 @@ const enumChoice = {
     sex: [
         { value: "MALE", label: "Male"},
         { value: "FEMALE", label: "Female"}
+    ],
+    stockStatus: [
+      { value: "IN_STOCK", label: "In stock"},
+      { value: "OUT_OF_STOCK", label: "Out of stock"}
+    ],
+    weightUnits: [
+      { value: "KG", label: "Kilogram"},
+      { value: "GRAM", label: "Gram"},
+      { value: "OZ", label: "Ounce"},
+      { value: "LB", label: "Pound"},
+      { value: "TON", label: "Ton"}
     ]
 }
   

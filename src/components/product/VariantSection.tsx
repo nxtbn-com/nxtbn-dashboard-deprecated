@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { NXAlertCircle, NXDelete } from "../../icons";
 import SelectStyled from "../Select";
-import enumChoice, { makeEnumFriendly } from "../../enum";
+import enumChoice, { makeColorEnumFriendly } from "../../enum";
 
 import { InputField } from "../../components/common";
 
@@ -38,15 +38,12 @@ const VariantSection: React.FC<VariantSectionProps> = ({
   };
 
 
-  const [selectedColor, setSelectedColor] = useState<any>({colorName: '', colorCode: '#ffffff'})
+  const [selectedColor, setSelectedColor] = useState<any>(null)
 
   const colorNameSelect = (value: any, actionMeta: any) => {
-    setSelectedColor({colorName: value.label, colorCode: colors.filter((color)=>color.name === value.label)[0].code})
+    setSelectedColor(value.value)
+    onSingleChange('color', value.value)
   }
-
-  const colorCodeChange = (e:any) => {
-    setSelectedColor({colorCode: e.target.value})
-  };
 
   const onChangeHandler = (e: any) => {
     setVariantDate({...variantDate, [e.target.name]: e.target.value})
@@ -202,7 +199,7 @@ const VariantSection: React.FC<VariantSectionProps> = ({
           <label htmlFor="color-name">Color Name</label>
           <SelectStyled
             customStyles={style}
-            options={makeEnumFriendly(colors)}
+            options={makeColorEnumFriendly(colors)}
             onChange={colorNameSelect}
           />
         </div>
@@ -211,8 +208,9 @@ const VariantSection: React.FC<VariantSectionProps> = ({
           <input
             id="color"
             type="color"
-            value={selectedColor.colorCode}
-            onChange={colorCodeChange}
+            name='color'
+            value={selectedColor}
+            onChange={onChangeHandler}
             style={{height:50, width:"100%", borderRadius: 10}}
           />
         </div>

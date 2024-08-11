@@ -40,7 +40,6 @@ function EditProduct() {
   const [fromData, setFormData] = useState<any>({});
   const [imageList, setImageList] = useState<any[]>([]);
   const [productConfig, setProductConfig] = useState<any>({});
-  const [variantSection, setVariantSection] = useState<number>(1);
   const [errorData, setErrorData] = useState<any>({});
 
 
@@ -66,7 +65,7 @@ function EditProduct() {
 
   const addNewVariant = (event: any) => {
     event.preventDefault();
-    setVariantSection(prevVariantSection => prevVariantSection + 1);
+    // fromData.variants.push({});
   }
 
   const fetchData = () => {
@@ -107,7 +106,6 @@ function EditProduct() {
   const deleteVariant = (event: any) => {
     alert('delete')
     event.preventDefault();
-    setVariantSection(prevVariantSection => prevVariantSection - 1);
   };
 
   const onImageChange = (field: string, data: any) => {

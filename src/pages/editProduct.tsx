@@ -105,7 +105,7 @@ function EditProduct() {
       setFormData(processedProductResponse);
       setProductConfig(processedProductResponse.product_type_details)
 
-      const imagesArray = productData.images.map((image: any) => ({ id: image.id, image: image.image }));
+      const imagesArray = productData.images_details.map((image: any) => ({ id: image.id, image: image.image }));
       setImageList(imagesArray);
     })
     .catch((error) => {
@@ -118,7 +118,6 @@ function EditProduct() {
   }, []);
 
   const deleteVariant = (event: any) => {
-    alert('delete')
     event.preventDefault();
   };
 

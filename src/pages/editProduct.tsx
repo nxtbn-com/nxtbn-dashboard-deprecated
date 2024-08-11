@@ -21,7 +21,7 @@ const processProductResponse = (productResponse: any) => {
   const processedResponse = {
     ...productResponse,
     images: productResponse.images.map((image: any) => image.id),
-    variant_payload: productResponse.variants
+    variants_payload: productResponse.variants
   };
   return processedResponse;
 };
@@ -66,8 +66,20 @@ function EditProduct() {
 
   const addNewVariant = (event: any) => {
     event.preventDefault();
-    // fromData.variants.push({});
-  }
+  
+    setFormData((prevFormData: any) => {
+      const updatedVariants = [
+        ...(prevFormData.variants_payload || []),
+        {}
+      ];
+  
+      return {
+        ...prevFormData,
+        variants_payload: updatedVariants,
+      };
+    });
+  };
+  
 
   const fetchData = () => {
     Promise.all([
@@ -230,7 +242,7 @@ function EditProduct() {
           {/* tax class end */}
 
           <div className="bg-white p-5 rounded-md mt-5">
-            {fromData.variant_payload && fromData.variant_payload.map((variant: any, index: number) => (
+            {fromData.variants_payload && fromData.variants_payload.map((variant: any, index: number) => (
               <VariantSection
                 key={index}
                 productConfig={productConfig}

@@ -21,6 +21,7 @@ const processProductResponse = (productResponse: any) => {
   const processedResponse = {
     ...productResponse,
     images: productResponse.images.map((image: any) => image.id),
+    variant_payload: productResponse.variants
   };
   return processedResponse;
 };
@@ -229,7 +230,7 @@ function EditProduct() {
           {/* tax class end */}
 
           <div className="bg-white p-5 rounded-md mt-5">
-            {fromData.variants && fromData.variants.map((variant: any, index: number) => (
+            {fromData.variant_payload && fromData.variant_payload.map((variant: any, index: number) => (
               <VariantSection
                 key={index}
                 productConfig={productConfig}

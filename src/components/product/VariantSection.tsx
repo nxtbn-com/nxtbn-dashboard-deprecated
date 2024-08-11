@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { NXAlertCircle, NXDelete } from "../../icons";
 import SelectStyled from "../Select";
-import enumChoice, { makeColorEnumFriendly } from "../../enum";
+import enumChoice, { makeColorEnumFriendly, getEnumItem, getColorEnumItem } from "../../enum";
 
 import { InputField } from "../../components/common";
 
@@ -179,16 +179,18 @@ const VariantSection: React.FC<VariantSectionProps> = ({
               customStyles={style}
               options={enumChoice.weightUnits}
               onChange={(value: any, actionMeta: any) => onSingleChange('weight_unit', value.value)}
+              defaultValue={getEnumItem(enumChoice.weightUnits, variant?.weight_unit)}
             />
           </div>
           <div className="w-full">
             <label htmlFor="profit">Value</label>
-            <input
+            <InputField
               onChange={onChangeHandler}
               id="Value"
               name="weight_value"
               type="number"
               placeholder="--"
+              defaultValue={variant?.weight_value}
               className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] placeholder:text-black border-[2px] border-dashed"
             />
           </div>
@@ -201,16 +203,18 @@ const VariantSection: React.FC<VariantSectionProps> = ({
             customStyles={style}
             options={makeColorEnumFriendly(colors)}
             onChange={colorNameSelect}
+            defaultValue={getColorEnumItem(colors, variant?.color_code)}
           />
         </div>
         <div className="w-full flex flex-col justify-start gap-3">
           <label htmlFor="color">Color</label>
-          <input
+          <InputField
             id="color"
             type="color"
             name='color_code'
             value={selectedColor}
             onChange={onChangeHandler}
+            defaultValue={variant?.color_code}
             style={{height:50, width:"100%", borderRadius: 10}}
           />
         </div>

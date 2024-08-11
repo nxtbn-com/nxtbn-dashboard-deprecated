@@ -145,7 +145,6 @@ function EditProduct() {
   };
   
 
-
   return (
     <section className="px-10 py-5">
       {/* top action button */}

@@ -186,7 +186,7 @@ function EditProduct() {
                 type="text"
                 id="product_name"
                 name="name"
-                defaultValue={fromData.name}
+                defaultValue={fromData.name || ''}
                 onChange={onChangeHandler}
                 placeholder="Type your product name"
                 className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] border-[2px] border-dashed"
@@ -198,7 +198,7 @@ function EditProduct() {
                 type="text"
                 id="summary"
                 name="summary"
-                defaultValue={fromData.summary}
+                defaultValue={fromData.summary || ''}
                 onChange={onChangeHandler}
                 placeholder="Type product summary"
                 className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] border-[2px] border-dashed"
@@ -365,19 +365,19 @@ function EditProduct() {
             </div>
 
             <div className="flex items-center gap-3 my-5">
-              <input disabled={true} checked={productConfig.charge_tax}  onChange={handleProductConfig} type="checkbox" name="charge_tax" />
+              <input disabled={true} checked={productConfig.charge_tax || false}  onChange={handleProductConfig} type="checkbox" name="charge_tax" />
               <label className="font-nunito">Charge tax</label>
             </div>
             <div className="flex items-center gap-3 my-5">
-            <input disabled={true} checked={productConfig.physical_product}  onChange={handleProductConfig} type="checkbox" name="physical_product" />
+            <input disabled={true} checked={productConfig.physical_product || false}  onChange={handleProductConfig} type="checkbox" name="physical_product" />
               <label className="font-nunito">Physical Product</label>
             </div>
             <div className="flex items-center gap-3 my-5">
-            <input disabled={true} checked={productConfig.track_stock}  onChange={handleProductConfig} type="checkbox" name="track_stock" />
+            <input disabled={true} checked={productConfig.track_stock || false}  onChange={handleProductConfig} type="checkbox" name="track_stock" />
               <label className="font-nunito">Track Stock</label>
             </div>
             <div className="flex items-center gap-3 my-5">
-            <input disabled={true} checked={productConfig.has_variant}  onChange={handleProductConfig} type="checkbox" name="has_variant" />
+            <input disabled={true} checked={productConfig.has_variant || false}  onChange={handleProductConfig} type="checkbox" name="has_variant" />
               <label className="font-nunito">Has Variant</label>
             </div>
           </div>

@@ -87,7 +87,7 @@ function CollectionModal({ isOpen, onClose, onSubmit, edit }: CollectionModalPro
             id="name"
             name='name'
             errorData={errorData}
-            value={formData.name}
+            defaultValue={formData.name}
             onChange={handleChange}
             className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           />
@@ -113,7 +113,7 @@ function CollectionModal({ isOpen, onClose, onSubmit, edit }: CollectionModalPro
             id="name"
             name='description'
             errorData={errorData}
-            value={formData.description}
+            defaultValue={formData.description}
             onChange={handleChange}
             className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           />

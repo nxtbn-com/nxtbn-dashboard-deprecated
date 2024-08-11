@@ -106,7 +106,7 @@ const VariantSection: React.FC<VariantSectionProps> = ({
             name="price"
             id="price"
             type="text"
-            value={variant?.price}
+            defaultValue={variant?.price}
             placeholder="$0.00"
             className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] placeholder:text-black border-[2px] border-dashed"
           />
@@ -212,7 +212,6 @@ const VariantSection: React.FC<VariantSectionProps> = ({
             id="color"
             type="color"
             name='color_code'
-            value={selectedColor}
             onChange={onChangeHandler}
             defaultValue={variant?.color_code}
             style={{height:50, width:"100%", borderRadius: 10}}

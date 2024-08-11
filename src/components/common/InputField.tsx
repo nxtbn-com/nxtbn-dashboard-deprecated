@@ -7,11 +7,13 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 
 const InputField: React.FC<InputProps> = ({ className, errorData, name, ...props }) => {
   const errorMessages = name && errorData && errorData[name] ? errorData[name] : [];
+  // const safeValue = value ?? ""
   return (
     <div>
       <input
         {...props}
         name={name}
+        // value={safeValue}
         className={`${className ? className : 'block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'} ${errorMessages.length > 0 ? 'border-red-500' : ''}`}
       />
       {errorMessages.length > 0 && (

@@ -21,6 +21,7 @@ const processProductResponse = (productResponse: any) => {
   const processedResponse = {
     ...productResponse,
     images: productResponse.images.map((image: any) => image.id),
+    variants_payload: productResponse.variants
   };
   return processedResponse;
 };
@@ -40,17 +41,17 @@ function EditProduct() {
   const [fromData, setFormData] = useState<any>({});
   const [imageList, setImageList] = useState<any[]>([]);
   const [productConfig, setProductConfig] = useState<any>({});
-  const [variantSection, setVariantSection] = useState<number>(1);
   const [errorData, setErrorData] = useState<any>({});
 
 
   const handleProductUpdate = (event: FormEvent) => {
     event.preventDefault()
-    api.updateProduct(id, fromData).then((response) => {
-      toast.success("Product updated Successfully!")
-    }).catch((error) => {
-      toast.error("Product updated is failed!")
-    })
+    console.log(fromData.variants_payload)
+    // api.updateProduct(id, fromData).then((response) => {
+    //   toast.success("Product updated Successfully!")
+    // }).catch((error) => {
+    //   toast.error("Product updated is failed!")
+    // })
   };
 
   const handleProductConfig = (event: ChangeEvent<HTMLInputElement>) => {
@@ -66,8 +67,20 @@ function EditProduct() {
 
   const addNewVariant = (event: any) => {
     event.preventDefault();
-    setVariantSection(prevVariantSection => prevVariantSection + 1);
-  }
+  
+    setFormData((prevFormData: any) => {
+      const updatedVariants = [
+        ...(prevFormData.variants_payload || []),
+        {}
+      ];
+  
+      return {
+        ...prevFormData,
+        variants_payload: updatedVariants,
+      };
+    });
+  };
+  
 
   const fetchData = () => {
     Promise.all([
@@ -107,7 +120,6 @@ function EditProduct() {
   const deleteVariant = (event: any) => {
     alert('delete')
     event.preventDefault();
-    setVariantSection(prevVariantSection => prevVariantSection - 1);
   };
 
   const onImageChange = (field: string, data: any) => {
@@ -145,7 +157,6 @@ function EditProduct() {
   };
   
 
-
   return (
     <section className="px-10 py-5">
       {/* top action button */}
@@ -176,7 +187,7 @@ function EditProduct() {
                 type="text"
                 id="product_name"
                 name="name"
-                defaultValue={fromData.name}
+                defaultValue={fromData.name || ''}
                 onChange={onChangeHandler}
                 placeholder="Type your product name"
                 className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] border-[2px] border-dashed"
@@ -188,7 +199,7 @@ function EditProduct() {
                 type="text"
                 id="summary"
                 name="summary"
-                defaultValue={fromData.summary}
+                defaultValue={fromData.summary || ''}
                 onChange={onChangeHandler}
                 placeholder="Type product summary"
                 className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] border-[2px] border-dashed"
@@ -232,7 +243,7 @@ function EditProduct() {
           {/* tax class end */}
 
           <div className="bg-white p-5 rounded-md mt-5">
-            {fromData.variants && fromData.variants.map((variant: any, index: number) => (
+            {fromData.variants_payload && fromData.variants_payload.map((variant: any, index: number) => (
               <VariantSection
                 key={index}
                 productConfig={productConfig}
@@ -355,19 +366,19 @@ function EditProduct() {
             </div>
 
             <div className="flex items-center gap-3 my-5">
-              <input disabled={true} checked={productConfig.charge_tax}  onChange={handleProductConfig} type="checkbox" name="charge_tax" />
+              <input disabled={true} checked={productConfig.charge_tax || false}  onChange={handleProductConfig} type="checkbox" name="charge_tax" />
               <label className="font-nunito">Charge tax</label>
             </div>
             <div className="flex items-center gap-3 my-5">
-            <input disabled={true} checked={productConfig.physical_product}  onChange={handleProductConfig} type="checkbox" name="physical_product" />
+            <input disabled={true} checked={productConfig.physical_product || false}  onChange={handleProductConfig} type="checkbox" name="physical_product" />
               <label className="font-nunito">Physical Product</label>
             </div>
             <div className="flex items-center gap-3 my-5">
-            <input disabled={true} checked={productConfig.track_stock}  onChange={handleProductConfig} type="checkbox" name="track_stock" />
+            <input disabled={true} checked={productConfig.track_stock || false}  onChange={handleProductConfig} type="checkbox" name="track_stock" />
               <label className="font-nunito">Track Stock</label>
             </div>
             <div className="flex items-center gap-3 my-5">
-            <input disabled={true} checked={productConfig.has_variant}  onChange={handleProductConfig} type="checkbox" name="has_variant" />
+            <input disabled={true} checked={productConfig.has_variant || false}  onChange={handleProductConfig} type="checkbox" name="has_variant" />
               <label className="font-nunito">Has Variant</label>
             </div>
           </div>

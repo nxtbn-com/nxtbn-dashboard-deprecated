@@ -64,17 +64,40 @@ function makeColorEnumFriendly(data: any[]): Option[] {
   }));
 };
 
-const getEnumItem = <T extends { id: string | number, name: string }>(arr: T[], val: string | number): { value: string, label: string } | undefined => {
-  const foundItem = arr?.find(({ id }) => id === val);
+const getColorEnumItem = (arr: any[], val: string): { value: string, label: string } | undefined => {
+  const foundItem = arr?.find(item => item.code === val);
+
   if (foundItem) {
-    const obj = {
-      value: String(foundItem.id), // Ensure value is a string
+    return {
+      value: foundItem.code,
       label: foundItem.name
     };
-    return obj
   }
+
   return undefined;
 };
+
+
+
+const getEnumItem = <T extends { id?: string | number, value?: string | number, name?: string, label?: string }>(
+  arr: T[],
+  val: string | number
+): { value: string, label: string } | undefined => {
+  const foundItem = arr?.find(item => item.id === val || item.value === val);
+
+  if (foundItem) {
+    const obj = {
+      value: String(foundItem.id ?? foundItem.value), // Use id if present, otherwise use value
+      label: foundItem.name ?? foundItem.label ?? "" // Use name if present, otherwise use label, or default to empty string
+    };
+    return obj;
+  }
+
+  return undefined;
+};
+
+
+
 
 const transformSingleEnum = (data: any) => {
   return {
@@ -93,6 +116,6 @@ const getEnumList = <T extends { value: string | number }>(baseArr: T[], arr: (s
 
 
 
-export { makeCategoryEnumFriendly, makeEnumFriendly, getEnumItem, getEnumList, transformSingleEnum, makeColorEnumFriendly };
+export { makeCategoryEnumFriendly, makeEnumFriendly, getEnumItem, getEnumList, transformSingleEnum, makeColorEnumFriendly, getColorEnumItem };
 
 export default enumChoice;

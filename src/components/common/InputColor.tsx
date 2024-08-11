@@ -5,24 +5,24 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   errorData?: Record<string, string[]>; // errorData as an object with string arrays
 }
 
-const InputColor: React.FC<InputProps> = ({ errorData, name, id, value, onChange }) => {
+const InputColor: React.FC<InputProps> = ({ errorData, name, id, defaultValue, onChange }) => {
   const errorMessages = name && errorData && errorData[name] ? errorData[name] : [];
 
   // Ensure value is a string
-  const colorValue = typeof value === 'string' ? value : '';
+  const colorValue = typeof defaultValue === 'string' ? defaultValue : '';
   return (
     <>
         <input
             type="color"
             id={id}
             name={name}
-            value={value}
+            defaultValue={defaultValue}
             onChange={onChange}
             className="w-12 h-12 border-none rounded-md shadow-sm cursor-pointer"
         />
         <input
             type="text"
-            value={value}
+            defaultValue={defaultValue}
             onChange={onChange}
             name={name}
             className="flex-grow px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"

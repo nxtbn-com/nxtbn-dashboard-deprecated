@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { NXAlertCircle, NXDelete } from "../../icons";
 import SelectStyled from "../Select";
-import enumChoice, { makeColorEnumFriendly } from "../../enum";
+import enumChoice, { makeColorEnumFriendly, getEnumItem, getColorEnumItem } from "../../enum";
 
 import { InputField } from "../../components/common";
 
@@ -27,7 +27,7 @@ const VariantSection: React.FC<VariantSectionProps> = ({
   variant,
 }) => {
   const [metaSection, setMetaSection] = useState<number>(0);
-  const [variantDate, setVariantDate] = useState<any>({});
+  const [variantData, setVariantData] = useState<any>({});
 
   // check if variantly completely missing
   const isVariantMissingError = errorData?.variants_payload && Array.isArray(errorData?.variants_payload) && typeof errorData?.variants_payload[0] === 'string';
@@ -46,13 +46,13 @@ const VariantSection: React.FC<VariantSectionProps> = ({
   }
 
   const onChangeHandler = (e: any) => {
-    setVariantDate({...variantDate, [e.target.name]: e.target.value})
-    onChange({...variantDate, [e.target.name]: e.target.value}, serial - 1)
+    // setVariantData({...variantData, [e.target.name]: e.target.value})
+    onChange({...variant, [e.target.name]: e.target.value}, serial - 1)
   };
 
   const onSingleChange = (name: string, value:any) => {
-    setVariantDate({...variantDate, [name]: value})
-    onChange({...variantDate, [name]: value}, serial - 1)
+    // setVariantData({...variantData, [name]: value})
+    onChange({...variant, [name]: value}, serial - 1)
   };
 
 
@@ -106,7 +106,7 @@ const VariantSection: React.FC<VariantSectionProps> = ({
             name="price"
             id="price"
             type="text"
-            value={variant?.price}
+            defaultValue={variant?.price}
             placeholder="$0.00"
             className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] placeholder:text-black border-[2px] border-dashed"
           />
@@ -179,16 +179,18 @@ const VariantSection: React.FC<VariantSectionProps> = ({
               customStyles={style}
               options={enumChoice.weightUnits}
               onChange={(value: any, actionMeta: any) => onSingleChange('weight_unit', value.value)}
+              defaultValue={getEnumItem(enumChoice.weightUnits, variant?.weight_unit)}
             />
           </div>
           <div className="w-full">
             <label htmlFor="profit">Value</label>
-            <input
+            <InputField
               onChange={onChangeHandler}
               id="Value"
               name="weight_value"
               type="number"
               placeholder="--"
+              defaultValue={variant?.weight_value}
               className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] placeholder:text-black border-[2px] border-dashed"
             />
           </div>
@@ -201,16 +203,17 @@ const VariantSection: React.FC<VariantSectionProps> = ({
             customStyles={style}
             options={makeColorEnumFriendly(colors)}
             onChange={colorNameSelect}
+            defaultValue={getColorEnumItem(colors, variant?.color_code)}
           />
         </div>
         <div className="w-full flex flex-col justify-start gap-3">
           <label htmlFor="color">Color</label>
-          <input
+          <InputField
             id="color"
             type="color"
             name='color_code'
-            value={selectedColor}
             onChange={onChangeHandler}
+            defaultValue={variant?.color_code}
             style={{height:50, width:"100%", borderRadius: 10}}
           />
         </div>

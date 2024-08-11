@@ -40,7 +40,7 @@ const SEO = ({ seoData, onChange }: SEOTypes) => {
               type="text"
               name="meta_title"
               placeholder="Page Title"
-              value={seoData?.meta_title}
+              defaultValue={seoData?.meta_title}
               onChange={onChangeValue}
               className="w-full px-5 py-3 placeholder:text-gray-400 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] border-[2px] border-dashed"
             />
@@ -52,7 +52,7 @@ const SEO = ({ seoData, onChange }: SEOTypes) => {
               type="text"
               name="meta_description"
               placeholder="Meta Description"
-              value={seoData?.meta_description}
+              defaultValue={seoData?.meta_description}
               onChange={onChangeValue}
               className="w-full px-5 py-3 placeholder:text-gray-400 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] border-[2px] border-dashed"
             />
@@ -67,7 +67,7 @@ const SEO = ({ seoData, onChange }: SEOTypes) => {
                 id="url"
                 type="text"
                 name="slug"
-                value={seoData?.slug}
+                defaultValue={seoData?.slug}
                 onChange={onChangeValue}
                 className="w-full ring-0 outline-none border-none focus:ring-0 focus:border-none focus:outline-none"
               /> 

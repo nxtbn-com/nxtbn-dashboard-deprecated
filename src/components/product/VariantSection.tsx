@@ -27,7 +27,7 @@ const VariantSection: React.FC<VariantSectionProps> = ({
   variant,
 }) => {
   const [metaSection, setMetaSection] = useState<number>(0);
-  const [variantDate, setVariantDate] = useState<any>({});
+  const [variantData, setVariantData] = useState<any>({});
 
   // check if variantly completely missing
   const isVariantMissingError = errorData?.variants_payload && Array.isArray(errorData?.variants_payload) && typeof errorData?.variants_payload[0] === 'string';
@@ -46,13 +46,13 @@ const VariantSection: React.FC<VariantSectionProps> = ({
   }
 
   const onChangeHandler = (e: any) => {
-    setVariantDate({...variantDate, [e.target.name]: e.target.value})
-    onChange({...variantDate, [e.target.name]: e.target.value}, serial - 1)
+    // setVariantData({...variantData, [e.target.name]: e.target.value})
+    onChange({...variant, [e.target.name]: e.target.value}, serial - 1)
   };
 
   const onSingleChange = (name: string, value:any) => {
-    setVariantDate({...variantDate, [name]: value})
-    onChange({...variantDate, [name]: value}, serial - 1)
+    // setVariantData({...variantData, [name]: value})
+    onChange({...variant, [name]: value}, serial - 1)
   };
 
 

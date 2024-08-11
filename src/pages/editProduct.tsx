@@ -46,12 +46,12 @@ function EditProduct() {
 
   const handleProductUpdate = (event: FormEvent) => {
     event.preventDefault()
-    console.log(fromData.variants_payload)
-    // api.updateProduct(id, fromData).then((response) => {
-    //   toast.success("Product updated Successfully!")
-    // }).catch((error) => {
-    //   toast.error("Product updated is failed!")
-    // })
+    // console.log(fromData.variants_payload)
+    api.updateProduct(id, fromData).then((response) => {
+      toast.success("Product updated Successfully!")
+    }).catch((error) => {
+      toast.error("Product updated is failed!")
+    })
   };
 
   const handleProductConfig = (event: ChangeEvent<HTMLInputElement>) => {

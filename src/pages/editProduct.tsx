@@ -20,7 +20,7 @@ import { toast } from 'react-toastify';
 const processProductResponse = (productResponse: any) => {
   const processedResponse = {
     ...productResponse,
-    images: productResponse.images.map((image: any) => image.id),
+    images: productResponse.images_details.map((image: any) => image.id),
     variants_payload: productResponse.variants
   };
   return processedResponse;
@@ -117,9 +117,24 @@ function EditProduct() {
     fetchData();
   }, []);
 
-  const deleteVariant = (event: any) => {
+  const deleteVariant = (event: any, id: any, serial: any) => {
     event.preventDefault();
+  
+    if (id) {
+      toast.error("You can't delete this variant");
+    } else {
+      setFormData((prevFormData: any) => {
+        const updatedVariants = [...(prevFormData.variants_payload || [])];
+        updatedVariants.splice(serial, 1);
+        return {
+          ...prevFormData,
+          variants_payload: updatedVariants,
+        };
+      });
+      toast.success("Variant deleted successfully");
+    }
   };
+  
 
   const onImageChange = (field: string, data: any) => {
     const imageIds = data.map((image: any) => image.id);

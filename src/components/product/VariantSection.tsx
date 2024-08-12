@@ -70,7 +70,7 @@ const VariantSection: React.FC<VariantSectionProps> = ({
     <div className={`p-5 border-[1px] border-solid rounded-md relative ${isVariantMissingError ? 'border-red-500' : 'border-base-200'}`}>
 
       {productConfig.has_variant && (
-        <button onClick={deleteVariant}  className={`absolute top-3 right-3 bg-red-500 px-2 py-2 rounded`}> <NXDelete className="text-white" /> </button>
+        <button onClick={(e) => deleteVariant(e, variant?.id || false, serial)}  className={`absolute top-3 right-3 bg-red-500 px-2 py-2 rounded`}> <NXDelete className="text-white" /> </button>
       )}
       
       <div className="flex items-center gap-3">

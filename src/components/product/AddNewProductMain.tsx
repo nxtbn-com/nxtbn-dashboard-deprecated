@@ -34,7 +34,9 @@ function AddNewProductMain() {
 
 
 
-  const [fromData, setFormData] = useState<any>({});
+  const [fromData, setFormData] = useState<any>({
+    variants_payload: [{}]
+  });
   const [productConfig, setProductConfig] = useState<any>({});
   const [variantSection, setVariantSection] = useState<number>(1);
 
@@ -47,8 +49,6 @@ function AddNewProductMain() {
       setErrorData(error.response.data);
     })
   };
-
-  console.log(fromData, '==formData');
 
   const handleProductConfig = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, checked, type, value } = event.target;
@@ -63,8 +63,19 @@ function AddNewProductMain() {
 
   const addNewVariant = (event: any) => {
     event.preventDefault();
-    setVariantSection(prevVariantSection => prevVariantSection + 1);
-  }
+  
+    setFormData((prevFormData: any) => {
+      const updatedVariants = [
+        ...(prevFormData.variants_payload || []),
+        {}
+      ];
+  
+      return {
+        ...prevFormData,
+        variants_payload: updatedVariants,
+      };
+    });
+  };
 
   const fetchData = () => {
     api.getRecursiveCategories().then((response) => {
@@ -95,9 +106,18 @@ function AddNewProductMain() {
     fetchData();
   }, []);
 
-  const deleteVariant = (event: any) => {
+  const deleteVariant = async (event: any, id: any, serial: any) => {
     event.preventDefault();
-    setVariantSection(prevVariantSection => prevVariantSection - 1);
+      setFormData((prevFormData: any) => {
+        const updatedVariants = [...(prevFormData.variants_payload || [])];
+        updatedVariants.splice(serial - 1, 1); // Adjusted for potential off-by-one error
+        return {
+          ...prevFormData,
+          variants_payload: updatedVariants,
+        };
+      });
+      toast.success("Variant deleted successfully");
+    
   };
 
 
@@ -238,7 +258,7 @@ function AddNewProductMain() {
           {/* tax class end */}
 
           <div className="bg-white p-5 rounded-md mt-5">
-            {Array.from({ length: variantSection }, (_, index) => (
+          {fromData.variants_payload && fromData.variants_payload.map((variant: any, index: number) => (
               <VariantSection
                 key={index}
                 productConfig={productConfig}

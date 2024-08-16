@@ -48,9 +48,12 @@ const VariantSection: React.FC<VariantSectionProps> = ({
   }
 
   const onChangeHandler = (e: any) => {
-    // setVariantData({...variantData, [e.target.name]: e.target.value})
     onChange({...variant, [e.target.name]: e.target.value}, serial - 1)
   };
+
+  const onWeightValueChange = (e: any) => {
+    onChange({...variant, [e.target.name]: e.target.value, 'weight_unit': productConfig.weight_unit}, serial - 1)
+  }
 
   const onSingleChange = (name: string, value:any) => {
     // setVariantData({...variantData, [name]: value})
@@ -183,19 +186,10 @@ const VariantSection: React.FC<VariantSectionProps> = ({
       <div className="flex items-center gap-5 mt-5">
         {productConfig.physical_product && (
           <>
-          <div className="w-full flex flex-col gap-3">
-            <label htmlFor="profit">Weight</label>
-            <SelectStyled
-              customStyles={style}
-              options={enumChoice.weightUnits}
-              onChange={(value: any, actionMeta: any) => onSingleChange('weight_unit', value.value)}
-              defaultValue={getEnumItem(enumChoice.weightUnits, variant?.weight_unit)}
-            />
-          </div>
           <div className="w-full">
-            <label htmlFor="profit">Value</label>
+            <label htmlFor="profit">{getEnumItem(enumChoice.weightUnits, productConfig?.weight_unit)?.label}</label>
             <InputField
-              onChange={onChangeHandler}
+              onChange={onWeightValueChange}
               id="Value"
               name="weight_value"
               type="number"
@@ -223,7 +217,7 @@ const VariantSection: React.FC<VariantSectionProps> = ({
             type="color"
             name='color_code'
             onChange={onChangeHandler}
-            value={variant?.color_code || "#b00c0c"}
+            value={variant?.color_code || "#151414"}
             style={{height:50, width:"100%", borderRadius: 10}}
           />
         </div>

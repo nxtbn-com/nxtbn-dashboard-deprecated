@@ -83,6 +83,11 @@ const getEnumItem = <T extends { id?: string | number, value?: string | number, 
   arr: T[],
   val: string | number
 ): { value: string, label: string } | undefined => {
+
+  if (val === undefined) {
+    // If val is undefined, return undefined
+    return undefined;
+  }
   const foundItem = arr?.find(item => item.id === val || item.value === val);
 
   if (foundItem) {

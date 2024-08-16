@@ -43,6 +43,8 @@ const useApi = () => {
         getCollectionById: (id, params = {}) => interceptor.get(`/product/dashboard/api/collections/${id}/`, {params: params}),
         updateCollection: (id, data, params = {}) => interceptor.put(`/product/dashboard/api/collections/${id}/`, data, {params: params}),
 
+        deleteVariant: (id, params = {}) => interceptor.delete(`/product/dashboard/api/variants/${id}/`, {params: params}),
+
 
         // file manager
         postImage: (data, params = {}) => {

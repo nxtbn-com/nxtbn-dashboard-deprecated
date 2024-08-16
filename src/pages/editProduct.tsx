@@ -11,6 +11,7 @@ import VariantSection from "../components/product/VariantSection";
 import { ImageField } from "../components/images";
 import EditorField from "../components/editor/EditorJS";
 import SEO from "../components/seo/SEO";
+import { useDeleteConfirmation } from "../components/common";
 
 
 
@@ -31,6 +32,7 @@ const processProductResponse = (productResponse: any) => {
 function EditProduct() {
   const api = useApi();
   const { id } = useParams();
+  const { handleDelete } = useDeleteConfirmation();
 
   // fetched data
   const [categories, setCategories] = useState<any[]>([]);
@@ -117,11 +119,21 @@ function EditProduct() {
     fetchData();
   }, []);
 
-  const deleteVariant = (event: any, id: any, serial: any) => {
+  const deleteVariant = async (event: any, id: any, serial: any) => {
     event.preventDefault();
   
     if (id) {
-      toast.error("You can't delete this variant");
+      const hasDeleted = await handleDelete(id, 'Variant', api.deleteVariant, fetchData);
+      if (hasDeleted) {
+        setFormData((prevFormData: any) => {
+          const updatedVariants = [...(prevFormData.variants_payload || [])];
+          updatedVariants.splice(serial - 1, 1); // Adjusted for potential off-by-one error
+          return {
+            ...prevFormData,
+            variants_payload: updatedVariants,
+          };
+        });
+      }
     } else {
       setFormData((prevFormData: any) => {
         const updatedVariants = [...(prevFormData.variants_payload || [])];

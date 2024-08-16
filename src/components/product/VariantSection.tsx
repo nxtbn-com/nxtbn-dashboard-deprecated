@@ -10,6 +10,7 @@ interface VariantSectionProps {
   serial: number;
   colors: any[];
   deleteVariant: any;
+  markAsDefault?: any;
   onChange: any;
   errorData?: any;
   name?: string;
@@ -21,6 +22,7 @@ const VariantSection: React.FC<VariantSectionProps> = ({
   serial,
   colors,
   deleteVariant,
+  markAsDefault,
   errorData,
   onChange,
   name,
@@ -77,9 +79,13 @@ const VariantSection: React.FC<VariantSectionProps> = ({
         <h1 className="font-nunito font-[900] text-2xl">{productConfig.has_variant ? `Variant - ${serial}` : `Info`}</h1>
         <NXAlertCircle className="text-base-300" />
 
-        {variant?.is_default_variant && <span className="bg-green-100 text-green-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full">
+        {productConfig.has_variant && variant?.is_default_variant && <span className="bg-green-100 text-green-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full">
           Default Variant
-        </span>} 
+        </span>
+        }
+
+        {productConfig.has_variant && !variant?.is_default_variant && 
+        <button onClick={(e) => markAsDefault(e, variant?.id || false, serial)} className="nline-flex justify-center rounded-md border border-transparent px-4 py-2 bg-primary-600 text-base font-medium text-white shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm">Mark as Default</button>}
       </div>
 
       {isVariantMissingError ? <p className="text-red-500">* Product Information Required</p>  : ''}

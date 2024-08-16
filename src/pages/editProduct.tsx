@@ -149,6 +149,21 @@ function EditProduct() {
     }
   };
   
+  const markAsDefault = (event: any, id: any, serial: any) => {
+    event.preventDefault();
+  
+    setFormData((prevFormData: any) => {
+      const updatedVariants = [...(prevFormData.variants_payload || [])];
+      updatedVariants.forEach((variant: any) => {
+        variant.is_default_variant = false;
+      });
+      updatedVariants[serial - 1].is_default_variant = true;
+      return {
+        ...prevFormData,
+        variants_payload: updatedVariants,
+      };
+    });
+  }
 
   const onImageChange = (field: string, data: any) => {
     const imageIds = data.map((image: any) => image.id);
@@ -279,6 +294,7 @@ function EditProduct() {
                 serial={index + 1}
                 colors={colors}
                 deleteVariant={deleteVariant}
+                markAsDefault={markAsDefault}
                 name='variants_payload'
                 variant={variant}
               />

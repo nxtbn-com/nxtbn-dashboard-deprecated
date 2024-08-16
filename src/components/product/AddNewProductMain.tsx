@@ -48,6 +48,8 @@ function AddNewProductMain() {
     })
   };
 
+  console.log(fromData, '==formData');
+
   const handleProductConfig = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, checked, type, value } = event.target;
     const inputValue = type === 'checkbox' ? checked : value;
@@ -136,6 +138,22 @@ function AddNewProductMain() {
 
     setProductConfig(ProductType.find((item: any) => item.id === value));
   };
+
+  const markAsDefault = (event: any, id: any, serial: any) => {
+    event.preventDefault();
+  
+    setFormData((prevFormData: any) => {
+      const updatedVariants = [...(prevFormData.variants_payload || [])];
+      updatedVariants.forEach((variant: any) => {
+        variant.is_default_variant = false;
+      });
+      updatedVariants[serial - 1].is_default_variant = true;
+      return {
+        ...prevFormData,
+        variants_payload: updatedVariants,
+      };
+    });
+  }
 
   return (
     <PageBodyWrapper bgClass="">
@@ -228,6 +246,7 @@ function AddNewProductMain() {
                 serial={index + 1}
                 colors={colors}
                 deleteVariant={deleteVariant}
+                markAsDefault={markAsDefault}
                 errorData={errorData}
                 name='variants_payload'
               />

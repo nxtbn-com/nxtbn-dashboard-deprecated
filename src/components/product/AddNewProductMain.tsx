@@ -35,7 +35,7 @@ function AddNewProductMain() {
 
 
   const [fromData, setFormData] = useState<any>({
-    variants_payload: [{}]
+    variants_payload: [{is_default_variant: false}]
   });
   const [productConfig, setProductConfig] = useState<any>({});
   const [variantSection, setVariantSection] = useState<number>(1);
@@ -67,7 +67,7 @@ function AddNewProductMain() {
     setFormData((prevFormData: any) => {
       const updatedVariants = [
         ...(prevFormData.variants_payload || []),
-        {}
+        {is_default_variant: false}
       ];
   
       return {
@@ -269,6 +269,7 @@ function AddNewProductMain() {
                 markAsDefault={markAsDefault}
                 errorData={errorData}
                 name='variants_payload'
+                variant={variant}
               />
            ))}
 

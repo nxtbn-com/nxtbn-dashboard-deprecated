@@ -76,6 +76,10 @@ const VariantSection: React.FC<VariantSectionProps> = ({
       <div className="flex items-center gap-3">
         <h1 className="font-nunito font-[900] text-2xl">{productConfig.has_variant ? `Variant - ${serial}` : `Info`}</h1>
         <NXAlertCircle className="text-base-300" />
+
+        {variant?.is_default_variant && <span className="bg-green-100 text-green-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full">
+          Default Variant
+        </span>} 
       </div>
 
       {isVariantMissingError ? <p className="text-red-500">* Product Information Required</p>  : ''}

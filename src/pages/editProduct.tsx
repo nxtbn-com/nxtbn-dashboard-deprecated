@@ -119,11 +119,13 @@ function EditProduct() {
     fetchData();
   }, []);
 
+  const dummyCB = () => {};
+
   const deleteVariant = async (event: any, id: any, serial: any) => {
     event.preventDefault();
   
     if (id) {
-      const hasDeleted = await handleDelete(id, 'Variant', api.deleteVariant, fetchData);
+      const hasDeleted = await handleDelete(id, 'Variant', api.deleteVariant, dummyCB);
       if (hasDeleted) {
         setFormData((prevFormData: any) => {
           const updatedVariants = [...(prevFormData.variants_payload || [])];

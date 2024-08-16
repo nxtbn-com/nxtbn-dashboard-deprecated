@@ -35,10 +35,9 @@ function AddNewProductMain() {
 
 
   const [fromData, setFormData] = useState<any>({
-    variants_payload: [{is_default_variant: false}]
+    variants_payload: [{is_default_variant: true}]
   });
   const [productConfig, setProductConfig] = useState<any>({});
-  const [variantSection, setVariantSection] = useState<number>(1);
 
   const handleProductCreate = (event: FormEvent) => {
     event.preventDefault()

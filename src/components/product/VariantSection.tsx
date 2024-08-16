@@ -223,7 +223,7 @@ const VariantSection: React.FC<VariantSectionProps> = ({
             type="color"
             name='color_code'
             onChange={onChangeHandler}
-            defaultValue={variant?.color_code}
+            value={variant?.color_code || "#b00c0c"}
             style={{height:50, width:"100%", borderRadius: 10}}
           />
         </div>

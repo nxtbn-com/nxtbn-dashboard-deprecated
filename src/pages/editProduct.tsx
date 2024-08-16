@@ -125,7 +125,7 @@ function EditProduct() {
     } else {
       setFormData((prevFormData: any) => {
         const updatedVariants = [...(prevFormData.variants_payload || [])];
-        updatedVariants.splice(serial, 1);
+        updatedVariants.splice(serial - 1, 1); // Adjusted for potential off-by-one error
         return {
           ...prevFormData,
           variants_payload: updatedVariants,

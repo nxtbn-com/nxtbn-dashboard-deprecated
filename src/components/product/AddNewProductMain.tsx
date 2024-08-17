@@ -105,8 +105,14 @@ function AddNewProductMain() {
     fetchData();
   }, []);
 
-  const deleteVariant = async (event: any, id: any, serial: any) => {
+  const deleteVariant = async (event: any, id: any, serial: any, is_default_variant:boolean) => {
     event.preventDefault();
+
+    if (is_default_variant) {
+      toast.error("Default variant can not be deleted");
+      return;
+    }
+
       setFormData((prevFormData: any) => {
         const updatedVariants = [...(prevFormData.variants_payload || [])];
         updatedVariants.splice(serial - 1, 1); // Adjusted for potential off-by-one error

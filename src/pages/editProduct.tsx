@@ -121,8 +121,13 @@ function EditProduct() {
 
   const dummyCB = () => {};
 
-  const deleteVariant = async (event: any, id: any, serial: any) => {
+  const deleteVariant = async (event: any, id: any, serial: any, is_default_variant:boolean) => {
     event.preventDefault();
+
+    if (is_default_variant) {
+      toast.error("Default variant cannot be deleted");
+      return;
+    }
   
     if (id) {
       const hasDeleted = await handleDelete(id, 'Variant', api.deleteVariant, dummyCB);

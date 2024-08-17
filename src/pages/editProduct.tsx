@@ -11,6 +11,7 @@ import VariantSection from "../components/product/VariantSection";
 import { ImageField } from "../components/images";
 import EditorField from "../components/editor/EditorJS";
 import SEO from "../components/seo/SEO";
+import { useDeleteConfirmation } from "../components/common";
 
 
 
@@ -20,8 +21,9 @@ import { toast } from 'react-toastify';
 const processProductResponse = (productResponse: any) => {
   const processedResponse = {
     ...productResponse,
-    images: productResponse.images.map((image: any) => image.id),
-    variants_payload: productResponse.variants
+    images: productResponse.images_details.map((image: any) => image.id),
+    variants_payload: productResponse.variants,
+    variant_to_delete: [],
   };
   return processedResponse;
 };
@@ -31,6 +33,7 @@ const processProductResponse = (productResponse: any) => {
 function EditProduct() {
   const api = useApi();
   const { id } = useParams();
+  const { handleDelete } = useDeleteConfirmation();
 
   // fetched data
   const [categories, setCategories] = useState<any[]>([]);
@@ -46,12 +49,12 @@ function EditProduct() {
 
   const handleProductUpdate = (event: FormEvent) => {
     event.preventDefault()
-    console.log(fromData.variants_payload)
-    // api.updateProduct(id, fromData).then((response) => {
-    //   toast.success("Product updated Successfully!")
-    // }).catch((error) => {
-    //   toast.error("Product updated is failed!")
-    // })
+    // console.log(fromData.variants_payload)
+    api.updateProduct(id, fromData).then((response) => {
+      toast.success("Product updated Successfully!")
+    }).catch((error) => {
+      toast.error("Product updated is failed!")
+    })
   };
 
   const handleProductConfig = (event: ChangeEvent<HTMLInputElement>) => {
@@ -71,7 +74,7 @@ function EditProduct() {
     setFormData((prevFormData: any) => {
       const updatedVariants = [
         ...(prevFormData.variants_payload || []),
-        {}
+        {is_default_variant: false,}
       ];
   
       return {
@@ -105,7 +108,7 @@ function EditProduct() {
       setFormData(processedProductResponse);
       setProductConfig(processedProductResponse.product_type_details)
 
-      const imagesArray = productData.images.map((image: any) => ({ id: image.id, image: image.image }));
+      const imagesArray = productData.images_details.map((image: any) => ({ id: image.id, image: image.image }));
       setImageList(imagesArray);
     })
     .catch((error) => {
@@ -117,10 +120,50 @@ function EditProduct() {
     fetchData();
   }, []);
 
-  const deleteVariant = (event: any) => {
-    alert('delete')
+  const deleteVariant = async (event: any, id: any, serial: any, is_default_variant: boolean) => {
     event.preventDefault();
+
+    if (is_default_variant) {
+      toast.error("Default variant cannot be deleted");
+      return;
+    }
+  
+    setFormData((prevFormData: any) => {
+      const updatedVariants = [...(prevFormData.variants_payload || [])];
+      updatedVariants.splice(serial - 1, 1); // Adjusted for potential off-by-one error
+
+      if (id) {
+        return {
+          ...prevFormData,
+          variants_payload: updatedVariants,
+          variant_to_delete: [...prevFormData.variant_to_delete, id], // Add the id to variant_to_delete
+        };
+      } else {
+        return {
+          ...prevFormData,
+          variants_payload: updatedVariants,
+        };
+      }
+    });
+
+    toast.success("Variant deleted successfully");
   };
+  
+  const markAsDefault = (event: any, id: any, serial: any) => {
+    event.preventDefault();
+  
+    setFormData((prevFormData: any) => {
+      const updatedVariants = [...(prevFormData.variants_payload || [])];
+      updatedVariants.forEach((variant: any) => {
+        variant.is_default_variant = false;
+      });
+      updatedVariants[serial - 1].is_default_variant = true;
+      return {
+        ...prevFormData,
+        variants_payload: updatedVariants,
+      };
+    });
+  }
 
   const onImageChange = (field: string, data: any) => {
     const imageIds = data.map((image: any) => image.id);
@@ -245,12 +288,13 @@ function EditProduct() {
           <div className="bg-white p-5 rounded-md mt-5">
             {fromData.variants_payload && fromData.variants_payload.map((variant: any, index: number) => (
               <VariantSection
-                key={index}
+                key={variant.id || index}
                 productConfig={productConfig}
                 onChange={onVariantChange}
                 serial={index + 1}
                 colors={colors}
                 deleteVariant={deleteVariant}
+                markAsDefault={markAsDefault}
                 name='variants_payload'
                 variant={variant}
               />

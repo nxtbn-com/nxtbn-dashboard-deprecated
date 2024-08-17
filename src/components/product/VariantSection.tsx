@@ -10,6 +10,7 @@ interface VariantSectionProps {
   serial: number;
   colors: any[];
   deleteVariant: any;
+  markAsDefault?: any;
   onChange: any;
   errorData?: any;
   name?: string;
@@ -21,6 +22,7 @@ const VariantSection: React.FC<VariantSectionProps> = ({
   serial,
   colors,
   deleteVariant,
+  markAsDefault,
   errorData,
   onChange,
   name,
@@ -46,9 +48,12 @@ const VariantSection: React.FC<VariantSectionProps> = ({
   }
 
   const onChangeHandler = (e: any) => {
-    // setVariantData({...variantData, [e.target.name]: e.target.value})
     onChange({...variant, [e.target.name]: e.target.value}, serial - 1)
   };
+
+  const onWeightValueChange = (e: any) => {
+    onChange({...variant, [e.target.name]: e.target.value, 'weight_unit': productConfig.weight_unit}, serial - 1)
+  }
 
   const onSingleChange = (name: string, value:any) => {
     // setVariantData({...variantData, [name]: value})
@@ -70,12 +75,20 @@ const VariantSection: React.FC<VariantSectionProps> = ({
     <div className={`p-5 border-[1px] border-solid rounded-md relative ${isVariantMissingError ? 'border-red-500' : 'border-base-200'}`}>
 
       {productConfig.has_variant && (
-        <button onClick={deleteVariant}  className={`absolute top-3 right-3 bg-red-500 px-2 py-2 rounded`}> <NXDelete className="text-white" /> </button>
+        <button onClick={(e) => deleteVariant(e, variant?.id || false, serial, variant?.is_default_variant)}  className={`absolute top-3 right-3 bg-red-500 px-2 py-2 rounded`}> <NXDelete className="text-white" /> </button>
       )}
       
       <div className="flex items-center gap-3">
         <h1 className="font-nunito font-[900] text-2xl">{productConfig.has_variant ? `Variant - ${serial}` : `Info`}</h1>
         <NXAlertCircle className="text-base-300" />
+
+        {productConfig.has_variant && variant?.is_default_variant && <span className="bg-green-100 text-green-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full">
+          Default Variant
+        </span>
+        }
+
+        {productConfig.has_variant && !variant?.is_default_variant && 
+        <button onClick={(e) => markAsDefault(e, variant?.id || false, serial)} className="nline-flex justify-center rounded-md border border-transparent px-4 py-2 bg-primary-600 text-base font-medium text-white shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm">Mark as Default</button>}
       </div>
 
       {isVariantMissingError ? <p className="text-red-500">* Product Information Required</p>  : ''}
@@ -112,21 +125,6 @@ const VariantSection: React.FC<VariantSectionProps> = ({
           />
         </div>
         <div className="w-full">
-          <label htmlFor="sku-price">SKU</label>
-          <InputField
-            errorData={errorData?.variants_payload ? errorData?.variants_payload[serial - 1] : {}}
-            onChange={onChangeHandler}
-            id="sku-price"
-            name="sku"
-            type="text"
-            defaultValue={variant?.sku}
-            placeholder="SKU01"
-            className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] placeholder:text-black border-[2px] border-dashed"
-          />
-        </div>
-      </div>
-      <div className="flex items-center gap-5 mt-5">
-        <div className="w-full">
           <label htmlFor="cost_per_item">Cost per item</label>
           <InputField
             errorData={errorData?.variants_payload ? errorData?.variants_payload[serial - 1] : {}}
@@ -140,19 +138,34 @@ const VariantSection: React.FC<VariantSectionProps> = ({
           />
         </div>
         <div className="w-full">
-          <label htmlFor="profit">Profit</label>
+          <label htmlFor="profit">Margin</label>
           <InputField
-            errorData={errorData?.variants_payload ? errorData?.variants_payload[serial - 1] : {}}
-            onChange={onChangeHandler}
+            // errorData={errorData?.variants_payload ? errorData?.variants_payload[serial - 1] : {}}
+            // onChange={onChangeHandler}
+            disabled
             id="profit"
             name="profit"
             type="text"
-            defaultValue={variant?.profit}
+            value={variant?.price - variant?.cost_per_unit || ''}
             placeholder="--"
             className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] placeholder:text-black border-[2px] border-dashed"
           />
         </div>
-
+      </div>
+      <div className="flex items-center gap-5 mt-5">
+        <div className="w-full">
+          <label htmlFor="sku-price">SKU</label>
+          <InputField
+            errorData={errorData?.variants_payload ? errorData?.variants_payload[serial - 1] : {}}
+            onChange={onChangeHandler}
+            id="sku-price"
+            name="sku"
+            type="text"
+            defaultValue={variant?.sku}
+            placeholder="SKU01"
+            className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] placeholder:text-black border-[2px] border-dashed"
+          />
+        </div>
         {productConfig.track_stock && (
           <div className="w-full">
             <label htmlFor="Stock">Stock</label>
@@ -173,19 +186,10 @@ const VariantSection: React.FC<VariantSectionProps> = ({
       <div className="flex items-center gap-5 mt-5">
         {productConfig.physical_product && (
           <>
-          <div className="w-full flex flex-col gap-3">
-            <label htmlFor="profit">Weight</label>
-            <SelectStyled
-              customStyles={style}
-              options={enumChoice.weightUnits}
-              onChange={(value: any, actionMeta: any) => onSingleChange('weight_unit', value.value)}
-              defaultValue={getEnumItem(enumChoice.weightUnits, variant?.weight_unit)}
-            />
-          </div>
           <div className="w-full">
-            <label htmlFor="profit">Value</label>
+            <label htmlFor="profit">{getEnumItem(enumChoice.weightUnits, productConfig?.weight_unit)?.label}</label>
             <InputField
-              onChange={onChangeHandler}
+              onChange={onWeightValueChange}
               id="Value"
               name="weight_value"
               type="number"
@@ -213,7 +217,7 @@ const VariantSection: React.FC<VariantSectionProps> = ({
             type="color"
             name='color_code'
             onChange={onChangeHandler}
-            defaultValue={variant?.color_code}
+            value={variant?.color_code || "#151414"}
             style={{height:50, width:"100%", borderRadius: 10}}
           />
         </div>

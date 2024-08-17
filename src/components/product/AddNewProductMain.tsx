@@ -34,9 +34,10 @@ function AddNewProductMain() {
 
 
 
-  const [fromData, setFormData] = useState<any>({});
+  const [fromData, setFormData] = useState<any>({
+    variants_payload: [{is_default_variant: true}]
+  });
   const [productConfig, setProductConfig] = useState<any>({});
-  const [variantSection, setVariantSection] = useState<number>(1);
 
   const handleProductCreate = (event: FormEvent) => {
     event.preventDefault()
@@ -61,8 +62,19 @@ function AddNewProductMain() {
 
   const addNewVariant = (event: any) => {
     event.preventDefault();
-    setVariantSection(prevVariantSection => prevVariantSection + 1);
-  }
+  
+    setFormData((prevFormData: any) => {
+      const updatedVariants = [
+        ...(prevFormData.variants_payload || []),
+        {is_default_variant: false}
+      ];
+  
+      return {
+        ...prevFormData,
+        variants_payload: updatedVariants,
+      };
+    });
+  };
 
   const fetchData = () => {
     api.getRecursiveCategories().then((response) => {
@@ -93,9 +105,24 @@ function AddNewProductMain() {
     fetchData();
   }, []);
 
-  const deleteVariant = (event: any) => {
+  const deleteVariant = async (event: any, id: any, serial: any, is_default_variant:boolean) => {
     event.preventDefault();
-    setVariantSection(prevVariantSection => prevVariantSection - 1);
+
+    if (is_default_variant) {
+      toast.error("Default variant can not be deleted");
+      return;
+    }
+
+      setFormData((prevFormData: any) => {
+        const updatedVariants = [...(prevFormData.variants_payload || [])];
+        updatedVariants.splice(serial - 1, 1); // Adjusted for potential off-by-one error
+        return {
+          ...prevFormData,
+          variants_payload: updatedVariants,
+        };
+      });
+      toast.success("Variant deleted successfully");
+    
   };
 
 
@@ -136,6 +163,22 @@ function AddNewProductMain() {
 
     setProductConfig(ProductType.find((item: any) => item.id === value));
   };
+
+  const markAsDefault = (event: any, id: any, serial: any) => {
+    event.preventDefault();
+  
+    setFormData((prevFormData: any) => {
+      const updatedVariants = [...(prevFormData.variants_payload || [])];
+      updatedVariants.forEach((variant: any) => {
+        variant.is_default_variant = false;
+      });
+      updatedVariants[serial - 1].is_default_variant = true;
+      return {
+        ...prevFormData,
+        variants_payload: updatedVariants,
+      };
+    });
+  }
 
   return (
     <PageBodyWrapper bgClass="">
@@ -220,7 +263,7 @@ function AddNewProductMain() {
           {/* tax class end */}
 
           <div className="bg-white p-5 rounded-md mt-5">
-            {Array.from({ length: variantSection }, (_, index) => (
+          {fromData.variants_payload && fromData.variants_payload.map((variant: any, index: number) => (
               <VariantSection
                 key={index}
                 productConfig={productConfig}
@@ -228,8 +271,10 @@ function AddNewProductMain() {
                 serial={index + 1}
                 colors={colors}
                 deleteVariant={deleteVariant}
+                markAsDefault={markAsDefault}
                 errorData={errorData}
                 name='variants_payload'
+                variant={variant}
               />
            ))}
 
@@ -345,19 +390,19 @@ function AddNewProductMain() {
             </div>
 
             <div className="flex items-center gap-3 my-5">
-              <input disabled={true} checked={productConfig.charge_tax} onChange={handleProductConfig} type="checkbox" name="charge_tax" />
+              <input disabled={true} checked={productConfig.charge_tax || false} onChange={handleProductConfig} type="checkbox" name="charge_tax" />
               <label className="font-nunito">Charge tax</label>
             </div>
             <div className="flex items-center gap-3 my-5">
-            <input disabled={true} checked={productConfig.physical_product} onChange={handleProductConfig} type="checkbox" name="physical_product" />
+            <input disabled={true} checked={productConfig.physical_product || false} onChange={handleProductConfig} type="checkbox" name="physical_product" />
               <label className="font-nunito">Physical Product</label>
             </div>
             <div className="flex items-center gap-3 my-5">
-            <input disabled={true} checked={productConfig.track_stock} onChange={handleProductConfig} type="checkbox" name="track_stock" />
+            <input disabled={true} checked={productConfig.track_stock || false} onChange={handleProductConfig} type="checkbox" name="track_stock" />
               <label className="font-nunito">Track Stock</label>
             </div>
             <div className="flex items-center gap-3 my-5">
-            <input disabled={true} checked={productConfig.has_variant} onChange={handleProductConfig} type="checkbox" name="has_variant" />
+            <input disabled={true} checked={productConfig.has_variant || false} onChange={handleProductConfig} type="checkbox" name="has_variant" />
               <label className="font-nunito">Has Variant</label>
             </div>
           </div>

@@ -5,6 +5,8 @@ import NxtbnModal from '../../components/Modal';
 import useApi from "../../api";
 import { NXForm, InputField, InputColor } from "../../components/common";
 import { handleRetriveError } from "../../utils";
+import SelectStyled from "../../components/Select";
+import enumChoice, { makeColorEnumFriendly, getEnumItem, getColorEnumItem } from "../../enum";
 
 
 interface ProductTypeModalProps {
@@ -51,6 +53,13 @@ function ProductTypeModal({ isOpen, onClose, onSubmit, edit }: ProductTypeModalP
       [e.target.name]: e.target.value
     });
   };
+
+  const onSingleChange = (name: string, value: any) => {
+    setFormData({
+      ...formData,
+      [name]: value
+    });
+  }
 
   const handleCheckboxChange = (e: any) => {
     setFormData({
@@ -100,7 +109,7 @@ function ProductTypeModal({ isOpen, onClose, onSubmit, edit }: ProductTypeModalP
                   <span className="text-[12px] text-base-300">Indicates whether this product type is subject to taxation</span>
                 </div>
                 <label className="inline-flex items-center me-5 cursor-pointer">
-                  <input  onChange={handleCheckboxChange} name="taxable" type="checkbox" checked={formData.taxable}  className="sr-only peer" />
+                  <input  onChange={handleCheckboxChange} name="taxable" type="checkbox" checked={formData.taxable || false}  className="sr-only peer" />
                   <div className="relative w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-green-300  peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-600"></div>
                 </label>
               </div>
@@ -110,7 +119,7 @@ function ProductTypeModal({ isOpen, onClose, onSubmit, edit }: ProductTypeModalP
                   <span className="text-[12px] text-base-300">Select if this product type represents tangible, shippable items</span>
                 </div>
                 <label className="inline-flex items-center me-5 cursor-pointer">
-                  <input  onChange={handleCheckboxChange} name="physical_product" type="checkbox" checked={formData.physical_product}   className="sr-only peer" />
+                  <input  onChange={handleCheckboxChange} name="physical_product" type="checkbox" checked={formData.physical_product || false}   className="sr-only peer" />
                   <div className="relative w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-green-300  peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-600"></div>
                 </label>
               </div>
@@ -120,7 +129,7 @@ function ProductTypeModal({ isOpen, onClose, onSubmit, edit }: ProductTypeModalP
                   <span className="text-[12px] text-base-300">Enable inventory management for this product type</span>
                 </div>
                 <label className="inline-flex items-center me-5 cursor-pointer">
-                  <input  onChange={handleCheckboxChange} name="track_stock" type="checkbox" checked={formData.track_stock}   className="sr-only peer" />
+                  <input  onChange={handleCheckboxChange} name="track_stock" type="checkbox" checked={formData.track_stock || false}   className="sr-only peer" />
                   <div className="relative w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-green-300  peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-600"></div>
                 </label>
               </div>
@@ -130,10 +139,23 @@ function ProductTypeModal({ isOpen, onClose, onSubmit, edit }: ProductTypeModalP
                   <span className="text-[12px] text-base-300">Allow multiple variations of this product type (e.g., sizes, colors)</span>
                 </div>
                 <label className="inline-flex items-center me-5 cursor-pointer">
-                  <input  onChange={handleCheckboxChange} name="has_variant" type="checkbox" checked={formData.has_variant}  className="sr-only peer" />
+                  <input  onChange={handleCheckboxChange} name="has_variant" type="checkbox" checked={formData.has_variant || false}  className="sr-only peer" />
                   <div className="relative w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-green-300  peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-600"></div>
                 </label>
               </div>
+              {formData.physical_product && (
+                <div className="flex justify-between">
+                <label htmlFor="profit">Weight Unit</label>
+                <SelectStyled
+                  // customStyles={style}
+                  options={enumChoice.weightUnits}
+                  onChange={(value: any, actionMeta: any) => onSingleChange('weight_unit', value.value)}
+                  defaultValue={getEnumItem(enumChoice.weightUnits, formData?.weight_unit)}
+                />
+                </div>
+              )}
+              
+
           </div>
         </div>
 

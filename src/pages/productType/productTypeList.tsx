@@ -150,6 +150,7 @@ function ProductTypeTable() {
                                     </td>
                                     <td className="py-3 px-2 text-center">
                                        {boolIndicator(row.physical_product)}
+                                       <span>{row.weight_unit}</span>
                                     </td>
                                     <td className="py-3 px-2 text-center">
                                        {boolIndicator(row.track_stock)}

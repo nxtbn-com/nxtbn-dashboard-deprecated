@@ -125,21 +125,6 @@ const VariantSection: React.FC<VariantSectionProps> = ({
           />
         </div>
         <div className="w-full">
-          <label htmlFor="sku-price">SKU</label>
-          <InputField
-            errorData={errorData?.variants_payload ? errorData?.variants_payload[serial - 1] : {}}
-            onChange={onChangeHandler}
-            id="sku-price"
-            name="sku"
-            type="text"
-            defaultValue={variant?.sku}
-            placeholder="SKU01"
-            className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] placeholder:text-black border-[2px] border-dashed"
-          />
-        </div>
-      </div>
-      <div className="flex items-center gap-5 mt-5">
-        <div className="w-full">
           <label htmlFor="cost_per_item">Cost per item</label>
           <InputField
             errorData={errorData?.variants_payload ? errorData?.variants_payload[serial - 1] : {}}
@@ -153,19 +138,34 @@ const VariantSection: React.FC<VariantSectionProps> = ({
           />
         </div>
         <div className="w-full">
-          <label htmlFor="profit">Profit</label>
+          <label htmlFor="profit">Margin</label>
           <InputField
-            errorData={errorData?.variants_payload ? errorData?.variants_payload[serial - 1] : {}}
-            onChange={onChangeHandler}
+            // errorData={errorData?.variants_payload ? errorData?.variants_payload[serial - 1] : {}}
+            // onChange={onChangeHandler}
+            disabled
             id="profit"
             name="profit"
             type="text"
-            defaultValue={variant?.profit}
+            value={variant?.price - variant?.cost_per_unit || ''}
             placeholder="--"
             className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] placeholder:text-black border-[2px] border-dashed"
           />
         </div>
-
+      </div>
+      <div className="flex items-center gap-5 mt-5">
+        <div className="w-full">
+          <label htmlFor="sku-price">SKU</label>
+          <InputField
+            errorData={errorData?.variants_payload ? errorData?.variants_payload[serial - 1] : {}}
+            onChange={onChangeHandler}
+            id="sku-price"
+            name="sku"
+            type="text"
+            defaultValue={variant?.sku}
+            placeholder="SKU01"
+            className="w-full px-5 py-3 bg-secondary-50 mt-3 rounded-xl font-nunito outline-[#0CAF60] placeholder:text-black border-[2px] border-dashed"
+          />
+        </div>
         {productConfig.track_stock && (
           <div className="w-full">
             <label htmlFor="Stock">Stock</label>

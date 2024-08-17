@@ -288,7 +288,7 @@ function EditProduct() {
           <div className="bg-white p-5 rounded-md mt-5">
             {fromData.variants_payload && fromData.variants_payload.map((variant: any, index: number) => (
               <VariantSection
-                key={index}
+                key={variant.id || index}
                 productConfig={productConfig}
                 onChange={onVariantChange}
                 serial={index + 1}

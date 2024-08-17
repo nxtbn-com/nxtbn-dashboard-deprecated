@@ -1,6 +1,8 @@
 import { ChangeEvent, useEffect, useState, FormEvent } from "react";
 import { useParams } from 'react-router-dom';
 
+import ProductControl from '../components/product/productControl';
+
 import { NXAlertCircle, NXPlus } from "../icons";
 import "../components/product/select-hide.css";
 import SelectStyled from "../components/Select";
@@ -402,30 +404,11 @@ function EditProduct() {
               </div>
             </div>
           </div>
-
+6
           {/* Product Control */}
-          <div className=" bg-white p-5 rounded-md mt-5">
-            <div>
-              <h1 className="font-nunito font-[900] text-2xl">Product Control</h1>
-            </div>
+          <ProductControl productConfig={productConfig} />
+          {/* Product Control End */}
 
-            <div className="flex items-center gap-3 my-5">
-              <input disabled={true} checked={productConfig.charge_tax || false}  onChange={handleProductConfig} type="checkbox" name="charge_tax" />
-              <label className="font-nunito">Charge tax</label>
-            </div>
-            <div className="flex items-center gap-3 my-5">
-            <input disabled={true} checked={productConfig.physical_product || false}  onChange={handleProductConfig} type="checkbox" name="physical_product" />
-              <label className="font-nunito">Physical Product</label>
-            </div>
-            <div className="flex items-center gap-3 my-5">
-            <input disabled={true} checked={productConfig.track_stock || false}  onChange={handleProductConfig} type="checkbox" name="track_stock" />
-              <label className="font-nunito">Track Stock</label>
-            </div>
-            <div className="flex items-center gap-3 my-5">
-            <input disabled={true} checked={productConfig.has_variant || false}  onChange={handleProductConfig} type="checkbox" name="has_variant" />
-              <label className="font-nunito">Has Variant</label>
-            </div>
-          </div>
 
         </div>
 

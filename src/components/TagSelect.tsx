@@ -1,6 +1,8 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useRef } from "react";
 import Select, { ActionMeta, MultiValue, SingleValue } from "react-select";
 import useApi from "../api";
+import enumChoice, { makeTagEnumFriendly } from "../enum";
+import debounce from "lodash/debounce";
 
 interface Option {
   value: string;
@@ -14,12 +16,7 @@ interface TagSelectProps {
 }
 
 const TagSelect: React.FC<TagSelectProps> = ({ errorData, name, isMulti, ...rest }) => {
-  const [options, setOptions] = useState<Option[]>([
-    { value: "chocolate", label: "Chocolate" },
-    { value: "strawberry", label: "Strawberry" },
-    { value: "vanilla", label: "Vanilla" },
-  ]);
-
+  const [options, setOptions] = useState<Option[]>([]);
   const [selectedTags, setSelectedTags] = useState<Option[]>([]);
   const [inputValue, setInputValue] = useState<string>("");
 
@@ -29,11 +26,9 @@ const TagSelect: React.FC<TagSelectProps> = ({ errorData, name, isMulti, ...rest
   const handleChange = useCallback(
     (newValue: MultiValue<Option> | SingleValue<Option>, actionMeta: ActionMeta<Option>) => {
       if (isMulti) {
-        // Handle multi-select case
         const selectedOptions = newValue as MultiValue<Option>;
         setSelectedTags(Array.isArray(selectedOptions) ? selectedOptions : []);
       } else {
-        // Handle single-select case
         const selectedOption = newValue as SingleValue<Option>;
         setSelectedTags(selectedOption ? [selectedOption] : []);
       }
@@ -41,10 +36,21 @@ const TagSelect: React.FC<TagSelectProps> = ({ errorData, name, isMulti, ...rest
     [isMulti]
   );
 
+  const fetchTagsWithDebounce = useRef(debounce((search: string) => {
+    api.getProductTags({ search }).then((tags: any) => {
+      setOptions(makeTagEnumFriendly(tags));
+    }).catch((error) => {
+      console.error("Failed to fetch tags", error);
+    });
+  }, 3000)).current;
+
   // Handle input changes
   const handleInputChange = useCallback((input: string) => {
     setInputValue(input);
-  }, []);
+    if (input.length > 2) {
+      fetchTagsWithDebounce(input);
+    }
+  }, [api]);
 
   // Handle keyDown events for tag creation
   const handleKeyDown = useCallback(

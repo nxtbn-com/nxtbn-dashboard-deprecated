@@ -10,3 +10,4 @@ declare module '@editorjs/embed';
 declare module '@editorjs/table';
 declare module '@editorjs/link';
 declare module '@editorjs/marker';
+declare module 'lodash/debounce';

@@ -57,6 +57,13 @@ function makeEnumFriendly(data: any[]): Option[] {
   }));
 };
 
+function makeTagEnumFriendly(data: any[]): Option[] {
+  return data.map(item => ({
+      value: item.name,
+      label: item.name
+  }));
+};
+
 function makeColorEnumFriendly(data: any[]): Option[] {
   return data.map(item => ({
       value: item.code,
@@ -121,6 +128,6 @@ const getEnumList = <T extends { value: string | number }>(baseArr: T[], arr: (s
 
 
 
-export { makeCategoryEnumFriendly, makeEnumFriendly, getEnumItem, getEnumList, transformSingleEnum, makeColorEnumFriendly, getColorEnumItem };
+export { makeCategoryEnumFriendly, makeEnumFriendly, getEnumItem, getEnumList, transformSingleEnum, makeColorEnumFriendly, getColorEnumItem, makeTagEnumFriendly };
 
 export default enumChoice;

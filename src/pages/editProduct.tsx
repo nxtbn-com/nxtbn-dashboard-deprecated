@@ -22,7 +22,8 @@ const processProductResponse = (productResponse: any) => {
   const processedResponse = {
     ...productResponse,
     images: productResponse.images_details.map((image: any) => image.id),
-    variants_payload: productResponse.variants
+    variants_payload: productResponse.variants,
+    variant_to_delete: [],
   };
   return processedResponse;
 };
@@ -73,7 +74,7 @@ function EditProduct() {
     setFormData((prevFormData: any) => {
       const updatedVariants = [
         ...(prevFormData.variants_payload || []),
-        {}
+        {is_default_variant: false,}
       ];
   
       return {
@@ -119,9 +120,7 @@ function EditProduct() {
     fetchData();
   }, []);
 
-  const dummyCB = () => {};
-
-  const deleteVariant = async (event: any, id: any, serial: any, is_default_variant:boolean) => {
+  const deleteVariant = async (event: any, id: any, serial: any, is_default_variant: boolean) => {
     event.preventDefault();
 
     if (is_default_variant) {
@@ -129,29 +128,25 @@ function EditProduct() {
       return;
     }
   
-    if (id) {
-      const hasDeleted = await handleDelete(id, 'Variant', api.deleteVariant, dummyCB);
-      if (hasDeleted) {
-        setFormData((prevFormData: any) => {
-          const updatedVariants = [...(prevFormData.variants_payload || [])];
-          updatedVariants.splice(serial - 1, 1); // Adjusted for potential off-by-one error
-          return {
-            ...prevFormData,
-            variants_payload: updatedVariants,
-          };
-        });
-      }
-    } else {
-      setFormData((prevFormData: any) => {
-        const updatedVariants = [...(prevFormData.variants_payload || [])];
-        updatedVariants.splice(serial - 1, 1); // Adjusted for potential off-by-one error
+    setFormData((prevFormData: any) => {
+      const updatedVariants = [...(prevFormData.variants_payload || [])];
+      updatedVariants.splice(serial - 1, 1); // Adjusted for potential off-by-one error
+
+      if (id) {
+        return {
+          ...prevFormData,
+          variants_payload: updatedVariants,
+          variant_to_delete: [...prevFormData.variant_to_delete, id], // Add the id to variant_to_delete
+        };
+      } else {
         return {
           ...prevFormData,
           variants_payload: updatedVariants,
         };
-      });
-      toast.success("Variant deleted successfully");
-    }
+      }
+    });
+
+    toast.success("Variant deleted successfully");
   };
   
   const markAsDefault = (event: any, id: any, serial: any) => {

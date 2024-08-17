@@ -7,6 +7,7 @@ import ProductControl from './productControl';
 import { NXAlertCircle, NXPlus } from "../../icons";
 import "./select-hide.css";
 import SelectStyled from "../Select";
+import TagSelect from "../TagSelect";
 import NestedSelect from "../nestedSelect";
 import useApi from "../../api";
 import enumChoice, { getEnumItem, makeCategoryEnumFriendly, makeEnumFriendly } from "../../enum";
@@ -359,7 +360,11 @@ function AddNewProductMain() {
             <div className="my-5">
               <label htmlFor="tags">Tags</label>
               <div className="pt-3">
-                <SelectStyled errorData={errorData} name='tags' isMulti={true} />
+                <TagSelect
+                  errorData={errorData}
+                  name='tags'
+                  isMulti={true}
+                />
               </div>
             </div>
             <div className="my-5">

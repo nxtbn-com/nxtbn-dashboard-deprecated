@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useRef } from "react";
+import React, { useState, useCallback, useRef, useEffect } from "react";
 import Select, { ActionMeta, MultiValue, SingleValue } from "react-select";
 import useApi from "../api";
 import enumChoice, { makeTagEnumFriendly } from "../enum";
@@ -15,14 +15,22 @@ interface TagSelectProps {
   isMulti?: boolean;
   tagAPI?: any;
   onChange?: (selectedTags: MultiValue<Option> | SingleValue<Option>) => void;
+  defaultValue?: Option[];
 }
 
-const TagSelect: React.FC<TagSelectProps> = ({ errorData, name, isMulti, tagAPI, onChange, ...rest }) => {
+const TagSelect: React.FC<TagSelectProps> = ({ errorData, name, isMulti, tagAPI, onChange, defaultValue, ...rest }) => {
   const [options, setOptions] = useState<Option[]>([]);
-  const [selectedTags, setSelectedTags] = useState<Option[]>([]);
+  const [selectedTags, setSelectedTags] = useState<Option[]>(defaultValue || []);
   const [inputValue, setInputValue] = useState<string>("");
 
   const api = useApi();
+
+  // Sync selectedTags with defaultValue if defaultValue changes
+  useEffect(() => {
+    if (defaultValue) {
+      setSelectedTags(defaultValue);
+    }
+  }, [defaultValue]);
 
   // Handle the addition of new tags
   const handleChange = useCallback(

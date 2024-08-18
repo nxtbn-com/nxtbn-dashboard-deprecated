@@ -9,7 +9,7 @@ import SelectStyled from "../components/Select";
 import NestedSelect from "../components/nestedSelect";
 import TagSelect from "../components/TagSelect";
 import useApi from "../api";
-import { makeCategoryEnumFriendly, makeEnumFriendly, getEnumList, getEnumItem, transformSingleEnum } from "../enum";
+import enumChoice, { makeCategoryEnumFriendly, makeEnumFriendly, makeTagEnumFriendly, getEnumItem, transformSingleEnum } from "../enum";
 import VariantSection from "../components/product/VariantSection";
 import { ImageField } from "../components/images";
 import EditorField from "../components/editor/EditorJS";
@@ -26,6 +26,7 @@ const processProductResponse = (productResponse: any) => {
     ...productResponse,
     images: productResponse.images_details.map((image: any) => image.id),
     variants_payload: productResponse.variants,
+    tags_payload: productResponse.tags.map((tag: any) => tag.name),
     variant_to_delete: [],
   };
   return processedResponse;
@@ -52,7 +53,6 @@ function EditProduct() {
 
   const handleProductUpdate = (event: FormEvent) => {
     event.preventDefault()
-    // console.log(fromData.variants_payload)
     api.updateProduct(id, fromData).then((response) => {
       toast.success("Product updated Successfully!")
     }).catch((error) => {
@@ -407,11 +407,12 @@ function EditProduct() {
                   isMulti={true}
                   tagAPI={api.getProductTags}
                   onChange={(e:any) => handleSingleChange('tags_payload', e.map((tag: any) => tag.value))}
+                  defaultValue={makeTagEnumFriendly(fromData.tags || [])}
                 />
               </div>
             </div>
           </div>
-          
+
           {/* Product Control */}
           <ProductControl productConfig={productConfig} />
           {/* Product Control End */}

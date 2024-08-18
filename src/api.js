@@ -45,6 +45,9 @@ const useApi = () => {
 
         deleteVariant: (id, params = {}) => interceptor.delete(`/product/dashboard/api/variants/${id}/`, {params: params}),
 
+        // order
+        getOrderList: (params = {}) => interceptor.get(`/order/dashboard/api/orders/`, { params: params }),
+
 
         // file manager
         postImage: (data, params = {}) => {

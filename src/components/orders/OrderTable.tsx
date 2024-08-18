@@ -1,4 +1,11 @@
+import React, {useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import moment from 'moment';
+
+import { TextBadge } from "../common";
+
+import useApi from "../../api";
+
 import { NXNarrowArrowUp, NXNarrowArrowUpDown } from "../../icons";
 import "./table.css";
 
@@ -7,7 +14,7 @@ const tableHead = [
     name: "Orders",
   },
   {
-    name: "Date",
+    name: "Date & Time",
   },
   {
     name: "Customer",
@@ -62,6 +69,24 @@ const tableData = [
   },
 ];
 function OrderTable() {
+  const [orders, setOrders] = useState([]);
+
+  const api = useApi();
+
+  const fetchOrders = () => {
+
+    api.getOrderList().then((response: any) => {
+      console.log(response);
+      setOrders(response.results);
+      }, (error) => {
+        console.error(error);
+      }
+      );
+    };
+
+  useEffect(() => {
+    fetchOrders();
+  }, []);
   return (
     <div className="relative overflow-x-auto">
       <table className="min-w-[400px] w-full table-auto text-sm ml:text-base px-3">
@@ -93,7 +118,7 @@ function OrderTable() {
           </tr>
         </thead>
         <tbody>
-          {tableData.map((row, index) => (
+          {orders.map((row: any, index) => (
             <tr className="border-b border-[#EEEFF2] font-semibold" key={index}>
               <td className="text-center py-5">
                 <input
@@ -103,21 +128,21 @@ function OrderTable() {
               </td>
               <td className="text-start py-3 px-2">
                 <Link to={row.id}>
-                  <p>{row.orders}</p>
+                  <p>{row.id}</p>
                   <p className="text-sm font-normal text-base-300 mt-1">
                     #ID{row.id}
                   </p>
                 </Link>
               </td>
-              <td className="py-3 px-2">{row.date}</td>
-              <td className="py-3 px-2">{row.customer}</td>
+              <td className="py-3 px-2">{moment(row.created_at).format('MMMM D, YYYY h:mm A')}</td>
+              <td className="py-3 px-2">{row.user}</td>
               <td className="py-3 px-2">
-                <PaymentButton text={row.payment} />
+                <TextBadge text={row.status} />
               </td>
               <td className="py-3 px-2">
-                <StatusButton text={row.status} />
+                <TextBadge text={row.status} />
               </td>
-              <td className="py-3 px-2">{row.price}</td>
+              <td className="py-3 px-2">${row.total_price}</td>
             </tr>
           ))}
         </tbody>
@@ -127,53 +152,3 @@ function OrderTable() {
 }
 
 export default OrderTable;
-
-const StatusButton = ({ text }: { text: string }) => {
-  // Function to determine the className based on the text
-  const getClassname = (status: string): string => {
-    switch (status.toLowerCase()) {
-      case "cancelled":
-        return "text-[#FD6A6A] bg-[#FFF0F0]";
-      case "unfullfilled":
-        return "text-[#FE964A] bg-[#FFF0E6]";
-      case "completed":
-        return "text-[#0CAF60] bg-[#E7F7EF]";
-      case "shipping":
-        return "text-[#8C62FF] bg-[#F4F0FF]";
-      default:
-        return "";
-    }
-  };
-
-  // Get className based on the text
-  const className = getClassname(text);
-
-  return (
-    <button className={`px-3 py-1 text-sm rounded-md font-normal ${className}`}>
-      {text}
-    </button>
-  );
-};
-
-const PaymentButton = ({ text }: { text: string }) => {
-  // Function to determine the className based on the text
-  const getClassname = (status: string): string => {
-    switch (status.toLowerCase()) {
-      case "unpaid":
-        return "text-[#8C62FF] bg-[#F4F0FF]";
-      case "paid":
-        return "text-[#0CAF60] bg-[#E7F7EF]";
-      default:
-        return "";
-    }
-  };
-
-  // Get className based on the text
-  const className = getClassname(text);
-
-  return (
-    <button className={`px-3 py-1 text-sm rounded-md font-normal ${className}`}>
-      {text}
-    </button>
-  );
-};

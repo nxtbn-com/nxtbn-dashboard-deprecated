@@ -48,6 +48,9 @@ const useApi = () => {
         // order
         getOrderList: (params = {}) => interceptor.get(`/order/dashboard/api/orders/`, { params: params }),
 
+        // analytics
+        getBasicStats: (params = {}) => interceptor.get(`/order/dashboard/api/stats/`, { params: params }),
+
 
         // file manager
         postImage: (data, params = {}) => {

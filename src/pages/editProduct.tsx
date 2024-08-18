@@ -335,41 +335,20 @@ function EditProduct() {
               <h1 className="font-nunito font-[900] text-2xl">Status</h1>
             </div>
             <div className="w-full mt-3">
-              <SelectStyled
-                options={[
-                  { value: "active", label: "Active" },
-                  { value: "inactive", label: "InActive" },
-                ]}
-              />
+              {fromData.status && (
+                <SelectStyled
+                  options={enumChoice.publishableStatus}
+                  name="status"
+                  onChange={(e) => handleSingleChange('status', e.value)}
+                  defaultValue={getEnumItem(enumChoice.publishableStatus, fromData.status)}
+                  // defaultValue={{value: "DRAFT", label: "Draft"}}
+                />
+              )}
+              
               <div className="absolute inset-y-0 right-0 top-10 flex items-center px-2 pointer-events-none"></div>
             </div>
           </div>
           {/* publishing */}
-          <div className=" bg-white p-5 rounded-md mt-5">
-            <div className="flex items-center gap-3">
-              <h1 className="font-nunito font-[900] text-2xl">Publishing</h1>
-              <NXAlertCircle className="text-base-300" />
-            </div>
-            <p className="font-bold mt-7">Sales channels</p>
-
-            <div className="flex gap-2 items-center mt-3">
-              <input type="checkbox" name="" id="sales-channel" />
-              <label htmlFor="sales-channel">Sales channels</label>
-            </div>
-            <div className="flex gap-2 items-start mt-3">
-              <input type="checkbox" name="" id="sales-channel" />
-              <label htmlFor="sales-channel">
-                Point of Sale <br />
-                <span className="text-sm">
-                  Point of Sale has not been set up.
-                </span>
-                <br />
-                <span className="text-sm">
-                  Finish the remaining steps to start selling in person.
-                </span>
-              </label>
-            </div>
-          </div>
           {/* product organization */}
           <div className=" bg-white p-5 rounded-md mt-5">
             <div className="flex items-center gap-3">

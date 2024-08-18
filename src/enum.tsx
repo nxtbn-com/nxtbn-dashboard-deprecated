@@ -32,7 +32,18 @@ const enumChoice = {
       { value: "OZ", label: "Ounce"},
       { value: "LB", label: "Pound"},
       { value: "TON", label: "Ton"}
-    ]
+    ],
+    heightUnits: [
+      { value: "CM", label: "Centimeter"},
+      { value: "M", label: "Meter"},
+      { value: "INCH", label: "Inch"},
+      { value: "FT", label: "Feet"}
+    ],
+    publishableStatus: [
+      {value: "DRAFT", label: "Draft"},
+      { value: "PUBLISHED", label: "Published"},
+      { value: "ARCHIVED", label: "Archived"}
+    ],
 }
   
 

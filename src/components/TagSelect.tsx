@@ -14,9 +14,10 @@ interface TagSelectProps {
   name?: string;
   isMulti?: boolean;
   tagAPI?: any;
+  onChange?: (selectedTags: MultiValue<Option> | SingleValue<Option>) => void;
 }
 
-const TagSelect: React.FC<TagSelectProps> = ({ errorData, name, isMulti, tagAPI, ...rest }) => {
+const TagSelect: React.FC<TagSelectProps> = ({ errorData, name, isMulti, tagAPI, onChange, ...rest }) => {
   const [options, setOptions] = useState<Option[]>([]);
   const [selectedTags, setSelectedTags] = useState<Option[]>([]);
   const [inputValue, setInputValue] = useState<string>("");
@@ -26,15 +27,18 @@ const TagSelect: React.FC<TagSelectProps> = ({ errorData, name, isMulti, tagAPI,
   // Handle the addition of new tags
   const handleChange = useCallback(
     (newValue: MultiValue<Option> | SingleValue<Option>, actionMeta: ActionMeta<Option>) => {
+      let updatedTags: Option[] = [];
       if (isMulti) {
-        const selectedOptions = newValue as MultiValue<Option>;
-        setSelectedTags(Array.isArray(selectedOptions) ? selectedOptions : []);
+        updatedTags = Array.isArray(newValue) ? (newValue as Option[]) : [];
       } else {
-        const selectedOption = newValue as SingleValue<Option>;
-        setSelectedTags(selectedOption ? [selectedOption] : []);
+        updatedTags = newValue ? [newValue as Option] : [];
+      }
+      setSelectedTags(updatedTags);
+      if (onChange) {
+        onChange(updatedTags);
       }
     },
-    [isMulti]
+    [isMulti, onChange]
   );
 
   const fetchTagsWithDebounce = useRef(debounce((search: string) => {
@@ -59,15 +63,20 @@ const TagSelect: React.FC<TagSelectProps> = ({ errorData, name, isMulti, tagAPI,
       if (event.key === "Enter" || event.key === ",") {
         event.preventDefault();
         const newTag = inputValue.trim();
-        if (newTag && !options.some(option => option.value === newTag)) {
+        if (newTag && !options.some((option) => option.value === newTag)) {
           const newOption = { value: newTag, label: newTag };
-          setOptions(prevOptions => [...prevOptions, newOption]);
-          setSelectedTags(prevTags => [...prevTags, newOption]);
+          setOptions((prevOptions) => [...prevOptions, newOption]);
+          const updatedTags = [...selectedTags, newOption];
+          setSelectedTags(updatedTags);
+
+          if (onChange) {
+            onChange(updatedTags);
+          }
         }
         setInputValue(""); // Clear the input field
       }
     },
-    [inputValue, options]
+    [inputValue, options, selectedTags, onChange]
   );
 
   return (

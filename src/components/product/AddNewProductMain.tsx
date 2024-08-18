@@ -152,6 +152,7 @@ function AddNewProductMain() {
   
 
   const handleSingleChange = (name: any, value: any) => {
+    console.log(name, value);
     setFormData((prevFormData: any) => ({
       ...prevFormData,
       [name]: value
@@ -365,6 +366,7 @@ function AddNewProductMain() {
                   name='tags'
                   isMulti={true}
                   tagAPI={api.getProductTags}
+                  onChange={(e:any) => handleSingleChange('tags', e.map((tag: any) => tag.value))}
                 />
               </div>
             </div>

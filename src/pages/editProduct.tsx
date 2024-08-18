@@ -1,12 +1,15 @@
 import { ChangeEvent, useEffect, useState, FormEvent } from "react";
 import { useParams } from 'react-router-dom';
 
+import ProductControl from '../components/product/productControl';
+
 import { NXAlertCircle, NXPlus } from "../icons";
 import "../components/product/select-hide.css";
 import SelectStyled from "../components/Select";
 import NestedSelect from "../components/nestedSelect";
+import TagSelect from "../components/TagSelect";
 import useApi from "../api";
-import { makeCategoryEnumFriendly, makeEnumFriendly, getEnumList, getEnumItem, transformSingleEnum } from "../enum";
+import enumChoice, { makeCategoryEnumFriendly, makeEnumFriendly, makeTagEnumFriendly, getEnumItem, transformSingleEnum } from "../enum";
 import VariantSection from "../components/product/VariantSection";
 import { ImageField } from "../components/images";
 import EditorField from "../components/editor/EditorJS";
@@ -23,6 +26,7 @@ const processProductResponse = (productResponse: any) => {
     ...productResponse,
     images: productResponse.images_details.map((image: any) => image.id),
     variants_payload: productResponse.variants,
+    tags_payload: makeTagEnumFriendly(productResponse.tags),
     variant_to_delete: [],
   };
   return processedResponse;
@@ -49,7 +53,6 @@ function EditProduct() {
 
   const handleProductUpdate = (event: FormEvent) => {
     event.preventDefault()
-    // console.log(fromData.variants_payload)
     api.updateProduct(id, fromData).then((response) => {
       toast.success("Product updated Successfully!")
     }).catch((error) => {
@@ -198,6 +201,13 @@ function EditProduct() {
       [name]: value
     }));
   };
+
+  // const handleTagChange = (name: any, value: any) => {
+  //   setFormData((prevFormData: any) => ({
+  //     ...prevFormData,
+  //     [name]: value
+  //   }));
+  // };
   
 
   return (
@@ -398,34 +408,22 @@ function EditProduct() {
             <div className="my-5">
               <label htmlFor="tags">Tags</label>
               <div className="pt-3">
-                <SelectStyled isMulti={true} />
+                <TagSelect
+                  errorData={errorData}
+                  name='tags_payload'
+                  isMulti={true}
+                  tagAPI={api.getProductTags}
+                  onChange={(e:any) => handleSingleChange('tags_payload', e)}
+                  defaultValue={fromData.tags_payload || []}
+                />
               </div>
             </div>
           </div>
 
           {/* Product Control */}
-          <div className=" bg-white p-5 rounded-md mt-5">
-            <div>
-              <h1 className="font-nunito font-[900] text-2xl">Product Control</h1>
-            </div>
+          <ProductControl productConfig={productConfig} />
+          {/* Product Control End */}
 
-            <div className="flex items-center gap-3 my-5">
-              <input disabled={true} checked={productConfig.charge_tax || false}  onChange={handleProductConfig} type="checkbox" name="charge_tax" />
-              <label className="font-nunito">Charge tax</label>
-            </div>
-            <div className="flex items-center gap-3 my-5">
-            <input disabled={true} checked={productConfig.physical_product || false}  onChange={handleProductConfig} type="checkbox" name="physical_product" />
-              <label className="font-nunito">Physical Product</label>
-            </div>
-            <div className="flex items-center gap-3 my-5">
-            <input disabled={true} checked={productConfig.track_stock || false}  onChange={handleProductConfig} type="checkbox" name="track_stock" />
-              <label className="font-nunito">Track Stock</label>
-            </div>
-            <div className="flex items-center gap-3 my-5">
-            <input disabled={true} checked={productConfig.has_variant || false}  onChange={handleProductConfig} type="checkbox" name="has_variant" />
-              <label className="font-nunito">Has Variant</label>
-            </div>
-          </div>
 
         </div>
 

@@ -1,19 +1,23 @@
 import React, { ChangeEvent, useEffect, useState, FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
+import { handleRetriveError, boolIndicator } from "../../utils";
+import ProductControl from './productControl';
+
 
 import { NXAlertCircle, NXPlus } from "../../icons";
 import "./select-hide.css";
 import SelectStyled from "../Select";
+import TagSelect from "../TagSelect";
 import NestedSelect from "../nestedSelect";
 import useApi from "../../api";
-import { makeCategoryEnumFriendly, makeEnumFriendly } from "../../enum";
+import enumChoice, { getEnumItem, makeCategoryEnumFriendly, makeEnumFriendly } from "../../enum";
 import VariantSection from "./VariantSection";
 import { ImageField } from "../images";
 import { toast } from 'react-toastify';
 import EditorField from "../editor/EditorJS";
 import SEO from "../seo/SEO";
 import PageBodyWrapper from "../../components/PageBodyWrapper";
-import { handleRetriveError } from "../../utils";
+
 
 import { NXForm, InputField } from "../../components/common";
 
@@ -148,6 +152,7 @@ function AddNewProductMain() {
   
 
   const handleSingleChange = (name: any, value: any) => {
+    console.log(name, value);
     setFormData((prevFormData: any) => ({
       ...prevFormData,
       [name]: value
@@ -354,12 +359,6 @@ function AddNewProductMain() {
               </div>
             </div>
             <div className="my-5">
-              <label htmlFor="tags">Tags</label>
-              <div className="pt-3">
-                <SelectStyled errorData={errorData} name='tags' isMulti={true} />
-              </div>
-            </div>
-            <div className="my-5">
               <label htmlFor="tags">Collection</label>
               <div className="pt-3">
                 <SelectStyled
@@ -381,31 +380,23 @@ function AddNewProductMain() {
                 />
               </div>
             </div>
+            <div className="my-5">
+              <label htmlFor="tags">Tags</label>
+              <div className="pt-3">
+                <TagSelect
+                  errorData={errorData}
+                  name='tags_payload'
+                  isMulti={true}
+                  tagAPI={api.getProductTags}
+                  onChange={(e:any) => handleSingleChange('tags_payload', e.map((tag: any) => tag.value))}
+                />
+              </div>
+            </div>
           </div>
 
           {/* Product Control */}
-          <div className=" bg-white p-5 rounded-md mt-5">
-            <div>
-              <h1 className="font-nunito font-[900] text-2xl">Product Control</h1>
-            </div>
-
-            <div className="flex items-center gap-3 my-5">
-              <input disabled={true} checked={productConfig.charge_tax || false} onChange={handleProductConfig} type="checkbox" name="charge_tax" />
-              <label className="font-nunito">Charge tax</label>
-            </div>
-            <div className="flex items-center gap-3 my-5">
-            <input disabled={true} checked={productConfig.physical_product || false} onChange={handleProductConfig} type="checkbox" name="physical_product" />
-              <label className="font-nunito">Physical Product</label>
-            </div>
-            <div className="flex items-center gap-3 my-5">
-            <input disabled={true} checked={productConfig.track_stock || false} onChange={handleProductConfig} type="checkbox" name="track_stock" />
-              <label className="font-nunito">Track Stock</label>
-            </div>
-            <div className="flex items-center gap-3 my-5">
-            <input disabled={true} checked={productConfig.has_variant || false} onChange={handleProductConfig} type="checkbox" name="has_variant" />
-              <label className="font-nunito">Has Variant</label>
-            </div>
-          </div>
+          <ProductControl productConfig={productConfig} />
+          {/* Product Control End */}
 
         </div>
 

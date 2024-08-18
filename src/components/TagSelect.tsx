@@ -13,9 +13,10 @@ interface TagSelectProps {
   errorData?: any;
   name?: string;
   isMulti?: boolean;
+  tagAPI?: any;
 }
 
-const TagSelect: React.FC<TagSelectProps> = ({ errorData, name, isMulti, ...rest }) => {
+const TagSelect: React.FC<TagSelectProps> = ({ errorData, name, isMulti, tagAPI, ...rest }) => {
   const [options, setOptions] = useState<Option[]>([]);
   const [selectedTags, setSelectedTags] = useState<Option[]>([]);
   const [inputValue, setInputValue] = useState<string>("");
@@ -37,9 +38,9 @@ const TagSelect: React.FC<TagSelectProps> = ({ errorData, name, isMulti, ...rest
   );
 
   const fetchTagsWithDebounce = useRef(debounce((search: string) => {
-    api.getProductTags({ search }).then((tags: any) => {
+    tagAPI({ search }).then((tags: any) => {
       setOptions(makeTagEnumFriendly(tags));
-    }).catch((error) => {
+    }).catch((error:any) => {
       console.error("Failed to fetch tags", error);
     });
   }, 3000)).current;

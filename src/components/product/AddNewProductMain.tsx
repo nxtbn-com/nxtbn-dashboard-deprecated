@@ -364,6 +364,7 @@ function AddNewProductMain() {
                   errorData={errorData}
                   name='tags'
                   isMulti={true}
+                  tagAPI={api.getProductTags}
                 />
               </div>
             </div>

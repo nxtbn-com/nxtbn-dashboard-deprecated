@@ -363,10 +363,10 @@ function AddNewProductMain() {
               <div className="pt-3">
                 <TagSelect
                   errorData={errorData}
-                  name='tags'
+                  name='tags_payload'
                   isMulti={true}
                   tagAPI={api.getProductTags}
-                  onChange={(e:any) => handleSingleChange('tags', e.map((tag: any) => tag.value))}
+                  onChange={(e:any) => handleSingleChange('tags_payload', e.map((tag: any) => tag.value))}
                 />
               </div>
             </div>

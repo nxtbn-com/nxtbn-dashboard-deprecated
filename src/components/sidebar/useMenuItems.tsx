@@ -12,15 +12,9 @@ export type MenuItemType = {
 const useMenuItems = () => {
   const [menuItems] = useState<MenuItemType[]>([
     {
-      name: "Dashboard",
+      name: "Home",
       url: "/dashboard",
       icon: <NXDashboard  />,
-    },
-    {
-      name: "Orders",
-      url: "/dashboard/orders",
-      icon: <NXShoppingCart  />,
-      count: 8,
     },
     {
       name: "Catalog",
@@ -53,6 +47,12 @@ const useMenuItems = () => {
       name: "Analytics",
       url: "/dashboard/analytics",
       icon: <NXAnalytics />,
+    },
+    {
+      name: "Orders",
+      url: "/dashboard/orders",
+      icon: <NXShoppingCart  />,
+      count: 8,
     },
     {
       name: "EMV",

@@ -2,7 +2,7 @@ import DashboardMain from "../components/dashboard/DashboardMain";
 
 function Dashboard() {
   return (
-    <DashboardMain />
+    <p>New feed of dashboard</p>
   );
 }
 

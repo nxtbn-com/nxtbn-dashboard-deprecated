@@ -12,6 +12,7 @@ import CategoryTable from "./category/CategoryList";
 import Color from "./color/colorList";
 import ProductTypeTable from "./productType/productTypeList";
 import CollectionTable from "./collection/collectionList";
+import AnalyticsHome from "./analyticsHome";
 
 export {
   Dashboard,
@@ -28,4 +29,5 @@ export {
   Color,
   ProductTypeTable,
   CollectionTable,
+  AnalyticsHome,
 };

@@ -14,6 +14,7 @@ import {
   Color,
   ProductTypeTable,
   CollectionTable,
+  AnalyticsHome,
  } from "./pages";
 
 import {RootLayout, SettingsLayout } from "./layouts";
@@ -65,6 +66,7 @@ function App() {
                     <Route path="password" element={<Password/>}/>
                     <Route path="push-notification" element={<PushNotification/>}/>
                   </Route>
+                  <Route path="analytics" element={<AnalyticsHome/>}/>
                 
               </Route>
             </Route>

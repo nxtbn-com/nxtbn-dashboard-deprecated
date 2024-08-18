@@ -99,6 +99,9 @@ const TagSelect: React.FC<TagSelectProps> = ({ errorData, name, isMulti, tagAPI,
         onKeyDown={handleKeyDown}
         {...rest}
       />
+      <small style={{ marginTop: "8px", display: "block", color: "#6c757d" }}>
+        Use a comma or press Enter to add a new tag.
+      </small>
     </div>
   );
 };

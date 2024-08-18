@@ -5,7 +5,8 @@ import InputField from './InputField';
 import InputColor from './InputColor';
 
 import { SelectOptionType } from "./Select";
+import TextBadge from "./textBadge";
 
 export type { SelectOptionType };
 
-export { Select, useDeleteConfirmation, NXForm, InputField, InputColor };
+export { Select, useDeleteConfirmation, NXForm, InputField, InputColor, TextBadge };

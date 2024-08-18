@@ -26,7 +26,7 @@ const processProductResponse = (productResponse: any) => {
     ...productResponse,
     images: productResponse.images_details.map((image: any) => image.id),
     variants_payload: productResponse.variants,
-    tags_payload: productResponse.tags.map((tag: any) => tag.name),
+    tags_payload: makeTagEnumFriendly(productResponse.tags),
     variant_to_delete: [],
   };
   return processedResponse;
@@ -201,6 +201,13 @@ function EditProduct() {
       [name]: value
     }));
   };
+
+  // const handleTagChange = (name: any, value: any) => {
+  //   setFormData((prevFormData: any) => ({
+  //     ...prevFormData,
+  //     [name]: value
+  //   }));
+  // };
   
 
   return (
@@ -406,8 +413,8 @@ function EditProduct() {
                   name='tags_payload'
                   isMulti={true}
                   tagAPI={api.getProductTags}
-                  onChange={(e:any) => handleSingleChange('tags_payload', e.map((tag: any) => tag.value))}
-                  defaultValue={makeTagEnumFriendly(fromData.tags || [])}
+                  onChange={(e:any) => handleSingleChange('tags_payload', e)}
+                  defaultValue={fromData.tags_payload || []}
                 />
               </div>
             </div>

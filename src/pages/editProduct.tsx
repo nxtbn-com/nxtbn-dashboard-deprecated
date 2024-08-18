@@ -7,6 +7,7 @@ import { NXAlertCircle, NXPlus } from "../icons";
 import "../components/product/select-hide.css";
 import SelectStyled from "../components/Select";
 import NestedSelect from "../components/nestedSelect";
+import TagSelect from "../components/TagSelect";
 import useApi from "../api";
 import { makeCategoryEnumFriendly, makeEnumFriendly, getEnumList, getEnumItem, transformSingleEnum } from "../enum";
 import VariantSection from "../components/product/VariantSection";
@@ -400,11 +401,17 @@ function EditProduct() {
             <div className="my-5">
               <label htmlFor="tags">Tags</label>
               <div className="pt-3">
-                <SelectStyled isMulti={true} />
+                <TagSelect
+                  errorData={errorData}
+                  name='tags_payload'
+                  isMulti={true}
+                  tagAPI={api.getProductTags}
+                  onChange={(e:any) => handleSingleChange('tags_payload', e.map((tag: any) => tag.value))}
+                />
               </div>
             </div>
           </div>
-6
+          
           {/* Product Control */}
           <ProductControl productConfig={productConfig} />
           {/* Product Control End */}

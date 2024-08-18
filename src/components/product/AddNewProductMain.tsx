@@ -359,18 +359,6 @@ function AddNewProductMain() {
               </div>
             </div>
             <div className="my-5">
-              <label htmlFor="tags">Tags</label>
-              <div className="pt-3">
-                <TagSelect
-                  errorData={errorData}
-                  name='tags_payload'
-                  isMulti={true}
-                  tagAPI={api.getProductTags}
-                  onChange={(e:any) => handleSingleChange('tags_payload', e.map((tag: any) => tag.value))}
-                />
-              </div>
-            </div>
-            <div className="my-5">
               <label htmlFor="tags">Collection</label>
               <div className="pt-3">
                 <SelectStyled
@@ -389,6 +377,18 @@ function AddNewProductMain() {
                   options={makeEnumFriendly(ProductType)}
                   onChange={(e) => onProductTypeChange('product_type', e.value)}
                   errorData={errorData}
+                />
+              </div>
+            </div>
+            <div className="my-5">
+              <label htmlFor="tags">Tags</label>
+              <div className="pt-3">
+                <TagSelect
+                  errorData={errorData}
+                  name='tags_payload'
+                  isMulti={true}
+                  tagAPI={api.getProductTags}
+                  onChange={(e:any) => handleSingleChange('tags_payload', e.map((tag: any) => tag.value))}
                 />
               </div>
             </div>

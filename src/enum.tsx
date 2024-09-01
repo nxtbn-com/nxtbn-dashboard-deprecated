@@ -70,8 +70,6 @@ const enumChoice = {
 
 const getEnumLabel = (enumArray: { value: string; label: string }[], value: string): string | undefined => {
   const foundItem = enumArray.find(item => item.value === value);
-  console.log("foundItem", value);
-  console.log("enumArray", enumArray);
   return foundItem ? foundItem.label : undefined;
 };
 

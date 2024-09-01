@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import OrderTable from "./OrderTable";
-import OrderPagination from "./OrderPagination";
 import OrderToolbar from "./OrderToolbar";
 import PageBodyWrapper from "../../components/PageBodyWrapper";
 import useApi from "../../api";
 import enumChoice from "../../enum";
 import { number } from "echarts";
 
+import { Paginator } from "../../components/common";
 interface OrderResponse {
   results: any[]; 
 }
@@ -111,7 +111,7 @@ function OrdersMain() {
       <OrderTable orders={orders?.results || []} />
       </div>
 
-      <OrderPagination onPageChange={onPageChange} data={orders} />
+      <Paginator onPageChange={onPageChange} data={orders} />
     </PageBodyWrapper>
   );
 }

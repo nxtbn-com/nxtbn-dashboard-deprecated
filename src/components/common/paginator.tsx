@@ -1,12 +1,12 @@
 import { FC } from 'react';
 import { NXDownArrow, NXLeftArrow, NXRightArrow } from '../../icons';
 
-interface OrderPaginationProps {
+interface PaginatorProps {
   data: any;
   onPageChange?: (page: number | any) => void;
 }
 
-const OrderPagination: FC<OrderPaginationProps> = ({ data, onPageChange }) => {
+const Paginator: FC<PaginatorProps> = ({ data, onPageChange }) => {
   return (
     <div className="px-10 py-6 flex flex-col justify-center gap-4 ml:flex ml:flex-row ml:items-center ml:justify-between">
       <div className="flex justify-center items-center ml:flex ml:items-center gap-5">
@@ -35,4 +35,4 @@ const OrderPagination: FC<OrderPaginationProps> = ({ data, onPageChange }) => {
   );
 }
 
-export default OrderPagination;
+export default Paginator;

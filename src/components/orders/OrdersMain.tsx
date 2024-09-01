@@ -1,15 +1,21 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import OrderTable from "./OrderTable";
-import OrderPagination from "./OrderPagination";
 import OrderToolbar from "./OrderToolbar";
 import PageBodyWrapper from "../../components/PageBodyWrapper";
 import useApi from "../../api";
 import enumChoice from "../../enum";
+import { number } from "echarts";
+
+import { Paginator } from "../../components/common";
+interface OrderResponse {
+  results: any[]; 
+}
 
 
 function OrdersMain() {
-  const [orders, setOrders] = useState([]);
+  const [orders, setOrders] = useState<OrderResponse | null>(null);
+
   const [searchParams, setSearchParams] = useSearchParams();
 
   const api = useApi();
@@ -33,10 +39,9 @@ function OrdersMain() {
 
   const fetchOrders = () => {
     const queryObject = parseSearchParams(searchParams);
-    console.log("queryObject", queryObject);
     api.getOrderList(queryObject).then(
       (response: any) => {
-        setOrders(response.results);
+        setOrders(response);
       },
       (error) => {
         console.error(error);
@@ -46,7 +51,6 @@ function OrdersMain() {
 
 
   useEffect(() => {
-    console.log("searchParams", searchParams);
     fetchOrders();
   }, [searchParams]);
 
@@ -61,6 +65,15 @@ function OrdersMain() {
 
   const currentPage = searchParams.get("page");
   const currentStatus = searchParams.get("status");
+
+  const onPageChange = (page: number | any) => {
+    if (!page) {
+      return;
+    }
+    const newParams = new URLSearchParams(searchParams);
+    newParams.set("page", page.toString());
+    setSearchParams(newParams);
+  }
 
   return (
     <PageBodyWrapper>
@@ -95,10 +108,10 @@ function OrdersMain() {
 
       <OrderToolbar />
       <div className="px-1">
-        <OrderTable orders={orders} />
+      <OrderTable orders={orders?.results || []} />
       </div>
 
-      <OrderPagination />
+      <Paginator onPageChange={onPageChange} data={orders} />
     </PageBodyWrapper>
   );
 }

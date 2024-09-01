@@ -6,7 +6,8 @@ import InputColor from './InputColor';
 
 import { SelectOptionType } from "./Select";
 import TextBadge from "./textBadge";
+import Paginator from "./paginator";
 
 export type { SelectOptionType };
 
-export { Select, useDeleteConfirmation, NXForm, InputField, InputColor, TextBadge };
+export { Select, useDeleteConfirmation, NXForm, InputField, InputColor, TextBadge, Paginator };

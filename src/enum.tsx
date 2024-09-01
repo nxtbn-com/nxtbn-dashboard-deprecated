@@ -52,9 +52,28 @@ const enumChoice = {
       { value: "CANCELLED", label: "Cancelled" },
       { value: "RETURNED", label: "Returned" }
     ],
-    
+    paymentStatus: [
+      { value: "AUTHORIZED", label: "Authorized" },
+      { value: "CAPTURED", label: "Captured" },
+      { value: "FAILED", label: "Failed" },
+      { value: "REFUNDED", label: "Refunded" },
+      { value: "CANCELED", label: "Canceled" }
+    ],
+    paymentMethods: [
+      { value: "CREDIT_CARD", label: "Credit Card" },
+      { value: "PAYPAL", label: "PayPal" },
+      { value: "BANK_TRANSFER", label: "Bank Transfer" },
+      { value: "CASH_ON_DELIVERY", label: "Cash on Delivery" }
+    ],
 }
-  
+
+
+const getEnumLabel = (enumArray: { value: string; label: string }[], value: string): string | undefined => {
+  const foundItem = enumArray.find(item => item.value === value);
+  console.log("foundItem", value);
+  console.log("enumArray", enumArray);
+  return foundItem ? foundItem.label : undefined;
+};
 
 
 function makeCategoryEnumFriendly(data: CategoryinputOption[]): CategoryOption[] {
@@ -148,6 +167,6 @@ const getEnumList = <T extends { value: string | number }>(baseArr: T[], arr: (s
 
 
 
-export { makeCategoryEnumFriendly, makeEnumFriendly, getEnumItem, getEnumList, transformSingleEnum, makeColorEnumFriendly, getColorEnumItem, makeTagEnumFriendly };
+export { getEnumLabel, makeCategoryEnumFriendly, makeEnumFriendly, getEnumItem, getEnumList, transformSingleEnum, makeColorEnumFriendly, getColorEnumItem, makeTagEnumFriendly };
 
 export default enumChoice;

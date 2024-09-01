@@ -8,7 +8,7 @@ import useApi from "../../api";
 
 import { NXNarrowArrowUp, NXNarrowArrowUpDown } from "../../icons";
 
-
+import enumChoice, { getEnumLabel } from "../../enum";
 
 function OrderTable({ orders }: any) {
   // const [orders, setOrders] = useState([]);
@@ -61,7 +61,7 @@ function OrderTable({ orders }: any) {
             </th>
             <th className={`py-5 px-2 font-normal text-base-300`}>
                 <span className={`flex items-center gap-3`}>
-                  Payment
+                  Payment Method
                   {!true ? (
                     <NXNarrowArrowUp className="text-primary-500" />
                   ) : (
@@ -112,10 +112,10 @@ function OrderTable({ orders }: any) {
               <td className="py-3 px-2">{moment(row.created_at).format('MMMM D, YYYY h:mm A')}</td>
               <td className="py-3 px-2">{row.user}</td>
               <td className="py-3 px-2">
-                <TextBadge text={row.status} />
+                <TextBadge value={row.payment_method} label={getEnumLabel(enumChoice.paymentMethods, row.payment_method)} />
               </td>
               <td className="py-3 px-2">
-                <TextBadge text={row.status} />
+              <TextBadge value={row.status} label={getEnumLabel(enumChoice.orderStatus, row.status)} />
               </td>
               <td className="py-3 px-2">${row.total_price}</td>
             </tr>

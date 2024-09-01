@@ -58,8 +58,19 @@ function OrdersMain() {
     };
 
   useEffect(() => {
+    const params = new URLSearchParams();
+    console.log(params);
     fetchOrders();
   }, []);
+
+  useEffect(() => {
+    if (!searchParams.get("page")) {
+      setSearchParams((prevParams) => {
+        prevParams.set("page", "1");
+        return new URLSearchParams(prevParams);
+      });
+    }
+  }, [setSearchParams, searchParams]);
 
   return (
     <PageBodyWrapper>

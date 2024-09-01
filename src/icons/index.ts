@@ -54,6 +54,7 @@ import NXDollarCircle2 from "./NXDollarCircle2";
 import NXTablerLink from "./NXTablerLink";
 import NXPen from "./NXPen";
 import NXEditPen from "./NXEditPen";
+import NXCreditCard from "./NXCreditCard";
 
 
 export {
@@ -113,4 +114,5 @@ export {
   NXTablerLink,
   NXPen,
   NXEditPen,
+  NXCreditCard,
 };

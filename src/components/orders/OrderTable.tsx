@@ -7,86 +7,15 @@ import { TextBadge } from "../common";
 import useApi from "../../api";
 
 import { NXNarrowArrowUp, NXNarrowArrowUpDown } from "../../icons";
-import "./table.css";
 
-const tableHead = [
-  {
-    name: "Orders",
-  },
-  {
-    name: "Date & Time",
-  },
-  {
-    name: "Customer",
-  },
-  {
-    name: "Payment",
-  },
-  {
-    name: "Status",
-  },
-  {
-    name: "Price",
-  },
-];
 
-const tableData = [
-  {
-    id: "238976",
-    orders: "Vest Hoodie",
-    date: "Apr 24, 2022",
-    customer: "Cheiko Chute",
-    payment: "Paid",
-    status: "Unfullfilled",
-    price: "$450",
-  },
-  {
-    id: "238977",
-    orders: "Vest Hoodie",
-    date: "Apr 24, 2022",
-    customer: "Cheiko Chute",
-    payment: "Paid",
-    status: "Completed",
-    price: "$450",
-  },
-  {
-    id: "238978",
-    orders: "Vest Hoodie",
-    date: "Apr 24, 2022",
-    customer: "Cheiko Chute",
-    payment: "Unpaid",
-    status: "Cancelled",
-    price: "$450",
-  },
-  {
-    id: "238979",
-    orders: "Vest Hoodie",
-    date: "Apr 24, 2022",
-    customer: "Cheiko Chute",
-    payment: "Paid",
-    status: "Shipping",
-    price: "$450",
-  },
-];
-function OrderTable() {
-  const [orders, setOrders] = useState([]);
+
+function OrderTable({ orders }: any) {
+  // const [orders, setOrders] = useState([]);
 
   const api = useApi();
 
-  const fetchOrders = () => {
-
-    api.getOrderList().then((response: any) => {
-      console.log(response);
-      setOrders(response.results);
-      }, (error) => {
-        console.error(error);
-      }
-      );
-    };
-
-  useEffect(() => {
-    fetchOrders();
-  }, []);
+  
   return (
     <div className="relative overflow-x-auto">
       <table className="min-w-[400px] w-full table-auto text-sm ml:text-base px-3">
@@ -100,25 +29,71 @@ function OrderTable() {
                 id=""
               />
             </th>
-            {tableHead.map((th, index) => (
-              <th
-                className={`py-5 px-2 font-normal text-base-300`}
-                key={th.name}
-              >
+            <th className={`py-5 px-2 font-normal text-base-300`}>
                 <span className={`flex items-center gap-3`}>
-                  {th.name}
+                  Order
                   {!true ? (
                     <NXNarrowArrowUp className="text-primary-500" />
                   ) : (
                     <NXNarrowArrowUpDown />
                   )}
                 </span>
-              </th>
-            ))}
+            </th>
+            <th className={`py-5 px-2 font-normal text-base-300`}>
+                <span className={`flex items-center gap-3`}>
+                  Date and Time
+                  {!true ? (
+                    <NXNarrowArrowUp className="text-primary-500" />
+                  ) : (
+                    <NXNarrowArrowUpDown />
+                  )}
+                </span>
+            </th>
+            <th className={`py-5 px-2 font-normal text-base-300`}>
+                <span className={`flex items-center gap-3`}>
+                  Customer
+                  {!true ? (
+                    <NXNarrowArrowUp className="text-primary-500" />
+                  ) : (
+                    <NXNarrowArrowUpDown />
+                  )}
+                </span>
+            </th>
+            <th className={`py-5 px-2 font-normal text-base-300`}>
+                <span className={`flex items-center gap-3`}>
+                  Payment
+                  {!true ? (
+                    <NXNarrowArrowUp className="text-primary-500" />
+                  ) : (
+                    <NXNarrowArrowUpDown />
+                  )}
+                </span>
+            </th>
+            <th className={`py-5 px-2 font-normal text-base-300`}>
+                <span className={`flex items-center gap-3`}>
+                  Status
+                  {!true ? (
+                    <NXNarrowArrowUp className="text-primary-500" />
+                  ) : (
+                    <NXNarrowArrowUpDown />
+                  )}
+                </span>
+            </th>
+            <th className={`py-5 px-2 font-normal text-base-300`}>
+                <span className={`flex items-center gap-3`}>
+                  Price
+                  {!true ? (
+                    <NXNarrowArrowUp className="text-primary-500" />
+                  ) : (
+                    <NXNarrowArrowUpDown />
+                  )}
+                </span>
+            </th>
+
           </tr>
         </thead>
         <tbody>
-          {orders.map((row: any, index) => (
+          {orders.map((row: any, index: number) => (
             <tr className="border-b border-[#EEEFF2] font-semibold" key={index}>
               <td className="text-center py-5">
                 <input

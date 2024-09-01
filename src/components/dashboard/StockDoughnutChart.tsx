@@ -41,9 +41,9 @@ function StockDoughnutChart() {
           show: false,
         },
         data: [
-          { value: 50, name: "Production" },
-          { value: 20, name: "Store" },
-          { value: 30, name: "Stock" },
+          { value: 50, name: "Total Stock" },
+          { value: 20, name: "Backordered Stock" }, // Refers to stock that is on hold for pending orders
+          { value: 30, name: "net stock" },
         ],
       },
     ],

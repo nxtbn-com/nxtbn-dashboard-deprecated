@@ -54,7 +54,10 @@ import NXDollarCircle2 from "./NXDollarCircle2";
 import NXTablerLink from "./NXTablerLink";
 import NXPen from "./NXPen";
 import NXEditPen from "./NXEditPen";
-
+import NXCreditCard from "./NXCreditCard";
+import NXBank from "./NXBank";
+import NXCash from "./NXCash";
+import NXPaypal from "./NXPaypal";
 
 export {
   NXIconNotificationActive,
@@ -113,4 +116,8 @@ export {
   NXTablerLink,
   NXPen,
   NXEditPen,
+  NXCreditCard,
+  NXBank,
+  NXCash,
+  NXPaypal,
 };

@@ -6,12 +6,12 @@ import SummaryChart from "./SummaryChart";
 function TotalOrderOverview({ className }: { className?: string }) {
   const [orderItems] = useState([
     {
-      title: "Total Orders",
+      title: "Order Pending",
       value: "128",
       element: <p className="text-[13px]">Last order: April 20, 2022</p>,
     },
     {
-      title: "Lifetime spent",
+      title: "Order Processed",
       value: "$ 45,289,00",
       element: (
         <p className="text-[13px]">
@@ -21,7 +21,7 @@ function TotalOrderOverview({ className }: { className?: string }) {
       ),
     },
     {
-      title: "Average orders",
+      title: "Order Delivered",
       value: "$ 689,00",
       element: (
         <p className="text-[13px]">

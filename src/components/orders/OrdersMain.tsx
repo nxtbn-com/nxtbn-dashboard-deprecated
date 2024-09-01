@@ -1,9 +1,10 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import OrderTable from "./OrderTable";
 import OrderPagination from "./OrderPagination";
 import OrderToolbar from "./OrderToolbar";
 import PageBodyWrapper from "../../components/PageBodyWrapper";
+import useApi from "../../api";
 
 const pageChoice = [
   {
@@ -25,19 +26,40 @@ const pageChoice = [
 ];
 
 function OrdersMain() {
+  const [orders, setOrders] = useState([]);
+
   let [searchParams, setSearchParams] = useSearchParams();
 
-  const changePage = (page: string) => {
-    setSearchParams(new URLSearchParams({ page: page }));
+  console.log(searchParams.get('page')); // Output should be 'all-orders'
+
+  const api = useApi();
+
+
+  const changeStatus = (status: string) => {
+    setSearchParams(new URLSearchParams({ status: status }));
   };
 
-  useEffect(() => {
-    if (searchParams.get("page") === null) {
-      setSearchParams(new URLSearchParams({ page: "all-orders" }));
-    }
-  }, [setSearchParams, searchParams]);
+  // useEffect(() => {
+  //   if (searchParams.get("page") === null) {
+  //     setSearchParams(new URLSearchParams({ page: "all-orders" }));
+  //   }
+  // }, [setSearchParams, searchParams]);
 
   const currentPage = searchParams.get("page");
+
+  const fetchOrders = () => {
+    api.getOrderList().then((response: any) => {
+      // console.log(response);
+      setOrders(response.results);
+      }, (error) => {
+        console.error(error);
+      }
+      );
+    };
+
+  useEffect(() => {
+    fetchOrders();
+  }, []);
 
   return (
     <PageBodyWrapper>
@@ -45,7 +67,7 @@ function OrdersMain() {
           {pageChoice.map((page) => (
             <button
               key={page.value}
-              onClick={() => changePage(page.value)}
+              onClick={() => changeStatus(page.value)}
               className={`relative text-sm md:text-[16px] ${
                 currentPage === page.value && "text-[#0CAF60] font-bold"
               }`}
@@ -60,7 +82,7 @@ function OrdersMain() {
 
         <OrderToolbar />
         <div className="px-1">
-          <OrderTable />
+          <OrderTable orders={orders} />
         </div>
         
         <OrderPagination />

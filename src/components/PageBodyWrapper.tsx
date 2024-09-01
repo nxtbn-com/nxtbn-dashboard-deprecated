@@ -7,7 +7,7 @@ interface PageBodyWrapperProps {
 
 const PageBodyWrapper: React.FC<PageBodyWrapperProps> = ({ children, bgClass = "bg-white" }) => {
   return (
-    <div className="w-full flex flex-col p-[5%] md:p-10 relative">
+    <div className="w-full flex flex-col p-[5%] md:p-10">
       <div className={`${bgClass} rounded-lg`}>
         {children}
       </div>

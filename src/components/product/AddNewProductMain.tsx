@@ -188,19 +188,19 @@ function AddNewProductMain() {
   return (
     <PageBodyWrapper bgClass="">
       {/* top action button */}
-      <div className="hidden md:flex md:justify-end md:gap-5 md:mb-5 sticky top-0 right-12 z-30 bg-white rounded-md py-4 px-4">
-        <button className="text-[#0CAF60] border border-[#0CAF60] px-10 py-3 rounded-xl font-nunito font-[900] hover:bg-slate-200">
+      <div className="hidden md:flex md:justify-end md:gap-5 md:mb-5">
+        <button className="text-[#0CAF60] border border-[#0CAF60] px-10 py-3 rounded-xl font-nunito font-[900]">
           Discard
         </button>
         <button
-          className="text-white bg-[#0CAF60] hover:bg-[#098d4d] px-10 py-3 rounded-xl font-nunito font-[900] disabled:bg-[#0caf609a]"
+          className="text-white bg-[#0CAF60] px-10 py-3 rounded-xl font-nunito font-[900] disabled:bg-[#0caf609a]"
           onClick={handleProductCreate}
         >
           Save
         </button>
       </div>
       {/* body */}
-      <div className="flex flex-col justify-center md:flex-row gap-5 z-20">
+      <div className="flex flex-col justify-center md:flex-row gap-5">
         <div className="w-full md:w-[60%]">
           <div className="bg-white p-5 rounded-md">
             <div className="flex items-center gap-3">

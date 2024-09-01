@@ -21,7 +21,7 @@ function Header({
     setSidebarOpen((prev) => !prev);
   };
   return (
-    <header className={`w-full overflow-hidden z-40 ${pathname==='/dashboard/products/add-new-product' ? '' : 'sticky top-0'}`}>
+    <header className="w-full overflow-hidden sticky top-0 z-40">
       {/* Desktop Nav */}
       <div className="hidden z-50 md:flex w-full h-[100px] bg-white backdrop:blur md:px-5 lg:px-10 items-center justify-between border-b border-[#EEEFF2]">
         <div className="flex gap-5">

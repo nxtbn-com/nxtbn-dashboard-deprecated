@@ -211,14 +211,14 @@ function EditProduct() {
   
 
   return (
-    <section className="px-10 py-5">
+    <section className="px-10 py-5 relative">
       {/* top action button */}
-      <div className="hidden md:flex md:justify-end md:gap-5 md:mb-5">
-        <button className="text-[#0CAF60] border border-[#0CAF60] px-10 py-3 rounded-xl font-nunito font-[900]">
+      <div className="hidden md:flex md:justify-end md:gap-5 md:mb-5 sticky top-0 right-12 z-30 bg-white rounded-md py-4 px-4">
+        <button className="text-[#0CAF60] border border-[#0CAF60] px-10 py-3 rounded-xl font-nunito font-[900] hover:bg-slate-200">
           Discard
         </button>
         <button
-          className="text-white bg-[#0CAF60] px-10 py-3 rounded-xl font-nunito font-[900] disabled:bg-[#0caf609a]"
+          className="text-white bg-[#0CAF60] hover:bg-[#098d4d] px-10 py-3 rounded-xl font-nunito font-[900] disabled:bg-[#0caf609a]"
           onClick={handleProductUpdate}
         >
           Edit
@@ -408,11 +408,11 @@ function EditProduct() {
 
 
         <div className="flex flex-col-reverse justify-center gap-5 mb-5 md:hidden">
-          <button className="text-[#0CAF60] border border-[#0CAF60] px-10 py-3 rounded-xl font-nunito font-[900]">
+          <button className="text-[#0CAF60] border border-[#0CAF60] px-10 py-3 rounded-xl font-nunito font-[900] hover:bg-slate-200">
             Discard
           </button>
           <button
-            className="text-white bg-[#0CAF60] px-10 py-3 rounded-xl font-nunito font-[900] disabled:bg-[#0caf609a]"
+            className="text-white bg-[#0CAF60] hover:bg-[#098d4d] px-10 py-3 rounded-xl font-nunito font-[900] disabled:bg-[#0caf609a]"
             disabled
           >
             Save

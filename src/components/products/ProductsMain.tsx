@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 
-import { useDeleteConfirmation } from "../../components/common";
+import { Paginator, useDeleteConfirmation } from "../../components/common";
 
 
 import { NXNarrowArrowUp, NXNarrowArrowUpDown, NXDelete, NXEditPen } from "../../icons";
@@ -13,18 +13,56 @@ import { handleRetriveError } from "../../utils";
 
 function ProductMain() {
 
-    const [products, setProducts] = useState<any[]>([]);
+    const [products, setProducts] = useState<any>({});
+    const [searchParams, setSearchParams] = useSearchParams()
     const [edit, setEdit] = useState<any>();
     const [openModal, setOpenModal] = useState(false)
 
     const api = useApi();
     const { handleDelete } = useDeleteConfirmation();
 
-    const getProducts = () => {
-        api.getProducts().then((response: any) => {
-            setProducts(response.results);
-        }, handleRetriveError);
+    const parseSearchParams = (params: URLSearchParams) => {
+        const obj: { [key: string]: any } = {};
+        params.forEach((value, key) => {
+          // Assuming multiple values are joined by commas
+          obj[key] = value.includes(',') ? value.split(',') : value;
+        });
+        return obj;
+      };
+
+    const fetchProducts = () => {
+    const queryObject = parseSearchParams(searchParams);
+    api.getProducts(queryObject).then(
+        (response: any) => {
+        setProducts(response);
+        },
+        (error) => {
+        console.error(error);
+        }
+    );
     };
+
+    useEffect(() => {
+        fetchProducts();
+    }, [searchParams]);
+
+
+    useEffect(() => {
+    if (!searchParams.get("page")) {
+        const newParams = new URLSearchParams(searchParams);
+        newParams.set("page", "1");
+        setSearchParams(newParams);
+    }
+    }, []);
+
+    const onPageChange = (page: number | any) => {
+    if (!page) {
+        return;
+    }
+    const newParams = new URLSearchParams(searchParams);
+    newParams.set("page", page.toString());
+    setSearchParams(newParams);
+    }
 
     const onModalOpen = (editId?: number) => {
         setOpenModal(!openModal);
@@ -36,7 +74,7 @@ function ProductMain() {
 
 
     useEffect(() => {
-        getProducts();
+        fetchProducts();
     }, []);
 
     return (
@@ -106,7 +144,7 @@ function ProductMain() {
                             </tr>
                         </thead>
                         <tbody>
-                            {products.map((row: any, index) => (
+                            {products?.results?.map((row: any, index:number) => (
                                 <tr className="border-b border-[#EEEFF2] font-semibold" key={index + 1}>
                                     <td className="text-center py-5">
                                         <input
@@ -127,7 +165,7 @@ function ProductMain() {
                                     </td>
                                     <td className="py-3 px-2">
                                         <div className="flex space-x-2">
-                                          <button className="p-1" onClick={() => handleDelete(row.id, 'color', api.deleteProduct, getProducts)}>
+                                          <button className="p-1" onClick={() => handleDelete(row.id, 'color', api.deleteProduct, fetchProducts)}>
                                               <NXDelete />
                                           </button>
                                           <Link to={`../products/edit/${row.id}`} className="p-1"><NXEditPen /></Link>
@@ -137,6 +175,7 @@ function ProductMain() {
                             ))}
                         </tbody>
                     </table>
+                    <Paginator data={products} onPageChange={onPageChange}/>
                 </div>
             </PageBodyWrapper>
         </>

@@ -17,7 +17,7 @@ const useApi = () => {
         getCategoryByParent: (id='none', params = {}) => interceptor.get(`/product/dashboard/api/categories-by-parent/${id}/`, { params: params }),
 
         createProduct: (data, params = {}) => interceptor.post(`/product/dashboard/api/products/`, data, { params: params }),
-        getProducts: (params = {}) => interceptor.get(`/product/dashboard/api/products/`, { params: params }),
+        getProducts: (page, params = {}) => interceptor.get(`/product/dashboard/api/products/?page=${page}`, { params: params }),
         getProductById: (id, params = {}) => interceptor.get(`/product/dashboard/api/products/${id}/`, { params: params }),
         deleteProduct: (id, params = {}) => interceptor.delete(`/product/dashboard/api/products/${id}/`, { params: params }),
         updateProduct: (id, data, params = {}) => interceptor.put(`/product/dashboard/api/products/${id}/`, data, { params: params }),

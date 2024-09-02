@@ -8,22 +8,27 @@ import { NXNarrowArrowUp, NXNarrowArrowUpDown, NXDelete, NXEditPen } from "../..
 import PageBodyWrapper from "../../components/PageBodyWrapper";
 import useApi from "../../api";
 import { handleRetriveError } from "../../utils";
+import Pagination from "../Pagination";
 
 
 
 function ProductMain() {
 
-    const [products, setProducts] = useState<any[]>([]);
+    const [products, setProducts] = useState<any>({});
+    console.log(products)
     const [edit, setEdit] = useState<any>();
     const [openModal, setOpenModal] = useState(false)
 
     const api = useApi();
     const { handleDelete } = useDeleteConfirmation();
 
-    const getProducts = () => {
-        api.getProducts().then((response: any) => {
-            setProducts(response.results);
+    const [page, setPage] = useState<number>(1)
+
+    const getProducts = (page?:number) => {
+        api.getProducts(page).then((response: any) => {
+            setProducts(response);
         }, handleRetriveError);
+        setPage(page??1)
     };
 
     const onModalOpen = (editId?: number) => {
@@ -36,7 +41,9 @@ function ProductMain() {
 
 
     useEffect(() => {
-        getProducts();
+        if (page){
+            getProducts(page);
+        }
     }, []);
 
     return (
@@ -106,7 +113,7 @@ function ProductMain() {
                             </tr>
                         </thead>
                         <tbody>
-                            {products.map((row: any, index) => (
+                            {products?.results?.map((row: any, index:number) => (
                                 <tr className="border-b border-[#EEEFF2] font-semibold" key={index + 1}>
                                     <td className="text-center py-5">
                                         <input
@@ -137,6 +144,7 @@ function ProductMain() {
                             ))}
                         </tbody>
                     </table>
+                    <Pagination totalItems={products?.count} totalPages={products?.total_pages} itemsPerPage={products?.results?.length} currentPage={products?.current_page} onPageChange={getProducts}/>
                 </div>
             </PageBodyWrapper>
         </>
